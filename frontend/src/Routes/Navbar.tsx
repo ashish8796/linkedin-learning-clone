@@ -67,7 +67,7 @@ const SignInBtn = styled.button`
     &:hover {
         border: 3px solid #0073b1;
         cursor: pointer;
-        border-
+        background: #eaf4fe;
     }
 `;
 
@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         height: theme.spacing(8),
         background: '#fff',
-        width: '100%'
+        width: '100%',
+        boxShadow: '0px 0px 0px 0px'
     },
     toolBar: {
         width: '100%',
