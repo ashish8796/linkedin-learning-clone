@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { playerReducer } from "./player/playerReducer";
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({ player: playerReducer })
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
