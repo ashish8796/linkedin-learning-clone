@@ -37,7 +37,12 @@ const useStyles = makeStyles(theme=> ({
     heading: {
         fontWeight: 600,
         lineHeight: '1.33',
-        marginBottom: '3px'
+        marginBottom: '3px',
+
+        '&:hover': {
+            textDecoration: 'underline',
+            cursor: 'pointer'
+        }
     },
     viewers: {
         fontSize: '15px'

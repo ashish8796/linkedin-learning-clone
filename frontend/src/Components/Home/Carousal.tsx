@@ -9,7 +9,7 @@ const Container = styled.div`
     position: relative;
     height: 300px;
     width: 72rem;
-    top: 200px;
+    // top: 200px;
     margin: auto;
 `;
 

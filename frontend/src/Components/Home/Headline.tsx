@@ -4,18 +4,20 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     position: relative;
+    width: 74rem;
+    margin: auto;
     display: flex;
-    padding: 0 50px 0 100px;
     font-family: sans-serif;
 `;
 
 const Image = styled.img`
-    width: 100%;
+    width: 43rem;
     height: 100%;
     position: absolute;
+    z-index: 5;
 `;
 
-const TrialBtn = styled.button`
+export const TrialBtn = styled.button`
     background: #006097;
     color: #fff;
     height: 56px;
@@ -32,7 +34,7 @@ const TrialBtn = styled.button`
     }
 `;
 
-const BuyBtn = styled.button`
+export const BuyBtn = styled.button`
     background: none;
     height: 56px;
     color: #666666;
@@ -52,7 +54,7 @@ const BuyBtn = styled.button`
 const useStyles = makeStyles(theme=>({
     info: {
         position: 'relative',
-        padding: theme.spacing(9, 0, 0, 10),
+        padding: theme.spacing(9, 0, 0, 1.8),
         width: '55%'
     },
     heading: {
@@ -68,8 +70,8 @@ const useStyles = makeStyles(theme=>({
     },
     imageBox: {
         position: 'relative',
-        minWidth: '700px',
-        width: '900px',
+        minWidth: '500px',
+        width: '600px',
         height: '670px',
     },
     btnBox: {

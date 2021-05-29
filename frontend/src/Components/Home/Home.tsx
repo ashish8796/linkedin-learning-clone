@@ -1,6 +1,8 @@
 import React from 'react';
+import { BottomImage } from './BottomImage';
 import { Carousal } from './Carousal';
 import { ExploreCourses } from './ExploreCourses';
+import { FindRightCourse } from './FindRightCourse';
 import { Headline } from './Headline';
 
 const data = [
@@ -57,9 +59,11 @@ const data = [
 export const Home = () => {
     return (
         <div>
-            {/* <Headline /> */}
-            {/* <ExploreCourses /> */}
+            <Headline />
+            <ExploreCourses />
             <Carousal data={data} trending="TRENDING COURSES" />
+            <FindRightCourse />
+            <BottomImage />
         </div>
     )
 }

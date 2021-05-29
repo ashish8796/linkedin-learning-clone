@@ -82,11 +82,11 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 0px 0px 0px'
     },
     toolBar: {
-        width: '100%',
+        width: '74rem',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(0, 23)
+        margin: 'auto',
     },
     logo: {
         color: 'black',
