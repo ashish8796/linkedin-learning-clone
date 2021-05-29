@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, AppBar, Toolbar, Typography, InputBase, Box, Button } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Typography, InputBase, Box} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
