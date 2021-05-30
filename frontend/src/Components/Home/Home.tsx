@@ -6,6 +6,7 @@ import { FindRightCourse } from './FindRightCourse';
 import { Headline } from './Headline';
 import { SkillsTime } from './SkillsTime';
 import { CoursesList } from './CoursesList'
+import { Footer } from './Footer';
 
 const data = [
     {
@@ -65,9 +66,15 @@ export const Home = () => {
             <ExploreCourses />
             <Carousal data={data} trending="TRENDING COURSES" />
             <FindRightCourse />
+            <Carousal data={data} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />
+            <Carousal data={data} trending="TRENDING SPREADSHEET COURSES" />
             <SkillsTime />
+            <Carousal data={data} trending="TRENDING ILLUSTRATION COURSES" />
+            <Carousal data={data} trending="TRENDING SHORT VIDEO TUTORIALS" />
+            <Carousal data={data} trending="TRENDING PERSONAL BRANDING COURSES" />
             <BottomImage />
             <CoursesList />
+            <Footer />
         </div>
     )
 }

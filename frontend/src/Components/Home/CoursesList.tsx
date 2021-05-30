@@ -9,11 +9,6 @@ const Container = styled.div`
     padding-bottom: 30px;
 `;
 
-const Body = styled.div`
-    width: 73rem;
-    margin: auto;
-`;
-
 const Course = styled.p`
     color: #666;
     font-size: 0.8rem;

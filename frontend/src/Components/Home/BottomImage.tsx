@@ -6,6 +6,7 @@ import { TrialBtn, BuyBtn } from './Headline';
 const Container = styled.div`
     position: relative;
     width: 100%;
+    margin-top: 100px;
 `;
 
 const DriveTab = styled.div`
@@ -14,6 +15,7 @@ const DriveTab = styled.div`
     margin: auto;
     display: flex;
     margin-bottom: 20px;
+    overflow: hidden;
 `;
 
 const Image = styled.img`

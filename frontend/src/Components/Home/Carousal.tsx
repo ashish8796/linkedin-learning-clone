@@ -9,8 +9,8 @@ const Container = styled.div`
     position: relative;
     height: 300px;
     width: 72rem;
-    // top: 200px;
     margin: auto;
+    margin-top: 100px;
 `;
 
 const useStyles = makeStyles(theme=>({
