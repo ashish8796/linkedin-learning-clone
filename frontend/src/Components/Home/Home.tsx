@@ -4,6 +4,8 @@ import { Carousal } from './Carousal';
 import { ExploreCourses } from './ExploreCourses';
 import { FindRightCourse } from './FindRightCourse';
 import { Headline } from './Headline';
+import { SkillsTime } from './SkillsTime';
+import { CoursesList } from './CoursesList'
 
 const data = [
     {
@@ -63,7 +65,9 @@ export const Home = () => {
             <ExploreCourses />
             <Carousal data={data} trending="TRENDING COURSES" />
             <FindRightCourse />
+            <SkillsTime />
             <BottomImage />
+            <CoursesList />
         </div>
     )
 }
