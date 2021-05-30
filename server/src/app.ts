@@ -28,6 +28,6 @@ if(process.env.NODE_ENV=='production'){
 }
 
 
-mongoose.connect(URI, options).then(()=>app.listen(PORT,()=>console.log(`server hosted on ${PORT}`)))
+mongoose.connect(URI, options).then(()=>app.listen(PORT,()=>console.log(`server lets see hosted on ${PORT}`)))
 
 // app.listen(3000,()=>console.log("connected"))
