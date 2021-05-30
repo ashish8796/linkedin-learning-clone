@@ -1,6 +1,7 @@
+import React from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const Container = styled.div`
     position: relative;
@@ -52,10 +53,15 @@ const useStyles = makeStyles(theme=>({
     title: {
         color: '#0a66c2',
         fontWeight: 600,
-        fontSize: '1.4rem',
+        fontSize: '1.3rem',
         position: 'relative',
-        top: '-5px',
-        marginRight: '2px'
+        top: '-3px',
+    },
+    logo: {
+        color: '#0a66c2',
+        width: '25px',
+        height: '25px',
+        fontWeight: 600
     }
 }));
 
@@ -68,7 +74,7 @@ export const Footer = () => {
             <Body>
                 <Box className={classes.logoBox}>
                     <Typography className={classes.title}>Linked</Typography>
-                    <Logo src="https://img-premium.flaticon.com/png/512/174/174857.png?token=exp=1622137765~hmac=ba6f199a1f7f6a4d7b381b5f6be8e09d" />
+                    <LinkedInIcon className={classes.logo} />
                 </Box>
                 <Box className={classes.tabs}>
                     <Typography className={classes.tabHead}>General</Typography>

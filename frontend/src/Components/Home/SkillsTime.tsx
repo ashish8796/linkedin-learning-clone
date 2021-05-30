@@ -6,7 +6,7 @@ const Container = styled.div`
     position: relative;
     display: flex;
     width: 73rem;
-    margin: 100px auto 150px;
+    margin: 100px auto 100px;
 `;
 
 const Image = styled.img`
