@@ -17,11 +17,16 @@ app.use(cors())
 // app.use(require('body-parser').urlencoded({ extended: false }));
 
 
-const uri:string = `mongodb://localhost:27017/linkdenLearning`
+const uri:string = process.env.MONGODB_URI|| `mongodb://localhost:27017/linkdenLearning`
 const options = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.set('useFindAndModify', false)
 
 app.use(routes)
+
+if(process.env.NODE_ENV=='production'){
+    app.use(express.static('../../../frontend/build'))
+}
+
 
 mongoose.connect(URI, options).then(()=>app.listen(PORT,()=>console.log(`server hosted on ${PORT}`)))
 
