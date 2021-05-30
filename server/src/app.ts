@@ -1,7 +1,7 @@
 import express,{Express} from 'express'
 import mongoose from 'mongoose';
 import cors from 'cors';
-import routes from './routes/index'
+import route from './routes/index.js'
 // const bodyParser = require('body-parser')
 const app:Express = express();
 
@@ -21,7 +21,7 @@ const uri:string = process.env.MONGODB_URI|| `mongodb://localhost:27017/linkdenL
 const options = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.set('useFindAndModify', false)
 
-app.use(routes)
+app.use(route)
 
 if(process.env.NODE_ENV=='production'){
     app.use(express.static('../../../frontend/build'))
