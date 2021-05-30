@@ -18,9 +18,17 @@ app.use(cors_1.default());
 const uri = process.env.MONGODB_URI || `mongodb://localhost:27017/linkdenLearning`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose_1.default.set('useFindAndModify', false);
+<<<<<<< Updated upstream
 app.use(index_js_1.default);
 if (process.env.NODE_ENV == 'production') {
     app.use(express_1.default.static('../../../frontend/build'));
 }
 mongoose_1.default.connect(URI, options).then(() => app.listen(PORT, () => console.log(`server lets see hosted on ${PORT}`)));
+=======
+app.use(index_1.default);
+if (process.env.NODE_ENV == 'production') {
+    app.use(express_1.default.static('../../../frontend/build'));
+}
+mongoose_1.default.connect(URI, options).then(() => app.listen(PORT, () => console.log(`server hosted on ${PORT}`)));
+>>>>>>> Stashed changes
 // app.listen(3000,()=>console.log("connected"))

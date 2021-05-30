@@ -1,7 +1,7 @@
 import express,{Express} from 'express'
 import mongoose from 'mongoose';
 import cors from 'cors';
-import route from './routes/index.js'
+import route from './routes/index'
 // const bodyParser = require('body-parser')
 const app:Express = express();
 
