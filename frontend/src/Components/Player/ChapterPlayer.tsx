@@ -18,43 +18,46 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   // const [isPlayed, setIsPlayed] = useState<boolean>(false);
 
-  const handleClickOnVideo = () => {
-    dispatch(setPlayerStatus(!playerStatus.isPlayed));
+  function playPauseVideo() {
+    console.log("Play Pause is called");
 
     if (videoRef.current) {
-      playerStatus.isPlayed
-        ? videoRef.current.pause()
-        : videoRef.current.play();
+      videoRef.current.paused
+        ? videoRef.current
+            .play()
+            .then(() => {
+              dispatch(setPlayerStatus(true));
+            })
+            .catch((error) => {
+              console.log(error);
+              dispatch(setPlayerStatus(false));
+            })
+        : videoRef.current.pause();
     }
+  }
+
+  const handleClickOnVideo = () => {
+    dispatch(setPlayerStatus(!playerStatus.isPlayed));
   };
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current
-        .play()
-        .then(() => {
-          dispatch(setPlayerStatus(true));
-        })
-        .catch((reason) => {
-          console.log(reason);
-        });
-    }
+    playPauseVideo();
 
     return () => {};
-  }, []);
+  }, [playerStatus.isPlayed]);
 
   return (
     <PlayerWrapper>
-      <PlayerBox onClick={handleClickOnVideo}>
-        <VideoWrapper>
+      <PlayerBox>
+        <VideoWrapper onClick={handleClickOnVideo}>
           <VideoElem ref={videoRef} crossOrigin="anonymous" preload="auto">
             <source src={videoUrl} type="video/mp4" />
           </VideoElem>
-
-          <ControlsBox>
-            <PlayerControls />
-          </ControlsBox>
         </VideoWrapper>
+
+        <ControlsBox>
+          <PlayerControls />
+        </ControlsBox>
       </PlayerBox>
     </PlayerWrapper>
   );
@@ -62,24 +65,28 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
 
 const PlayerWrapper = styled.div`
   /* border: 1px solid red; */
+  padding-bottom: 10px;
 `;
 
 const PlayerBox = styled.div`
   /* border: 1px solid blue; */
+  position: relative;
+  /* padding-bottom: 10px; */
+  /* border-bottom: 3rem solid black; */
 `;
 
-const VideoWrapper = styled.div`
-  position: relative;
-`;
+const VideoWrapper = styled.div``;
 
 const VideoElem = styled.video`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 100%;
 `;
 
 const ControlsBox = styled.section`
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  background-color: #000000a6;
   width: 100%;
   position: absolute;
-  bottom: 20px;
+  bottom: 0;
+  padding: 5px 0;
 `;

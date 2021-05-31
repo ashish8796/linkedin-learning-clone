@@ -1,3 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" fill="#fff">
   <path d="M9,3H5A1,1,0,0,0,4,4V20a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V4A1,1,0,0,0,9,3ZM8,19H6V5H8V19ZM19,3H15a1,1,0,0,0-1,1V20a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V4A1,1,0,0,0,19,3ZM18,19H16V5h2V19Z" class="large-icon" style="fill: white" id="pause-icon-large"/>
 </svg>
