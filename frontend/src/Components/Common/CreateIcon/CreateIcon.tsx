@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 interface ICreateIconProps {
   path: string;
+  iconName?: string;
 }
 
-export default function CreateIcon({ path }: ICreateIconProps) {
-  return <Span path={path}></Span>;
+export default function CreateIcon({ path, iconName }: ICreateIconProps) {
+  return <Span path={path} id={`#${iconName}`}></Span>;
 }
 
 interface SpanProps {

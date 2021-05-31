@@ -1,47 +1,34 @@
-import React, { LegacyRef, useRef } from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { setCurrentTime } from "../../store/currentVideo/actions";
 import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
 import PlayerControls from "./PlayerControls";
+import {
+  handleOnMetadataLoaded,
+  handleUpdateTime,
+  playPauseVideo,
+} from "./PlayerHelperFunction";
 
 interface IChapterPlayerProps {
   videoUrl: string;
 }
 
 export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
-  // console.log(videoUrl);
   const { playerStatus } = useSelector((state: State) => state.player);
   const dispatch = useDispatch();
   const videoRef = useRef<HTMLVideoElement>(null);
-  // const [isPlayed, setIsPlayed] = useState<boolean>(false);
-
-  function playPauseVideo() {
-    console.log("Play Pause is called");
-
-    if (videoRef.current) {
-      videoRef.current.paused
-        ? videoRef.current
-            .play()
-            .then(() => {
-              dispatch(setPlayerStatus(true));
-            })
-            .catch((error) => {
-              console.log(error);
-              dispatch(setPlayerStatus(false));
-            })
-        : videoRef.current.pause();
-    }
-  }
+  // const [time, setTime] = useState<number>(0);
 
   const handleClickOnVideo = () => {
     dispatch(setPlayerStatus(!playerStatus.isPlayed));
   };
 
   useEffect(() => {
-    playPauseVideo();
+    playPauseVideo({ videoRef, dispatch });
 
     return () => {};
   }, [playerStatus.isPlayed]);
@@ -50,7 +37,21 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
     <PlayerWrapper>
       <PlayerBox>
         <VideoWrapper onClick={handleClickOnVideo}>
-          <VideoElem ref={videoRef} crossOrigin="anonymous" preload="auto">
+          <VideoElem
+            ref={videoRef}
+            crossOrigin="anonymous"
+            preload="auto"
+            onLoadedMetadata={(event) => {
+              handleOnMetadataLoaded({
+                target: event.target as HTMLVideoElement,
+                dispatch,
+              });
+            }}
+            onTimeUpdate={(e) => {
+              const target = e.target as HTMLVideoElement;
+              dispatch(setCurrentTime(target.currentTime));
+            }}
+          >
             <source src={videoUrl} type="video/mp4" />
           </VideoElem>
         </VideoWrapper>

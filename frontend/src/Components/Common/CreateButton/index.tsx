@@ -5,12 +5,14 @@ interface ICreateButtonProps {
   label: string;
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
   children?: any;
+  name?: string;
 }
 
 export default function CreateButton({
   label,
   handleClick,
   children,
+  name,
 }: ICreateButtonProps) {
   // console.log(children);
 
