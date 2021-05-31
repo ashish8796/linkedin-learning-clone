@@ -12,6 +12,7 @@ const initState: PlayerState = {
     isPlayed: false
   }
 }
+
 type MainAction = SetPlayerStatus
 
 function playerReducer(state = initState, { type, payload }: MainAction) {
