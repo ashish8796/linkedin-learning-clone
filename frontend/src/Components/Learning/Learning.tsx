@@ -1,5 +1,5 @@
 import React from "react";
-import ChapterPlayer from "../Common/Player/ChapterPlayer";
+import ChapterPlayer from "../Player/ChapterPlayer";
 
 export default function Learning() {
   return (

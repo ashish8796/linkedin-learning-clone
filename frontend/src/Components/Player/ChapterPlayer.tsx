@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { setPlayerStatus } from "../../../store/player/actions";
-import { State } from "../../../store/tsTypes";
-import PlayerControls from "./../PlayerControls";
+import { setPlayerStatus } from "../../store/player/actions";
+import { State } from "../../store/tsTypes";
+import PlayerControls from "./PlayerControls";
 
 interface IChapterPlayerProps {
   videoUrl: string;
@@ -19,8 +19,6 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   // const [isPlayed, setIsPlayed] = useState<boolean>(false);
 
   const handleClickOnVideo = () => {
-    // setIsPlayed(!isPlayed);
-
     dispatch(setPlayerStatus(!playerStatus.isPlayed));
 
     if (videoRef.current) {
@@ -30,14 +28,11 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
     }
   };
 
-  // console.log(isPlayed);
-
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current
         .play()
         .then(() => {
-          // setIsPlayed(true);
           dispatch(setPlayerStatus(true));
         })
         .catch((reason) => {
@@ -51,24 +46,40 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   return (
     <PlayerWrapper>
       <PlayerBox onClick={handleClickOnVideo}>
-        <video ref={videoRef} crossOrigin="anonymous" preload="auto">
-          <source src={videoUrl} type="video/mp4" />
-        </video>
-      </PlayerBox>
+        <VideoWrapper>
+          <VideoElem ref={videoRef} crossOrigin="anonymous" preload="auto">
+            <source src={videoUrl} type="video/mp4" />
+          </VideoElem>
 
-      <ControlsBox>
-        <PlayerControls />
-      </ControlsBox>
+          <ControlsBox>
+            <PlayerControls />
+          </ControlsBox>
+        </VideoWrapper>
+      </PlayerBox>
     </PlayerWrapper>
   );
 }
 
 const PlayerWrapper = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const PlayerBox = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 `;
 
-const ControlsBox = styled.section``;
+const VideoWrapper = styled.div`
+  position: relative;
+`;
+
+const VideoElem = styled.video`
+  border: 1px solid blue;
+  width: 100%;
+`;
+
+const ControlsBox = styled.section`
+  border: 1px solid green;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+`;
