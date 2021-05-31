@@ -9,11 +9,20 @@ const Container = styled.div`
     position: relative;
     height: 300px;
     width: 72rem;
-    // top: 200px;
     margin: auto;
+    margin-top: 50px;
 `;
 
 const useStyles = makeStyles(theme=>({
+    trending: {
+        fontWeight: 600,
+        fontSize: '1rem',
+        
+        '&:hover': {
+            cursor: 'pointer',
+            textDecoration: 'underline',
+        }
+    },
     head: {
         position: 'relative',
         width: '100%',
@@ -53,7 +62,7 @@ export const Carousal = ({data, trending}:carousalProps) => {
     return (
         <Container>
             <Box className={classes.head}>
-                <Typography>{trending}</Typography>
+                <Typography className={classes.trending}>{trending}</Typography>
                 <Box>
                     <IconButton onClick={handleBack} disabled={active<=0}>
                         <NavigateBeforeIcon />

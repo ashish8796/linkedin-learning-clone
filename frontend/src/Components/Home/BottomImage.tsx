@@ -6,14 +6,74 @@ import { TrialBtn, BuyBtn } from './Headline';
 const Container = styled.div`
     position: relative;
     width: 100%;
+    margin-top: 100px;
+`;
+
+const DriveTab = styled.div`
+    position: relative;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 20px;
+    overflow: hidden;
+`;
+
+const Image = styled.img`
+    height: 100%;
+    margin-left: 96px;
+`;
+
+const Cont = styled.div`
+    position: relative;
+    width: 100%;
     height: 670px;
     background:url("https://static-exp1.licdn.com/sc/h/2vt8plqbv2l2pi6kxm89bqs59") repeat-x bottom/auto 100%;
     background-position: bottom;
     background-size: auto;
-    margin-top: 20px;
+    margin-top: 160px;
+`;
+
+const Span = styled.span`
+    font-weight: 600;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 `;
 
 const useStyles = makeStyles(theme=>({
+    driveContent: {
+        position: 'relative',
+        minWidth: '50%',
+        height: '720px',
+        background: '#faf9f7',
+        display: 'flex'
+    },
+    contText: {
+        position: 'absolute',
+        top: '25%',
+        width: '450px',
+        right: '50px'
+    },
+    imageBox: {
+        minWidth: '50%',
+        height: '800px',
+    },
+    driveHead: {
+        color: '#B24020',
+        fontSize: '2.2rem',
+        lineHeight: '50px',
+        fontWeight: 600
+    },
+    driveText: {
+        fontSize: '2.2rem',
+        marginTop: '8px',
+        fontWeight: 400
+    },
+    buyBtn: {
+        marginTop: '25px'
+    },
     contentBox: {
         position: 'relative',
         width: '71rem',
@@ -41,14 +101,28 @@ export const BottomImage = () => {
     
     return (
         <Container>
-            <Box className={classes.contentBox}>
-                <Typography className={classes.heading} variant="h4" >Learn from industry experts, and connect with a global network of experience</Typography>
-                <Typography className={classes.subHead}>Courses for every step of your career. Instructors with real-world experience.</Typography>
-                <Box className={classes.btnBox}>
-                    <TrialBtn>Start my free month</TrialBtn>
-                    <BuyBtn>Buy for my team</BuyBtn>
+            <DriveTab>
+                <Box className={classes.driveContent}>
+                    <Box className={classes.contText}>
+                        <Typography className={classes.driveHead}>Drive business impact</Typography>
+                        <p className={classes.driveText}>Get access to courses for your <Span>business</Span>, <Span>higher education</Span>, or <Span>government</Span> team</p>
+                        <BuyBtn className={classes.buyBtn}>Buy for my team</BuyBtn>
+                    </Box>
                 </Box>
-            </Box>
+                <Box className={classes.imageBox}>
+                    <Image src="https://static-exp1.licdn.com/sc/h/e5e46mbehmrq92n30enduib0j" />
+                </Box>
+            </DriveTab>
+            <Cont>
+                <Box className={classes.contentBox}>
+                    <Typography className={classes.heading} variant="h4" >Learn from industry experts, and connect with a global network of experience</Typography>
+                    <Typography variant="subtitle2" className={classes.subHead}>Courses for every step of your career. Instructors with real-world experience.</Typography>
+                    <Box className={classes.btnBox}>
+                        <TrialBtn>Start my free month</TrialBtn>
+                        <BuyBtn>Buy for my team</BuyBtn>
+                    </Box>
+                </Box>
+            </Cont>
         </Container>
     )
 }
