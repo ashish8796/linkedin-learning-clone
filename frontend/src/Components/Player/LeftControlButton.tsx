@@ -8,10 +8,17 @@ import CreateIcon from "./../Common/CreateIcon/CreateIcon";
 
 export default function LeftControlButton() {
   const { isPlayed } = useSelector((state: State) => state.player.playerStatus);
+  const { currentTime } = useSelector((state: State) => state.currentVideo);
   const dispatch = useDispatch<Dispatch<any>>();
 
   const handlePlayPauseVideo = (): void => {
     dispatch(setPlayerStatus(!isPlayed));
+  };
+
+  const handleMoveVideo: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
+    console.log(e.target);
   };
 
   return (
@@ -26,17 +33,27 @@ export default function LeftControlButton() {
         />
       </CreateButton>
 
-      <CreateButton label="str" handleClick={() => {}}>
+      <CreateButton
+        label="backward"
+        handleClick={handleMoveVideo}
+        name="backward"
+      >
         <CreateIcon
           path={
             require("./../../assets/svgs/learning/backwardIcon.svg").default
           }
+          iconName="backward"
         />
       </CreateButton>
 
-      <CreateButton label="str" handleClick={() => {}}>
+      <CreateButton
+        label="forward"
+        name="forward"
+        handleClick={handleMoveVideo}
+      >
         <CreateIcon
           path={require("./../../assets/svgs/learning/forwardIcon.svg").default}
+          iconName="forward"
         />
       </CreateButton>
 
