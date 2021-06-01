@@ -1,0 +1,27 @@
+{
+  "name": "linkedin-learning-clone",
+  "version": "1.0.0",
+  "description": "1. `cd frontend`\r 2. `npm i`\r 3. `cd ..`\r 4. `cd server`\r 5. `npm i`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd frontend && npm run build",
+    "install-frontend": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-frontend && npm run build",
+    "start": "cd server/dist/js && node app.js",
+    "frontend": "cd frontend && npm run start",
+    "server": "cd server && npm run start",
+    "dev": "concurrently \"npm run frontend\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashish8796/linkedin-learning-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashish8796/linkedin-learning-clone/issues"
+  },
+  "homepage": "https://github.com/ashish8796/linkedin-learning-clone#readme"
+}
