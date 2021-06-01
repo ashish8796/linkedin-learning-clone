@@ -4,25 +4,31 @@ import { setPlayerStatus } from '../../store/player/actions';
 
 
 interface PlayPauseVideo {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement> | null;
   dispatch: Dispatch<any>
 }
 
 export function playPauseVideo({ videoRef, dispatch }: PlayPauseVideo): void {
-  console.log("Play Pause is called");
 
-  if (videoRef.current) {
+  if (videoRef?.current?.duration === videoRef?.current?.currentTime) {
+    return
+  }
+
+  if (videoRef?.current) {
     videoRef.current.paused
       ? videoRef.current
         .play()
         .then(() => {
           dispatch(setPlayerStatus(true));
+          console.log("Called second")
         })
         .catch((error) => {
           console.log(error);
           dispatch(setPlayerStatus(false));
         })
       : videoRef.current.pause();
+
+    videoRef.current.paused && dispatch(setPlayerStatus(false));
   }
 }
 

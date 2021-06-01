@@ -5,20 +5,30 @@ import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
 import CreateButton from "../Common/CreateButton";
 import CreateIcon from "./../Common/CreateIcon/CreateIcon";
+import { playPauseVideo } from "./PlayerHelperFunction";
 
-export default function LeftControlButton() {
+interface ILeftControlButtonProps {
+  handleMoveVideo: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export default function LeftControlButton({
+  handleMoveVideo,
+}: ILeftControlButtonProps) {
   const { isPlayed } = useSelector((state: State) => state.player.playerStatus);
-  const { currentTime } = useSelector((state: State) => state.currentVideo);
+  const { currentTime, videoElem, duration } = useSelector(
+    (state: State) => state.currentVideo
+  );
   const dispatch = useDispatch<Dispatch<any>>();
 
   const handlePlayPauseVideo = (): void => {
-    dispatch(setPlayerStatus(!isPlayed));
-  };
+    if (videoElem?.current) {
+      playPauseVideo({ videoRef: videoElem, dispatch });
+    }
 
-  const handleMoveVideo: React.MouseEventHandler<HTMLButtonElement> = (
-    e
-  ): void => {
-    console.log(e.target);
+    if (videoElem?.current && currentTime === duration) {
+      videoElem.current.currentTime = 0;
+      playPauseVideo({ videoRef: videoElem, dispatch });
+    }
   };
 
   return (

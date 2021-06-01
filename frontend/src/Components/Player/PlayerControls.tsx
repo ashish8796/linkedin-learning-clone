@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../store/tsTypes";
 import LeftControlButton from "./LeftControlButton";
+import { playPauseVideo } from "./PlayerHelperFunction";
+import ProgressBar from "./ProgressBar";
 import RightControlButton from "./RightControlButton";
 
 interface IPlayerControlsProps {
@@ -14,47 +16,48 @@ interface IPlayerControlsProps {
 
 export default function PlayerControls({}: IPlayerControlsProps) {
   const progressRef = useRef<HTMLDivElement>(null);
-  const { duration, currentTime: time } = useSelector(
-    (state: State) => state.currentVideo
-  );
-  const [count, setCount] = useState(1);
+  const {
+    duration,
+    currentTime: time,
+    videoElem,
+  } = useSelector((state: State) => state.currentVideo);
 
-  window.onresize = (e) => {
-    setCount(count + 1);
-    console.log();
+  const dispatch = useDispatch();
+
+  const handleMoveVideo: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
+    const target = e.target as HTMLElement;
+
+    if (videoElem?.current) {
+      videoElem.current.currentTime =
+        time <= duration
+          ? target.id === "forward"
+            ? time + 10
+            : time - 10
+          : duration;
+
+      // if (time === duration) {
+      //   playPauseVideo({ videoRef: videoElem, dispatch });
+      // }
+    }
   };
 
-  console.log(window.innerWidth);
-
-  console.log(progressRef?.current?.offsetWidth);
   useEffect(() => {}, []);
-
-  const handlePlayPauseVideo = () => {};
 
   return (
     <PlyerControlsWrapper>
-      <ProgressBar
-        time={time}
-        duration={duration}
-        ref={progressRef}
-        elem={progressRef.current}
-      >
-        <Dot></Dot>
-      </ProgressBar>
+      <ProgressBarContainer>
+        <ProgressBar />
+      </ProgressBarContainer>
 
       <ControlButtonBox>
-        <LeftControlButton />
+        <LeftControlButton handleMoveVideo={handleMoveVideo} />
 
         <RightControlButton />
       </ControlButtonBox>
     </PlyerControlsWrapper>
   );
-}
-
-interface ProgressBarProps {
-  time: number;
-  duration: number;
-  elem: HTMLDivElement | null;
 }
 
 const Flex = styled.div`
@@ -74,30 +77,9 @@ const PlyerControlsWrapper = styled(Flex)`
   }
 `;
 
-const ProgressBar = styled(Flex)`
-  height: 5px;
+const ProgressBarContainer = styled(Flex)`
   margin: 10px 0;
-  padding-top: 1px;
-  /* border: 1px solid red; */
-  border-radius: 2px;
-  background-color: #fff;
-  position: relative;
-  align-items: center;
-
-  & > div {
-    left: ${({ time, duration, elem }: ProgressBarProps) =>
-      ((elem ? elem.offsetWidth - 10 : 0) / duration) * time}px;
-  }
-`;
-
-const Dot = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  /* border: 1px solid red; */
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 0 2px 2px #00000042;
+  /* position: relative; */
 `;
 
 const ControlButtonBox = styled(Flex)`

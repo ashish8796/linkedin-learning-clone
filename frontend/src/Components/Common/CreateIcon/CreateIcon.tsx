@@ -7,7 +7,7 @@ interface ICreateIconProps {
 }
 
 export default function CreateIcon({ path, iconName }: ICreateIconProps) {
-  return <Span path={path} id={`#${iconName}`}></Span>;
+  return <Span path={path} id={`${iconName}`}></Span>;
 }
 
 interface SpanProps {

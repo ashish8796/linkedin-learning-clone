@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { setCurrentTime } from "../../store/currentVideo/actions";
+import { setCurrentTime, setVideoElem } from "../../store/currentVideo/actions";
 import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
 import PlayerControls from "./PlayerControls";
@@ -19,19 +19,21 @@ interface IChapterPlayerProps {
 
 export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const { playerStatus } = useSelector((state: State) => state.player);
+  const { videoElem } = useSelector((state: State) => state.currentVideo);
   const dispatch = useDispatch();
   const videoRef = useRef<HTMLVideoElement>(null);
   // const [time, setTime] = useState<number>(0);
 
   const handleClickOnVideo = () => {
-    dispatch(setPlayerStatus(!playerStatus.isPlayed));
+    playPauseVideo({ videoRef, dispatch });
   };
 
   useEffect(() => {
     playPauseVideo({ videoRef, dispatch });
+    dispatch(setVideoElem(videoRef));
 
     return () => {};
-  }, [playerStatus.isPlayed]);
+  }, []);
 
   return (
     <PlayerWrapper>
@@ -50,6 +52,10 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
             onTimeUpdate={(e) => {
               const target = e.target as HTMLVideoElement;
               dispatch(setCurrentTime(target.currentTime));
+            }}
+            onEnded={(e) => {
+              const target = e.target as HTMLVideoElement;
+              dispatch(setPlayerStatus(false));
             }}
           >
             <source src={videoUrl} type="video/mp4" />
