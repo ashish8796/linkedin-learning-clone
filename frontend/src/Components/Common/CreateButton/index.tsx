@@ -17,10 +17,18 @@ export default function CreateButton({
   // console.log(children);
 
   if (children) {
-    return <Button onClick={handleClick}>{children}</Button>;
+    return (
+      <Button onClick={handleClick} id={name}>
+        {children}
+      </Button>
+    );
   }
 
-  return <Button onClick={handleClick}>{label}</Button>;
+  return (
+    <Button onClick={handleClick} id={name}>
+      {label}
+    </Button>
+  );
 }
 
 const Button = styled.button`
@@ -28,4 +36,5 @@ const Button = styled.button`
   width: fit-content;
   border: none;
   outline: none;
+  cursor: pointer;
 `;

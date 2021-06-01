@@ -1,3 +1,4 @@
+import React from "react"
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer"
 import { PlayerState } from "./player/playerReducer"
 
@@ -22,4 +23,9 @@ export type SetDuration = {
 export type SetCurrentTime = {
   type: string;
   payload: number;
+}
+
+export type SetVideoElem = {
+  type: string;
+  payload: React.RefObject<HTMLVideoElement>;
 }
