@@ -57,6 +57,22 @@ export const updateCourse=async (req: Request, res: Response):Promise<void>=>{
         console.log(error)
     }
 }
+export const updateQuestion=async (req: Request, res: Response):Promise<void>=>{
+    try{
+        
+        const {params:{id}, body} =req;
+        console.log(body,id)
+        const updatedQuestion:ICourse|null = await course.findByIdAndUpdate({_id:id},body)
+        // res.status(205).json({testing:"testing",blog: updatedBlog})
+        const allCourses:ICourse[]= await course.find()
+        
+        res.status(202).json({message: "new question as been added ", blog: updatedQuestion ,blogs:allCourses})
+        // console.log("new")
+        
+    }catch (error) {
+        console.log(error)
+    }
+}
 
 export const getCourseId = async(req: Request, res: Response): Promise<void>=> {
     try {
