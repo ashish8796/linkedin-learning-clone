@@ -1,9 +1,33 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { setVideoScreenSize } from "../../store/currentVideo/actions";
+import { State } from "../../store/tsTypes";
 import CreateButton from "../Common/CreateButton";
 import CreateIcon from "./../Common/CreateIcon/CreateIcon";
 
 export default function RightControlButton() {
+  let { currentTime, videoElem, duration, size } = useSelector(
+    (state: State) => state.currentVideo
+  );
+  const { isPlayed } = useSelector((state: State) => state.player.playerStatus);
+  const dispatch = useDispatch();
+
+  const handleResizeScreen = (): void => {
+    // dispatch(setVideoScreenSize(size === "small" ? "big" : "small"));
+    if (videoElem) {
+      const promise = videoElem?.current?.requestFullscreen({
+        navigationUI: "hide",
+      });
+
+      let elem = videoElem.current!;
+
+      // elem!.onfullscreenchange((e) => {
+      //   e.target.controls = false;
+      // });
+    }
+  };
+
   return (
     <RightButtonBox>
       <CreateButton label="str" handleClick={() => {}}>
@@ -18,10 +42,12 @@ export default function RightControlButton() {
         />
       </CreateButton>
 
-      <CreateButton label="str" handleClick={() => {}}>
+      <CreateButton label="screen resize" handleClick={handleResizeScreen}>
         <CreateIcon
           path={
-            require("./../../assets/svgs/learning/fullscreenIcon.svg").default
+            require(`./../../assets/svgs/learning/${
+              size === "small" ? "fullscreenIcon.svg" : "exitFullscreenIcon.svg"
+            }`).default
           }
         />
       </CreateButton>
