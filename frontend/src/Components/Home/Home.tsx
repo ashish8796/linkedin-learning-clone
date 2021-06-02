@@ -7,6 +7,7 @@ import { Headline } from './Headline';
 import { SkillsTime } from './SkillsTime';
 import { CoursesList } from './CoursesList'
 import { Footer } from './Footer';
+import axios from 'axios'
 
 const data = [
     {
@@ -59,8 +60,13 @@ const data = [
     }
 ]
 
+
+
 export const Home = () => {
-    return (
+   React.useEffect(()=>{
+      axios.get('/videos').then(({data})=>console.log(data))
+   },[])
+   return (
         <div>
             <Headline />
             <ExploreCourses />

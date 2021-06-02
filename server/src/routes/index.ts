@@ -21,7 +21,6 @@ route.get("/chapters",getChapter)
 
 // posting the video,Course,student,teacher
 
-
 route.post("/add-video",addVideo)
 
 route.post("/add-course",addCourse)

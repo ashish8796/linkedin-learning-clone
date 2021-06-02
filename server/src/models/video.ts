@@ -20,7 +20,6 @@ const videoSchema :Schema = new Schema({
     },
     userId:{
         type:String
-        // default : {"007"}
     },
     chapterId:{
         type:String
