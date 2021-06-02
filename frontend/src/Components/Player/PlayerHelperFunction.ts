@@ -15,6 +15,8 @@ export function playPauseVideo({ videoRef, dispatch }: PlayPauseVideo): void {
   }
 
   if (videoRef?.current) {
+    console.log(videoRef.current)
+
     videoRef.current.paused
       ? videoRef.current
         .play()

@@ -29,3 +29,8 @@ export type SetVideoElem = {
   type: string;
   payload: React.RefObject<HTMLVideoElement>;
 }
+
+export type SetVideoScreenSize = {
+  type: string;
+  payload: string;
+}
