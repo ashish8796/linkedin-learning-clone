@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { setTimeout } from "timers";
 import { setCurrentTime, setVideoElem } from "../../store/currentVideo/actions";
 import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
@@ -20,32 +21,73 @@ interface IChapterPlayerProps {
 export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const { playerStatus } = useSelector((state: State) => state.player);
   const { videoElem, size } = useSelector((state: State) => state.currentVideo);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const videoRef = useRef<HTMLVideoElement>(null);
-  // const [time, setTime] = useState<number>(0);
+  const controlsRef = useRef<HTMLDivElement>(null);
+  const [isControlsVisible, setIsControlsVisible] = useState<boolean>(false);
 
   const handleClickOnVideo = () => {
     playPauseVideo({ videoRef, dispatch });
   };
 
+  const handleMouseOver: React.MouseEventHandler<HTMLDivElement> = (
+    e
+  ): void => {
+    e.preventDefault();
+    console.log("MouseOver called");
+    document.fullscreenElement
+      ? setIsControlsVisible(false)
+      : setIsControlsVisible(true);
+    // e.stopPropagation();
+  };
+
+  const handleMouseLeave = (): void => {
+    console.log("MouseLeave called");
+
+    console.log(document.fullscreenElement);
+    setTimeout(() => {
+      !videoRef.current?.paused && setIsControlsVisible(false);
+    }, 3000);
+  };
+
+  const handleMouseMove = () => {
+    console.log("MouseMove called");
+
+    document.fullscreenElement && setIsControlsVisible(true);
+  };
+
+  const handleResizeScreen = () => {
+    document.fullscreenElement && setIsControlsVisible(false);
+  };
+
   useEffect(() => {
     playPauseVideo({ videoRef, dispatch });
     dispatch(setVideoElem(videoRef));
-
     return () => {};
   }, []);
 
   return (
     <PlayerWrapper>
-      <PlayerBox>
-        <VideoWrapper onClick={handleClickOnVideo} size={size}>
+      <PlayerBox
+        ref={videoWrapperRef}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+      >
+        <VideoWrapper
+          onClick={handleClickOnVideo}
+          size={size}
+          onMouseMove={handleMouseMove}
+        >
           <VideoElem
             ref={videoRef}
             crossOrigin="anonymous"
             preload="auto"
             onLoadedMetadata={(event) => {
+              const target = event.target as HTMLVideoElement;
+              // target.onfullscreenchange((event) => {});
               handleOnMetadataLoaded({
-                target: event.target as HTMLVideoElement,
+                target,
                 dispatch,
               });
             }}
@@ -62,9 +104,14 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
           </VideoElem>
         </VideoWrapper>
 
-        <ControlsBox>
-          <PlayerControls />
-        </ControlsBox>
+        {isControlsVisible && (
+          <ControlsBox ref={controlsRef}>
+            <PlayerControls
+              videoContainer={videoWrapperRef}
+              handleResizeScreen={handleResizeScreen}
+            />
+          </ControlsBox>
+        )}
       </PlayerBox>
     </PlayerWrapper>
   );
@@ -83,16 +130,11 @@ const PlayerWrapper = styled.div`
 const PlayerBox = styled.div`
   /* border: 1px solid blue; */
   position: relative;
-  /* padding-bottom: 10px; */
-  /* border-bottom: 3rem solid black; */
 `;
 
 const VideoWrapper = styled.div`
   height: ${({ size }: VideoWrapperProps) =>
     size === "small" ? "66.5vh" : "100vh"};
-  /* position: ${({ size }: VideoWrapperProps) =>
-    size === "small" ? "none" : "absolute"}; */
-  /* z-index: 2000; */
 `;
 
 const VideoElem = styled.video`
@@ -100,6 +142,10 @@ const VideoElem = styled.video`
   background-color: #000000;
   width: 100%;
   height: 100%;
+
+  &::-webkit-media-controls {
+    display: none !important;
+  }
 `;
 
 const ControlsBox = styled.section`
@@ -109,4 +155,5 @@ const ControlsBox = styled.section`
   position: absolute;
   bottom: 0;
   padding: 5px 0;
+  z-index: 100;
 `;

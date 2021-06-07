@@ -6,26 +6,31 @@ import { State } from "../../store/tsTypes";
 import CreateButton from "../Common/CreateButton";
 import CreateIcon from "./../Common/CreateIcon/CreateIcon";
 
-export default function RightControlButton() {
+interface IRightControlButton {
+  videoContainer: React.RefObject<HTMLDivElement>;
+  handleResizeScreen: () => void;
+}
+
+export default function RightControlButton({
+  videoContainer,
+  handleResizeScreen,
+}: IRightControlButton) {
   let { currentTime, videoElem, duration, size } = useSelector(
     (state: State) => state.currentVideo
   );
   const { isPlayed } = useSelector((state: State) => state.player.playerStatus);
   const dispatch = useDispatch();
 
-  const handleResizeScreen = (): void => {
-    // dispatch(setVideoScreenSize(size === "small" ? "big" : "small"));
-    if (videoElem) {
-      const promise = videoElem?.current?.requestFullscreen({
-        navigationUI: "hide",
-      });
+  const handleResizeScreenBtn = (): void => {
+    dispatch(setVideoScreenSize(size === "small" ? "big" : "small"));
 
-      let elem = videoElem.current!;
-
-      // elem!.onfullscreenchange((e) => {
-      //   e.target.controls = false;
-      // });
+    if (!document.fullscreenElement && videoContainer.current) {
+      videoContainer.current.requestFullscreen().catch();
+    } else {
+      document.exitFullscreen();
     }
+
+    handleResizeScreen();
   };
 
   return (
@@ -42,7 +47,7 @@ export default function RightControlButton() {
         />
       </CreateButton>
 
-      <CreateButton label="screen resize" handleClick={handleResizeScreen}>
+      <CreateButton label="screen resize" handleClick={handleResizeScreenBtn}>
         <CreateIcon
           path={
             require(`./../../assets/svgs/learning/${

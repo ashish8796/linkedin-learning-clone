@@ -1025,7 +1025,7 @@
   "resolved" "https://registry.npmjs.org/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz"
   "version" "1.0.2"
 
-"mongoose@*", "mongoose@^5.12.11":
+"mongoose@^5.12.11":
   "integrity" "sha512-n+ZmGApaL5x/r92w6S4pb+c075i+YKzg1F9YWkznSzQMtvetj/2dSjj2cqsITpd6z60k3K7ZaosIl6hzHwUA9g=="
   "resolved" "https://registry.npmjs.org/mongoose/-/mongoose-5.12.12.tgz"
   "version" "5.12.12"
