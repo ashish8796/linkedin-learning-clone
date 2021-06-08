@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCourse = exports.getCourseId = exports.updateCourse = exports.addCourse = exports.getCourse = void 0;
+exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourse = void 0;
 const course_1 = __importDefault(require("../../models/course"));
 // import { isTryStatement } from 'typescript';
 const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -66,6 +66,21 @@ const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.updateCourse = updateCourse;
+const updateQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { params: { id }, body } = req;
+        console.log(body, id);
+        const updatedQuestion = yield course_1.default.findByIdAndUpdate({ _id: id }, body);
+        // res.status(205).json({testing:"testing",blog: updatedBlog})
+        const allCourses = yield course_1.default.find();
+        res.status(202).json({ message: "new question as been added ", blog: updatedQuestion, blogs: allCourses });
+        // console.log("new")
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.updateQuestion = updateQuestion;
 const getCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id } } = req;

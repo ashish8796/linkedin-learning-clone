@@ -14,23 +14,24 @@ const videoSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
     userId: {
         type: String
-        // default : {"007"}
     },
     chapterId: {
-        type: String
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "chapter",
+        required: [true, "Chapter ID is required"]
     },
     courseId: {
-        type: String
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "course",
+        required: [true, "Course ID id Required"]
     },
-    tags: {
-        type: Array
-    }
+    tags: [
+        {
+            type: String
+        }
+    ]
 }, {
     timestamps: true
 });

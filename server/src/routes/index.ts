@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import {seedTeachers} from "../utils/seeder"
 import { addCourse, getCourse ,updateCourse ,deleteCourse, getCourseId } from '../controllers/course/index';
 import {getVideo,addVideo, updateVideo,deleteVideo,getVideoId} from '../controllers/video/index'
 import { getTeacher,updateTeacher,deleteTeacher,getTeacherId , addTeacher}  from '../controllers/teacher';
@@ -19,6 +20,7 @@ route.get("/teachers", getTeacher)
 
 route.get("/chapters",getChapter)
 
+route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
 
 route.post("/add-video",addVideo)
@@ -33,13 +35,13 @@ route.post("/add-chapter",addChapter)
 // get them by Id
 route.get("/get-video/:id",getVideoId)
 
-route.get("get-course/:id",getCourseId)
+route.get("/get-course/:id",getCourseId)
 
-route.get("get-student/:id",getStudentId)
+route.get("/get-student/:id",getStudentId)
 
-route.get("get-teacher/:id",getTeacherId)
+route.get("/get-teacher/:id",getTeacherId)
 
-route.get("get-chapter/:id",getChapterId)
+route.get("/get-chapter/:id",getChapterId)
 
 // update the details
 

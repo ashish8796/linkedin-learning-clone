@@ -14,14 +14,15 @@ export const getTeacher = async ( req: Request, res: Response):Promise<void> =>{
 
 export const addTeacher =async (req: Request, res: Response) : Promise<void>=> {
     try {
-        let body= req.body as Pick<ITeacher, "firstName"|"lastName"|"qualification"|"description"|"DOB"|"specializations">;
+        let body= req.body as Pick<ITeacher, "firstName"|"lastName"|"qualification"|"description"|"DOB"|"specializations"|"Image">;
         const new_teacher:ITeacher= new  teacher({
             firstName: body.firstName,
             lastName: body.lastName,
             qualification: body.qualification,
             DOB: body.DOB,
             specializations: body.specializations,
-            description: body.description
+            description: body.description,
+            Image: body.Image
         })
         let newTeacher :ITeacher= await new_teacher.save();
         let allTeachers:ITeacher[]= await teacher.find();
