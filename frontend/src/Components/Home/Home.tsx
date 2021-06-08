@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 import { BottomImage } from './BottomImage';
 import { Carousal } from './Carousal';
 import { ExploreCourses } from './ExploreCourses';
@@ -7,7 +9,12 @@ import { Headline } from './Headline';
 import { SkillsTime } from './SkillsTime';
 import { CoursesList } from './CoursesList'
 import { Footer } from './Footer';
-import axios from 'axios'
+
+const Container = styled.div`
+    position: relative;
+    margin-top: 70px;
+    width: 100%;
+`;
 
 const data = [
     {
@@ -60,14 +67,12 @@ const data = [
     }
 ]
 
-
-
-export const Home = () => {
+export default function Home () {
    React.useEffect(()=>{
       axios.get('/videos').then(({data})=>console.log(data))
    },[])
    return (
-        <div>
+        <Container>
             <Headline />
             <ExploreCourses />
             <Carousal data={data} trending="TRENDING COURSES" />
@@ -81,6 +86,6 @@ export const Home = () => {
             <BottomImage />
             <CoursesList />
             <Footer />
-        </div>
+        </Container>
     )
 }
