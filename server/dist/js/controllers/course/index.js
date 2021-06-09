@@ -34,11 +34,14 @@ const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const new_course = new course_1.default({
             title: body.title,
             description: body.description,
-            createdAt: body.createdAt,
+            // createdAt:body.createdAt,
             authorId: body.authorId,
             tags: body.tags,
-            questionSession: body.questionSession,
-            chapterIds: body.chapterIds,
+            questionBlog: body.questionBlog,
+            blogId: body.blogId,
+            Image: body.Image,
+            // questionSession:body.questionSession,
+            // chapterIds:body.chapterIds,
         });
         console.log(course_1.default);
         const newCourse = yield new_course.save();

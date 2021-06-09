@@ -2,7 +2,8 @@
 import mongoose from "mongoose";
 import process from "process";
 // const videos = require("../../data/videos");
-const teachers = require("./data/teachers");
+// import teachers from "./data/teachers";
+const teachers = require("./data/teachers.json")
 import teacher from "../models/teacher";
 
 mongoose.connect("mongodb://localhost:27017/oyo-clone", {
@@ -23,12 +24,11 @@ mongoose.connect("mongodb://localhost:27017/oyo-clone", {
 //         process.exit();
 //     }
 // }
-
 export const seedTeachers = async () => {
   try {
-    await teacher.deleteMany();
-    console.log("delete all old data");
-    await teacher.insertMany(teachers);
+    // await teacher.deleteMany();
+    console.log(teachers);
+    // await teacher.insertMany(teachers);
     process.exit();
   } catch (error) {
     console.log(error);

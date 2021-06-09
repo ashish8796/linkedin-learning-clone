@@ -5,6 +5,8 @@ import {getVideo,addVideo, updateVideo,deleteVideo,getVideoId} from '../controll
 import { getTeacher,updateTeacher,deleteTeacher,getTeacherId , addTeacher}  from '../controllers/teacher';
 import {getStudent,addStudent,updateStudent,deleteStudent,getStudentId} from '../controllers/student/index'
 import {getChapter, addChapter,updateChapter,deleteChapter,getChapterId} from "../controllers/chapter/index"
+
+// import {seedTeachers} from "../utils/seeder" ;
 const route :Router =Router();
 
 
@@ -20,7 +22,7 @@ route.get("/teachers", getTeacher)
 
 route.get("/chapters",getChapter)
 
-route.get("/getAll",seedTeachers)
+// route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
 
 route.post("/add-video",addVideo)
@@ -65,5 +67,8 @@ route.delete("/delete-student/:id",deleteStudent)
 route.delete("/delete-teacher/:id",deleteTeacher)
 
 route.delete('/delete-chapter',deleteChapter)
+
+// the data of seeding
+// route.get("/seeding-data",seedTeachers)
 
 export default route;

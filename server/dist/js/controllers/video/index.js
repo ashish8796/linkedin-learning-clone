@@ -42,9 +42,9 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             tags: body.tags
         });
         console.log(video);
-        const newBlog = yield video.save();
-        const allBlogs = yield video_1.default.find();
-        res.status(203).json({ message: "new Video as been added ", blog: newBlog, blogs: allBlogs });
+        const newVideo = yield video.save();
+        const allVideos = yield video_1.default.find();
+        res.status(203).json({ message: "new Video as been added ", blog: newVideo, blogs: allVideos });
     }
     catch (error) {
         res.end();
@@ -59,7 +59,7 @@ const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const updatedVideo = yield video_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allVideos = yield video_1.default.find();
-        res.status(202).json({ message: "new Video as been added ", blog: updatedVideo, blogs: allVideos });
+        res.status(202).json({ message: "new Video as been added ", video: updatedVideo, videos: allVideos });
         // console.log("new")
     }
     catch (error) {

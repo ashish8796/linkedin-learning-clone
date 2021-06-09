@@ -4,7 +4,8 @@ import cors from 'cors';
 import route from './routes/index.js'
 const bodyParser = require('body-parser')
 const app:Express = express();
-
+const fs= require('fs');
+// const teachers = require("./utils/data/teachers")
 const PORT :string |number =process.env.PORT || 5000;
 
 
@@ -27,6 +28,10 @@ if(process.env.NODE_ENV=='production'){
     app.use(express.static('../../../frontend/build/index.html'))
 }
 
+// console.log(teachers)
+// let file=fs.readFileSync("./utils/data/teachers");
+
+// console.log(file)
 
 mongoose.connect(URI, options).then(()=>app.listen(PORT,()=>console.log(`server lets see hosted on ${PORT}`)))
 

@@ -31,10 +31,10 @@ export const addVideo =async (req:Request, res:Response) :Promise<void>=>{
             tags:body.tags
         })
         console.log(video)
-        const newBlog : IVideo =await video.save();
-        const allBlogs:IVideo[]= await Video.find()
+        const newVideo : IVideo =await video.save();
+        const allVideos:IVideo[]= await Video.find()
         
-        res.status(203).json({message: "new Video as been added ", blog: newBlog ,blogs:allBlogs})
+        res.status(203).json({message: "new Video as been added ", blog: newVideo ,blogs:allVideos})
     } catch (error) {
         res.end()
         console.log(error)
@@ -51,7 +51,7 @@ export const updateVideo=async (req: Request, res: Response):Promise<void>=>{
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allVideos:IVideo[]= await Video.find()
         
-        res.status(202).json({message: "new Video as been added ", blog: updatedVideo ,blogs:allVideos})
+        res.status(202).json({message: "new Video as been added ", video: updatedVideo ,videos:allVideos})
         // console.log("new")
         
     }catch (error) {

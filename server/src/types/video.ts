@@ -1,15 +1,15 @@
 import {Document} from 'mongoose';
 
 export default interface  IVideo extends Document{
-    title:string;
-    description:string;
+    title:String;
+    description:String;
     content:any;
     createdAt:any;
-    authorId?:string;
-    chapterId?:string;
-    courseId?:string;
-    userId?:string;
-    tags:Array<string>;
+    authorId?:String;
+    chapterId?:String;
+    courseId?:String;
+    userId?:String;
+    tags:Array<String>;
 }
 
 
