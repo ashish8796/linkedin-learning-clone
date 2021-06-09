@@ -21,7 +21,17 @@ const teacherSchema:Schema = new Schema ({
     },
     specializations:{
         type:[String],
-    }
+    },
+    Image:[
+        {
+            url:{
+                type:String
+            },
+            alt:{
+                type:String
+            }
+        }
+    ]
 },{
     timestamps: true
 })

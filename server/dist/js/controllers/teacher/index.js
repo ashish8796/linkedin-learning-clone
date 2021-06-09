@@ -33,7 +33,8 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             qualification: body.qualification,
             DOB: body.DOB,
             specializations: body.specializations,
-            description: body.description
+            description: body.description,
+            Image: body.Image
         });
         let newTeacher = yield new_teacher.save();
         let allTeachers = yield teacher_1.default.find();

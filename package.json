@@ -10,12 +10,16 @@
     "heroku-postbuild": "npm run install-frontend && npm run build",
     "start": "cd server/dist/js && node app.js",
     "frontend": "cd frontend && npm run start",
-    "server": "cd server && npm run start",
-    "dev": "concurrently \"npm run frontend\" \"npm run server\""
+    "server": "cd server && node dist/js/app.js",
+    "dev": "concurrently \"npm run frontend\" \"npm run server\"",
+    "installAll": " concurrently \"cd server && npm i\" \"cd frontend && npm i && npm run build\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ashish8796/linkedin-learning-clone.git"
+  },
+  "engines": {
+    "node": "14.16.0"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/ashish8796/linkedin-learning-clone/issues"
   },
-  "homepage": "https://github.com/ashish8796/linkedin-learning-clone#readme"
+  "homepage": "https://github.com/ashish8796/linkedin-learning-clone#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
 }

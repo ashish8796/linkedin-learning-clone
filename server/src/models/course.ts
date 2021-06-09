@@ -1,7 +1,8 @@
 // import ICourse from "../types/course";
 import  {model, Schema} from 'mongoose';
+import { isStringTextContainingNode } from 'typescript';
 import ICourse from "../types/course";
-import QnA from "./questionSession"
+// import QnA from "./questionSession"
 const courseSchema :Schema = new Schema ({
     title:{
         type:String,
@@ -15,12 +16,33 @@ const courseSchema :Schema = new Schema ({
         type:Array,
     },
     authorId:{
-        type:String,
+        type:Schema.Types.ObjectId,
+        ref:"teacher",
+        required:[true,"enter Teacher/ Author Id"]
     },
-    questionSession:{
-        type:Array,
-        default:undefined
-    }
+    Image:[
+        {
+            url:{
+                type:String,
+                required:[true,"need the url"]
+            },
+            alt:{
+                type:String,
+            }
+        }
+    ],
+    blogId:{
+        type:Schema.Types.ObjectId,
+        ref:"blog"
+    },
+    questionBlog:[
+        {
+            question:{
+                type:Schema.Types.ObjectId,
+                ref:"questionSession"
+            }
+        }
+    ]
 },{
     timestamps: true
 })

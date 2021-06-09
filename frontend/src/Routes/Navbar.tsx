@@ -10,7 +10,7 @@ const ImgBox = styled.div`
     margin-right: 15px;
 `;
 
-const Image = styled.img`
+const Logo = styled.img`
     width: 100%;
     height: 100%;
 `;
@@ -67,7 +67,7 @@ const SignInBtn = styled.button`
     &:hover {
         border: 3px solid #0073b1;
         cursor: pointer;
-        border-
+        background: #eaf4fe;
     }
 `;
 
@@ -78,14 +78,15 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         height: theme.spacing(8),
         background: '#fff',
-        width: '100%'
+        width: '100%',
+        boxShadow: '0px 0px 0px 0px'
     },
     toolBar: {
-        width: '100%',
+        width: '74rem',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(0, 23)
+        margin: 'auto',
     },
     logo: {
         color: 'black',
@@ -131,7 +132,7 @@ export const Navbar = () => {
             <Toolbar variant="dense" className={classes.toolBar}>
                 <Box className={classes.logo}>
                     <ImgBox>
-                        <Image src='https://img-premium.flaticon.com/png/512/174/174857.png?token=exp=1622137765~hmac=ba6f199a1f7f6a4d7b381b5f6be8e09d' />
+                        <Logo src='https://img-premium.flaticon.com/png/512/174/174857.png?token=exp=1622137765~hmac=ba6f199a1f7f6a4d7b381b5f6be8e09d' />
                     </ImgBox>
                     <Typography className={classes.learnTxt}>
                         L E A R N I N G

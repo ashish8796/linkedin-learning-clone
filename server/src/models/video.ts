@@ -14,23 +14,24 @@ const videoSchema :Schema = new Schema({
         type:String,
         required: true,
     },
-    createdAt:{
-        type:Date,
-        default: Date.now
-    },
     userId:{
         type:String
-        // default : {"007"}
     },
     chapterId:{
-        type:String
+        type: Schema.Types.ObjectId,
+        ref:"chapter",
+        required: [true, "Chapter ID is required"]
     },
     courseId:{
-        type:String
+        type:Schema.Types.ObjectId,
+        ref:"course",
+        required: [true, "Course ID id Required"]
     },
-    tags:{
-        type:Array
-    }
+    tags:[
+        {
+        type:String
+        }
+    ]
 },{
     timestamps: true
 })
