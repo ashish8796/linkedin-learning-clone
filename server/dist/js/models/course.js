@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // import ICourse from "../types/course";
 const mongoose_1 = require("mongoose");
+// import QnA from "./questionSession"
 const courseSchema = new mongoose_1.Schema({
     title: {
         type: String,
@@ -15,12 +16,33 @@ const courseSchema = new mongoose_1.Schema({
         type: Array,
     },
     authorId: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "teacher",
+        required: [true, "enter Teacher/ Author Id"]
     },
-    questionSession: {
-        type: Array,
-        default: undefined
-    }
+    Image: [
+        {
+            url: {
+                type: String,
+                required: [true, "need the url"]
+            },
+            alt: {
+                type: String,
+            }
+        }
+    ],
+    blogId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "blog"
+    },
+    questionBlog: [
+        {
+            question: {
+                type: mongoose_1.Schema.Types.ObjectId,
+                ref: "questionSession"
+            }
+        }
+    ]
 }, {
     timestamps: true
 });

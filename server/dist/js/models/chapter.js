@@ -17,14 +17,14 @@ const chapterSchema = new mongoose_1.Schema({
         type: Array,
     },
     courseId: {
-        type: String
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "course",
+        required: [true, "Course ID id Required"]
     },
     authorId: {
-        type: String
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "teacher",
+        required: [true, "authorID or teacher Id is needed"]
     }
 }, {
     timestamps: true

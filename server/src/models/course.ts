@@ -16,7 +16,9 @@ const courseSchema :Schema = new Schema ({
         type:Array,
     },
     authorId:{
-        type:String,
+        type:Schema.Types.ObjectId,
+        ref:"teacher",
+        required:[true,"enter Teacher/ Author Id"]
     },
     Image:[
         {
@@ -29,33 +31,18 @@ const courseSchema :Schema = new Schema ({
             }
         }
     ],
-    // questionSession:{
-    //     type:Array,
-    //     default:undefined
-    // },
-    QnA:[
+    blogId:{
+        type:Schema.Types.ObjectId,
+        ref:"blog"
+    },
+    questionBlog:[
         {
-            userId:{
-                type:String,
-            },
             question:{
-                type:String
-            },
-            answers:[
-                {
-                    userId:{
-                        type:String
-                    },
-                    answer:{
-                        type:String
-                    }   
-                }
-            ]
+                type:Schema.Types.ObjectId,
+                ref:"questionSession"
+            }
         }
     ]
-    // videosId:{
-    //     type:Array
-    // }
 },{
     timestamps: true
 })
