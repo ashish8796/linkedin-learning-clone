@@ -1,8 +1,10 @@
 import express,{Express} from 'express'
 import mongoose from 'mongoose';
 import cors from 'cors';
-import route from './routes/index.js'
-const bodyParser = require('body-parser')
+
+import route from './routes/index'
+// const bodyParser = require('body-parser')
+
 const app:Express = express();
 
 const PORT :string |number =process.env.PORT || 5000;
