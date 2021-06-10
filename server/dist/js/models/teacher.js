@@ -21,7 +21,17 @@ const teacherSchema = new mongoose_1.Schema({
     },
     specializations: {
         type: [String],
-    }
+    },
+    Image: [
+        {
+            url: {
+                type: String
+            },
+            alt: {
+                type: String
+            }
+        }
+    ]
 }, {
     timestamps: true
 });

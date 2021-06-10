@@ -20,7 +20,7 @@ const studentSchema:Schema = new Schema ({
     },
     startOfProgram:{
         type:Date,
-    },
+    },      
     interest:{ 
         type:Array
     },
