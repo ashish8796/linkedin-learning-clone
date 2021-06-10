@@ -12,9 +12,14 @@ import RightControlButton from "./RightControlButton";
 
 interface IPlayerControlsProps {
   // time: number;
+  videoContainer: React.RefObject<HTMLDivElement>;
+  handleResizeScreen: () => void;
 }
 
-export default function PlayerControls({}: IPlayerControlsProps) {
+export default function PlayerControls({
+  videoContainer,
+  handleResizeScreen,
+}: IPlayerControlsProps) {
   const progressRef = useRef<HTMLDivElement>(null);
   const {
     duration,
@@ -54,7 +59,10 @@ export default function PlayerControls({}: IPlayerControlsProps) {
       <ControlButtonBox>
         <LeftControlButton handleMoveVideo={handleMoveVideo} />
 
-        <RightControlButton />
+        <RightControlButton
+          videoContainer={videoContainer}
+          handleResizeScreen={handleResizeScreen}
+        />
       </ControlButtonBox>
     </PlyerControlsWrapper>
   );
