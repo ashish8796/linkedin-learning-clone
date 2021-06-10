@@ -4,6 +4,13 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+const Cont = styled.div`
+    position: relative;
+    width: 100%;
+    min-height: 50px;
+    background: #fff; 
+`;
+
 const Container = styled.div`
     position: relative;
     min-height: 50px; 
@@ -11,6 +18,7 @@ const Container = styled.div`
     margin: auto;
     display: flex;
     align-items: center;
+    padding-top: 10px;
     justify-content: space-between;
 `;
 
@@ -31,19 +39,22 @@ const Details = styled.p`
 const useStyles = makeStyles(theme=>({
     linkedIn: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative',
+        top: '-5px'
     },
     liText: {
         fontWeight: 600,
         fontSize: '0.8rem'
     },
     logo: {
-        fontSize: '1rem'
-
+        fontSize: '1rem',        
     },
     copy: {
         marginLeft: '10px',
-        fontSize: '0.8rem'
+        fontSize: '0.8rem',
+        position: 'relative',
+        top: '5px'
     },
     expIcon: {
         fontSize: '1rem',
@@ -56,22 +67,24 @@ export const Footer = () => {
     const classes = useStyles();
     
     return (
-        <Container>
-            <Box className={classes.linkedIn}>
-                <Typography className={classes.liText}>Linked</Typography>
-                <LinkedInIcon className={classes.logo} />
-                <p className={classes.copy}>© 2021</p>
-            </Box>
-            <Details>About</Details>
-            <Details>Accessibility</Details>
-            <Details>User Agreement</Details>
-            <Details>Privacy Policy</Details>
-            <Details>Cookie Policy</Details>
-            <Details>Copyright Policy</Details>
-            <Details>Brand Policy</Details>
-            <Details>Guest Controls</Details>
-            <Details>Community Guidelines</Details>
-            <Details>Language <ExpandMoreIcon className={classes.expIcon} /></Details>
-        </Container>
+        <Cont>
+            <Container>
+                <Box className={classes.linkedIn}>
+                    <Typography className={classes.liText}>Linked</Typography>
+                    <LinkedInIcon className={classes.logo} />
+                    <p className={classes.copy}>© 2021</p>
+                </Box>
+                <Details>About</Details>
+                <Details>Accessibility</Details>
+                <Details>User Agreement</Details>
+                <Details>Privacy Policy</Details>
+                <Details>Cookie Policy</Details>
+                <Details>Copyright Policy</Details>
+                <Details>Brand Policy</Details>
+                <Details>Guest Controls</Details>
+                <Details>Community Guidelines</Details>
+                <Details>Language <ExpandMoreIcon className={classes.expIcon} /></Details>
+            </Container>
+        </Cont>
     )
 }

@@ -11,9 +11,10 @@ const Container = styled.div`
 
 const Course = styled.p`
     color: #666;
-    font-size: 0.8rem;
-    line-height: 24px;
+    font-size: 0.9rem;
+    line-height: 20px;
     font-weight: 600;
+    margin-top: -10px;
 
     &:hover {
         color: #0a66c2;
@@ -40,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     head: {
         fontWeight: 600,
         fontSize: '1rem',
-        color: 'rgba(0,0,0,0.9)'
+        color: 'rgba(0,0,0,0.9)',
+        marginBottom: '15px'
     },
     seeAll: {
         color: '#0a66c2',
