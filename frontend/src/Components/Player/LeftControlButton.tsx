@@ -37,7 +37,7 @@ export default function LeftControlButton({
         <CreateIcon
           path={
             require(`./../../assets/svgs/learning/${
-              isPlayed ? "pauseIcon.svg" : "playIcon.svg"
+              videoElem.current.paused ? "playIcon.svg" : "pauseIcon.svg"
             }`).default
           }
         />

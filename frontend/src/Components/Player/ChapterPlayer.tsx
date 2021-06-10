@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { setTimeout } from "timers";
 import { setCurrentTime, setVideoElem } from "../../store/currentVideo/actions";
 import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
@@ -26,39 +25,52 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
   const [isControlsVisible, setIsControlsVisible] = useState<boolean>(false);
+  const timeOutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleClickOnVideo = () => {
     playPauseVideo({ videoRef, dispatch });
   };
 
-  const handleMouseOver: React.MouseEventHandler<HTMLDivElement> = (
-    e
-  ): void => {
-    e.preventDefault();
+  const handleMouseOver: React.MouseEventHandler<any> = (e): void => {
+    const target = e.target as HTMLVideoElement | HTMLDivElement;
+
     console.log("MouseOver called");
-    document.fullscreenElement
-      ? setIsControlsVisible(false)
-      : setIsControlsVisible(true);
-    // e.stopPropagation();
+
+    if (target.id === "custom-controls") {
+      setIsControlsVisible(true);
+    }
   };
 
   const handleMouseLeave = (): void => {
     console.log("MouseLeave called");
 
-    console.log(document.fullscreenElement);
     setTimeout(() => {
       !videoRef.current?.paused && setIsControlsVisible(false);
     }, 3000);
   };
 
-  const handleMouseMove = () => {
+  const handleMouseMove: React.MouseEventHandler<HTMLVideoElement> = (e) => {
     console.log("MouseMove called");
+    const target = e.target as HTMLVideoElement;
 
-    document.fullscreenElement && setIsControlsVisible(true);
+    if (document.fullscreenElement) {
+      if (target.id === "chapter-video") {
+        if (!isControlsVisible) {
+          setIsControlsVisible(true);
+          timeOutRef.current = null;
+        } else if (!timeOutRef.current) {
+          timeOutRef.current = setTimeout(() => {
+            setIsControlsVisible(false);
+          }, 3000);
+        }
+      }
+    } else {
+      setIsControlsVisible(true);
+    }
   };
 
   const handleResizeScreen = () => {
-    document.fullscreenElement && setIsControlsVisible(false);
+    setIsControlsVisible(false);
   };
 
   useEffect(() => {
@@ -69,17 +81,11 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
 
   return (
     <PlayerWrapper>
-      <PlayerBox
-        ref={videoWrapperRef}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-      >
-        <VideoWrapper
-          onClick={handleClickOnVideo}
-          size={size}
-          onMouseMove={handleMouseMove}
-        >
+      <PlayerBox ref={videoWrapperRef}>
+        <VideoWrapper onClick={handleClickOnVideo} size={size}>
           <VideoElem
+            onMouseMove={handleMouseMove}
+            id="chapter-video"
             ref={videoRef}
             crossOrigin="anonymous"
             preload="auto"
@@ -105,7 +111,12 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
         </VideoWrapper>
 
         {isControlsVisible && (
-          <ControlsBox ref={controlsRef}>
+          <ControlsBox
+            ref={controlsRef}
+            id="custom-controls"
+            onMouseLeave={handleMouseLeave}
+            onMouseOver={handleMouseOver}
+          >
             <PlayerControls
               videoContainer={videoWrapperRef}
               handleResizeScreen={handleResizeScreen}
