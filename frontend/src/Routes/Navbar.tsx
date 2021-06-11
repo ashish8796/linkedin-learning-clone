@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, AppBar, Toolbar, Typography, InputBase, Box} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import {Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
 
 const ImgBox = styled.div`
     width: 30px;
@@ -95,6 +96,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         minWidth: '200px',
     },
+    icon: {
+        color: '#0a66c2',
+        height: '2rem',
+        width: '2rem'
+    },
     learnTxt: {
         fontSize: '1rem',
         fontWeight: 500,
@@ -132,9 +138,7 @@ export const Navbar = () => {
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar variant="dense" className={classes.toolBar}>
                 <Box className={classes.logo}>
-                    <ImgBox>
-                        <Logo src='https://img-premium.flaticon.com/png/512/174/174857.png?token=exp=1622137765~hmac=ba6f199a1f7f6a4d7b381b5f6be8e09d' />
-                    </ImgBox>
+                    <LinkedInIcon className={classes.icon} />
                     <Typography className={classes.learnTxt}>
                         L E A R N I N G
                     </Typography>

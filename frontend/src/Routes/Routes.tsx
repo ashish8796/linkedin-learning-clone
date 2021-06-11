@@ -1,12 +1,14 @@
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Navbar } from "./Navbar";
-import Learning from "../Pages/LearningPage";
 import { Footer } from "./Footer";
-import Home from "../Pages/HomePage";
-import SignIn from "../Pages/SignInPage";
 import { PageNotFound } from "./PageNotFound";
+import Home from "../Pages/HomePage";
+import Learning from "../Pages/LearningPage";
+import SignIn from "../Pages/SignInPage";
+// import { PageNotFound } from "./PageNotFound";
 import VideoUploaded from "../Components/temp/VideoUploaded";
+import Register from "../Pages/RegisterPage";
 
 export default function Routes() {
     return (
@@ -27,6 +29,9 @@ export default function Routes() {
                 </Route>
                 <Route path="/add-video">
                     <PageNotFound />
+                    </Route>
+                <Route path="/signup" exact>
+                    <Register />
                 </Route>
                 <Route>
                     <PageNotFound />

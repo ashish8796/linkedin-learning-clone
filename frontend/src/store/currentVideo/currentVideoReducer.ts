@@ -5,7 +5,7 @@ import { SET_CURRENT_TIME, SET_DURATION, SET_VIDEO_ELEM, SET_VIDEO_SCREEN_SIZE }
 export interface CurrentVideoState {
   duration: number;
   currentTime: number;
-  videoElem: React.RefObject<HTMLVideoElement> | null;
+  videoElem: React.RefObject<HTMLVideoElement> | any;
   size: string;
 }
 
