@@ -3,6 +3,7 @@ import { makeStyles, AppBar, Toolbar, Typography, InputBase, Box} from '@materia
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import {Link } from "react-router-dom"
 
 const ImgBox = styled.div`
     width: 30px;
@@ -150,7 +151,7 @@ export const Navbar = () => {
                 </Box>
                 <Box className= {classes.TSBtns}>
                     <TrialBtn>Start free trial</TrialBtn>
-                    <SignInBtn>Sign in</SignInBtn>
+                    <Link to="/learning-login"><SignInBtn>Sign in</SignInBtn></Link>
                 </Box>
             </Toolbar>
         </AppBar>

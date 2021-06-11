@@ -5,6 +5,13 @@ import {getVideo,addVideo, updateVideo,deleteVideo,getVideoId} from '../controll
 import { getTeacher,updateTeacher,deleteTeacher,getTeacherId , addTeacher}  from '../controllers/teacher';
 import {getStudent,addStudent,updateStudent,deleteStudent,getStudentId} from '../controllers/student/index'
 import {getChapter, addChapter,updateChapter,deleteChapter,getChapterId} from "../controllers/chapter/index"
+import AWS from 'aws-sdk';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import  {v4 as uuid} from 'uuid';
+import * as express from 'express';
+const path  = require("path"); 
+
 
 // import {seedTeachers} from "../utils/seeder" ;
 const route :Router =Router();
@@ -69,6 +76,6 @@ route.delete("/delete-teacher/:id",deleteTeacher)
 route.delete('/delete-chapter',deleteChapter)
 
 // the data of seeding
-// route.get("/seeding-data",seedTeachers)
+route.get("/seeding-data",seedTeachers)
 
 export default route;

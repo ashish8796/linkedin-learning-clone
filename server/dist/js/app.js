@@ -9,15 +9,17 @@ const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const bodyParser = require('body-parser');
 const app = express_1.default();
-const fs = require('fs');
-// const teachers = require("./utils/data/teachers")
+// const fs= require('fs');
+const teachers = require("./utils/data/teachers");
 const PORT = process.env.PORT || 5000;
+console.log(teachers);
+// const uris="mongodb+srv://vedansh:vedansh@coursera.03cjh.mongodb.net/coursera?retryWrites=true&w=majority"
 const URI = process.env.MONGODB_URI || "mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority";
 app.use(express_1.default.json());
 app.use(cors_1.default());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('body-parser').urlencoded({ extended: false }));
-const uri = process.env.MONGODB_URI || `mongodb://localhost:27017/linkdenLearning`;
+// const uri:string = process.env.MONGODB_URI|| `mongodb://localhost:27017/linkdenLearning`
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose_1.default.set('useFindAndModify', false);
 app.use(index_1.default);

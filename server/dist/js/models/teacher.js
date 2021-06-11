@@ -2,14 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const teacherSchema = new mongoose_1.Schema({
-    firstName: {
-        type: String,
-        required: [true, "Please enter first name"]
-    },
-    lastName: {
-        type: String,
-        required: [true, "Please enter last name"]
-    },
     qualification: {
         type: [String],
     },
@@ -22,16 +14,11 @@ const teacherSchema = new mongoose_1.Schema({
     specializations: {
         type: [String],
     },
-    Image: [
-        {
-            url: {
-                type: String
-            },
-            alt: {
-                type: String
-            }
-        }
-    ]
+    uniqueId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "users",
+        required: [true, "uniqueId needed"]
+    },
 }, {
     timestamps: true
 });

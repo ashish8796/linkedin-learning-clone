@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import Home from "../Pages/HomePage";
 import SignIn from "../Pages/SignInPage";
 import { PageNotFound } from "./PageNotFound";
+import VideoUploaded from "../Components/temp/VideoUploaded";
 
 export default function Routes() {
     return (
@@ -20,6 +21,12 @@ export default function Routes() {
                 </Route>
                 <Route path="/learning-login" exact>
                     <SignIn />
+                </Route>
+                <Route path="/uploading-video" exact>
+                    <VideoUploaded />
+                </Route>
+                <Route path="/add-video">
+                    <PageNotFound />
                 </Route>
                 <Route>
                     <PageNotFound />

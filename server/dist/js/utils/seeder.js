@@ -19,7 +19,8 @@ const process_1 = __importDefault(require("process"));
 // const videos = require("../../data/videos");
 // import teachers from "./data/teachers";
 const teachers = require("./data/teachers.json");
-mongoose_1.default.connect("mongodb://localhost:27017/oyo-clone", {
+const teacher_1 = __importDefault(require("../models/teacher"));
+mongoose_1.default.connect("mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -38,9 +39,9 @@ mongoose_1.default.connect("mongodb://localhost:27017/oyo-clone", {
 // }
 const seedTeachers = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // await teacher.deleteMany();
+        yield teacher_1.default.deleteMany();
         console.log(teachers);
-        // await teacher.insertMany(teachers);
+        yield teacher_1.default.insertMany(teachers);
         process_1.default.exit();
     }
     catch (error) {

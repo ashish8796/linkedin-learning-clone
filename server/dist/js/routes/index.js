@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const seeder_1 = require("../utils/seeder");
 const index_1 = require("../controllers/course/index");
 const index_2 = require("../controllers/video/index");
 const teacher_1 = require("../controllers/teacher");
 const index_3 = require("../controllers/student/index");
 const index_4 = require("../controllers/chapter/index");
+const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
 // getting all the videos, Courses, student, teacher
@@ -40,5 +42,5 @@ route.delete("/delete-student/:id", index_3.deleteStudent);
 route.delete("/delete-teacher/:id", teacher_1.deleteTeacher);
 route.delete('/delete-chapter', index_4.deleteChapter);
 // the data of seeding
-// route.get("/seeding-data",seedTeachers)
+route.get("/seeding-data", seeder_1.seedTeachers);
 exports.default = route;

@@ -6,7 +6,7 @@ import process from "process";
 const teachers = require("./data/teachers.json")
 import teacher from "../models/teacher";
 
-mongoose.connect("mongodb://localhost:27017/oyo-clone", {
+mongoose.connect("mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -26,9 +26,9 @@ mongoose.connect("mongodb://localhost:27017/oyo-clone", {
 // }
 export const seedTeachers = async () => {
   try {
-    // await teacher.deleteMany();
+    await teacher.deleteMany();
     console.log(teachers);
-    // await teacher.insertMany(teachers);
+    await teacher.insertMany(teachers);
     process.exit();
   } catch (error) {
     console.log(error);
