@@ -26,7 +26,12 @@ const studentSchema:Schema = new Schema ({
     },
     savedCourseId:{
         type:Array
-    }
+    },
+    uniqueId:{
+        type:Schema.Types.ObjectId,
+        ref:"users",
+        required:[true, "uniqueId needed"]
+    },
 },{
     timestamps: true
 })

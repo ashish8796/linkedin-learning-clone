@@ -1,11 +1,14 @@
 import {Document} from 'mongoose';
 
-export default interface IStudent extends Document{
+export default interface IUser extends Document{
     firstName: String;
     lastName: String;
-    description: String;
     qualification:Array<String>;
     startOfProgram?:Date;
-    interest?: Array<String>; 
+    interests?: Array<String>; 
     savedCourseId?:Array<String>;
+    emailId?:String;
+    password?:String;
+    Image?:any;
+    flag?:Boolean;
 }

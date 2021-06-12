@@ -1,28 +1,41 @@
 import { Router } from 'express';
-import { seedTeachers } from "../utils/seeder";
+import { seedTeachers } from "../utils/seeder"
 import { addCourse, getCourse, updateCourse, deleteCourse, getCourseId } from '../controllers/course/index';
-import { getVideo, addVideo, updateVideo, deleteVideo, getVideoId } from '../controllers/video/index';
+import { getVideo, addVideo, updateVideo, deleteVideo, getVideoId } from '../controllers/video/index'
 import { getTeacher, updateTeacher, deleteTeacher, getTeacherId, addTeacher } from '../controllers/teacher';
-import { getStudent, addStudent, updateStudent, deleteStudent, getStudentId } from '../controllers/student/index';
+import { getStudent, addStudent, updateStudent, deleteStudent, getStudentId } from '../controllers/student/index'
 import { getChapter, addChapter, updateChapter, deleteChapter, getChapterId } from "../controllers/chapter/index";
+import { addUser, deleteUser, getUser, getUserId, updateUser } from '../controllers/user';
+import { checkMailId } from '../controllers/utils/Index';
+const path = require("path");
+
+
+// import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
 function fn() { }
 
 
 // getting all the videos, Courses, student, teacher
-route.get("/videos", fn, getVideo)
 
-route.get("/courses", getCourse)
+route.get("/users", getUser);
 
-route.get('/students', getStudent)
+route.get("/videos", getVideo);
 
-route.get("/teachers", getTeacher)
+route.get("/courses", getCourse);
 
-route.get("/chapters", getChapter)
+route.get('/students', getStudent);
 
-route.get("/getAll", seedTeachers)
+route.get("/check-mail", checkMailId)
+
+route.get("/teachers", getTeacher);
+
+route.get("/chapters", getChapter);
+
+// route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
+
+route.post("/add-user", addUser);
 
 route.post("/add-video", addVideo)
 
@@ -34,6 +47,9 @@ route.post("/add-student", addStudent)
 
 route.post("/add-chapter", addChapter)
 // get them by Id
+
+route.get('/get-user/:id', getUserId);
+
 route.get("/get-video/:id", getVideoId)
 
 route.get("/get-course/:id", getCourseId)
@@ -46,6 +62,8 @@ route.get("/get-chapter/:id", getChapterId)
 
 // update the details
 
+route.put('/update-user/:id', updateUser);
+
 route.put("/update-video/:id", updateVideo)
 
 route.put("/update-course/:id", updateCourse)
@@ -57,6 +75,8 @@ route.put("/update-teacher/:id", updateTeacher)
 route.put('/update-chapter/:id', updateChapter)
 
 // delete 
+route.delete("/delete-user/:id", deleteUser);
+
 route.delete("/delete-video/:id", deleteVideo)
 
 route.delete("/delete-course/:id", deleteCourse)
@@ -66,5 +86,8 @@ route.delete("/delete-student/:id", deleteStudent)
 route.delete("/delete-teacher/:id", deleteTeacher)
 
 route.delete('/delete-chapter', deleteChapter)
+
+// the data of seeding
+route.get("/seeding-data", seedTeachers)
 
 export default route;

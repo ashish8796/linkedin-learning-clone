@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// import IStudent from "../types/student";
 const mongoose_1 = require("mongoose");
-const studentSchema = new mongoose_1.Schema({
+const userSchema = new mongoose_1.Schema({
     firstName: {
         type: String,
         required: [true, "Enter First Name"]
@@ -27,12 +28,30 @@ const studentSchema = new mongoose_1.Schema({
     savedCourseId: {
         type: Array
     },
-    uniqueId: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "users",
-        required: [true, "uniqueId needed"]
+    emailId: {
+        type: String,
+        // required: true
     },
+    password: {
+        type: String,
+        // required: true
+    },
+    Image: [
+        {
+            url: {
+                type: String
+            },
+            alt: {
+                type: String
+            }
+        }
+    ],
+    flag: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 }, {
     timestamps: true
 });
-exports.default = mongoose_1.model("student", studentSchema);
+exports.default = mongoose_1.model("user", userSchema);

@@ -2,10 +2,11 @@
 import mongoose from "mongoose";
 import process from "process";
 // const videos = require("../../data/videos");
-const teachers = require("./data/teachers");
+// import teachers from "./data/teachers";
+const teachers = require("./data/teachers.json")
 import teacher from "../models/teacher";
 
-mongoose.connect("mongodb://localhost:27017/oyo-clone", {
+mongoose.connect("mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -23,11 +24,10 @@ mongoose.connect("mongodb://localhost:27017/oyo-clone", {
 //         process.exit();
 //     }
 // }
-
 export const seedTeachers = async () => {
   try {
     await teacher.deleteMany();
-    console.log("delete all old data");
+    console.log(teachers);
     await teacher.insertMany(teachers);
     process.exit();
   } catch (error) {
@@ -35,5 +35,4 @@ export const seedTeachers = async () => {
     process.exit();
   }
 };
-
 // seedTeachers();

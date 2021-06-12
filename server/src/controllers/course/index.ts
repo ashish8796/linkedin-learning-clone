@@ -18,16 +18,19 @@ export const addCourse =async (req:Request, res:Response) :Promise<void>=>{
     try {
         // res.status(203).json({"name":"kota"})
         // const blog = await course.create(req.body)
-        let body=req.body as Pick<ICourse, "title"|"description" | "createdAt" | "authorId" | "chapterIds" | "tags"|"questionSession">
+        let body=req.body as Pick<ICourse, "title"|"description" | "authorId" | "tags"|"questionBlog"| "Image"|"blogId">
         console.log(body)
         const new_course:ICourse =new course({
             title:body.title,
             description:body.description,
-            createdAt:body.createdAt,
+            // createdAt:body.createdAt,
             authorId:body.authorId,
             tags:body.tags,
-            questionSession:body.questionSession,
-            chapterIds:body.chapterIds,
+            questionBlog:body.questionBlog,
+            blogId:body.blogId,
+            Image:body.Image,
+            // questionSession:body.questionSession,
+            // chapterIds:body.chapterIds,
         })
         console.log(course)
         const newCourse : ICourse =await new_course.save();

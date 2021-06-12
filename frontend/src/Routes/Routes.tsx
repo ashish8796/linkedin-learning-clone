@@ -6,6 +6,8 @@ import { PageNotFound } from "./PageNotFound";
 import Home from "../Pages/HomePage";
 import Learning from "../Pages/LearningPage";
 import SignIn from "../Pages/SignInPage";
+// import { PageNotFound } from "./PageNotFound";
+import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
 
 export default function Routes() {
@@ -22,6 +24,12 @@ export default function Routes() {
                 <Route path="/learning-login" exact>
                     <SignIn />
                 </Route>
+                <Route path="/uploading-video" exact>
+                    <VideoUploaded />
+                </Route>
+                <Route path="/add-video">
+                    <PageNotFound />
+                    </Route>
                 <Route path="/signup" exact>
                     <Register />
                 </Route>
