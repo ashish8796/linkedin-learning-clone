@@ -1,4 +1,4 @@
-// import IStudent from "../types/student";
+import IUser from "../types/user";
 import {Schema,model} from "mongoose";
 
 const userSchema:Schema = new Schema ({
@@ -10,18 +10,16 @@ const userSchema:Schema = new Schema ({
         type:String,
         required:[true, "Enter Second Name"]
     },
-    description:{
-        type:String,
-        required:[true, "Enter Description"]
-    },
     qualification:{
         type:Array,
         required:[true, "qualification"]
     },
+    //["Ph.D","M.tech"]
     startOfProgram:{
         type:Date,
-    },      
-    interest:{ 
+    },
+          
+    interests:{ 
         type:Array
     },
     savedCourseId:{
@@ -29,11 +27,9 @@ const userSchema:Schema = new Schema ({
     },
     emailId:{
         type: String,
-        // required: true
     },
     password:{
         type: String,
-        // required: true
     },
     Image:[
         {
@@ -47,11 +43,10 @@ const userSchema:Schema = new Schema ({
     ],
     flag:{
         type: Boolean,
-        required: true,
         default:false
     }
 },{
     timestamps: true
 })
 
-export default model("user",userSchema)
+export default model<IUser>("user",userSchema)

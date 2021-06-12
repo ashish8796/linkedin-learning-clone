@@ -1,10 +1,10 @@
 import IStudent from "../../types/student";
 import  {Request, Response} from "express";
 import student from '../../models/student';
-
+import user from '../../models/user'
 export const getStudent = async (req: Request, res: Response):Promise<void>=>{
     try {
-        const students : IStudent[] = await student.find();
+        const students  = await user.find({"flag":{$eq:false}});
         res.status(200).json({message:"all the teachers", teachers:students})
     } catch (error) {
         console.log(error)

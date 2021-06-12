@@ -9,7 +9,7 @@ const app:Express = express();
 const teachers = require("./utils/data/teachers")
 const PORT :string |number =process.env.PORT || 5000;
 
-console.log(teachers)
+// console.log(teachers)
 
 // const uris="mongodb+srv://vedansh:vedansh@coursera.03cjh.mongodb.net/coursera?retryWrites=true&w=majority"
 const URI:string= process.env.MONGODB_URI||"mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority"

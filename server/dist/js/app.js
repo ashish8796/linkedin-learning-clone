@@ -12,7 +12,7 @@ const app = express_1.default();
 // const fs= require('fs');
 const teachers = require("./utils/data/teachers");
 const PORT = process.env.PORT || 5000;
-console.log(teachers);
+// console.log(teachers)
 // const uris="mongodb+srv://vedansh:vedansh@coursera.03cjh.mongodb.net/coursera?retryWrites=true&w=majority"
 const URI = process.env.MONGODB_URI || "mongodb+srv://linkdenlearning:linkdenLearningDB@cluster0.ldxhc.mongodb.net/linkdenVideos?retryWrites=true&w=majority";
 app.use(express_1.default.json());
