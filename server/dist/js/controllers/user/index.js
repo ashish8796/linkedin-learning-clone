@@ -14,10 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.getUserId = exports.updateUser = exports.addUser = exports.getUser = void 0;
 const user_1 = __importDefault(require("../../models/user"));
+const Index_1 = require("../utils/Index");
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const students = yield user_1.default.find();
-        res.status(200).json({ message: "all the users", teachers: students });
+        res.status(200).json({ message: "all the users", users: students });
     }
     catch (error) {
         console.log(error);
@@ -27,21 +28,25 @@ exports.getUser = getUser;
 const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let body = req.body;
-        const new_student = new user_1.default({
-            firstName: body.firstName,
-            lastName: body.lastName,
-            qualification: body.qualification || [],
-            savedCourseId: body.savedCourseId || [],
-            interest: body.interests || [],
-            flag: body.flag,
-            emailId: body.emailId,
-            password: body.password,
-            // Image:body.Image,
-            startOfProgram: body.startOfProgram || null,
-        });
-        let newStudent = yield new_student.save();
-        let allStudents = yield user_1.default.find();
-        res.status(202).json({ message: "the user is added", user: newStudent, allStudents: allStudents });
+        let userExist = yield Index_1.checkMailId(body.emailId);
+        if (!userExist) {
+            const new_student = new user_1.default({
+                firstName: body.firstName,
+                lastName: body.lastName,
+                qualification: body.qualification || [],
+                savedCourseId: body.savedCourseId || [],
+                interest: body.interests || [],
+                flag: body.flag,
+                emailId: body.emailId,
+                password: body.password,
+                // Image:body.Image,
+                startOfProgram: body.startOfProgram || null,
+            });
+            let newStudent = yield new_student.save();
+            let allStudents = yield user_1.default.find();
+            res.status(202).json({ message: "the user is added", user: newStudent, allStudents: allStudents });
+        }
+        res.status(203).json({ "message": "user already exists" });
     }
     catch (error) {
         res.end();
