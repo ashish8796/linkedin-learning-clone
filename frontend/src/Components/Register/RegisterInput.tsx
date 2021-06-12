@@ -103,7 +103,11 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-export const RegisterInput = () => {
+interface registerInputProps {
+    handleChange: any
+}
+
+export const RegisterInput = ({handleChange}: registerInputProps) => {
 
     const classes = useStyles();
     
@@ -111,11 +115,11 @@ export const RegisterInput = () => {
         <Container>
             <Label>
                 Email or phone number
-                <Inp type="email" />
+                <Inp type="email" name="email" onChange={handleChange} />
             </Label>
             <Label>
                 Password (6 or more characters)
-                <Inp type="password" />
+                <Inp type="password" name="password" onChange={handleChange} />
             </Label>
             <Text>
                 By clicking Agree & Join, you agree to the LinkedIn <Span>User Agreement, Privacy Policy,</Span> and <Span>Cookie Policy.</Span>
