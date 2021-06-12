@@ -1,7 +1,7 @@
-import IStudent from "../types/student";
+// import IStudent from "../types/student";
 import {Schema,model} from "mongoose";
 
-const studentSchema:Schema = new Schema ({
+const userSchema:Schema = new Schema ({
     firstName:{
         type:String,
         required:[true, "Enter First Name"]
@@ -27,13 +27,31 @@ const studentSchema:Schema = new Schema ({
     savedCourseId:{
         type:Array
     },
-    uniqueId:{
-        type:Schema.Types.ObjectId,
-        ref:"users",
-        required:[true, "uniqueId needed"]
+    emailId:{
+        type: String,
+        // required: true
     },
+    password:{
+        type: String,
+        // required: true
+    },
+    Image:[
+        {
+            url:{
+                type:String
+            },
+            alt:{
+                type:String
+            }
+        }
+    ],
+    flag:{
+        type: Boolean,
+        required: true,
+        default:false
+    }
 },{
     timestamps: true
 })
 
-export default model<IStudent>("student",studentSchema)
+export default model("user",userSchema)

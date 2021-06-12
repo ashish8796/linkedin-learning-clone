@@ -2,14 +2,6 @@ import ITeacher from '../types/teacher';
 import {Schema, model} from "mongoose";
 
 const teacherSchema:Schema = new Schema ({
-    firstName:{
-        type:String,
-        required:[true,"Please enter first name"]
-    },
-    lastName:{
-        type:String,
-        required:[true,"Please enter last name"]
-    },
     qualification:{
         type:[String],
     },
@@ -22,16 +14,11 @@ const teacherSchema:Schema = new Schema ({
     specializations:{
         type:[String],
     },
-    Image:[
-        {
-            url:{
-                type:String
-            },
-            alt:{
-                type:String
-            }
-        }
-    ]
+    uniqueId:{
+        type:Schema.Types.ObjectId,
+        ref:"users",
+        required:[true, "uniqueId needed"]
+    },
 },{
     timestamps: true
 })

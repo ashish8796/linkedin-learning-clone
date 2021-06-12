@@ -13,8 +13,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteVideo = exports.getVideoId = exports.updateVideo = exports.addVideo = exports.getVideo = void 0;
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
+const multer_1 = __importDefault(require("multer"));
+const multer_s3_1 = __importDefault(require("multer-s3"));
+const uuid_1 = require("uuid");
+const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
+const process_1 = __importDefault(require("process"));
+// import multer from 'multer';
 // import { isTryStatement } from 'typescript';
+aws_sdk_1.default.config.update({
+    credentials: {
+        accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "",
+        secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY || ""
+    }
+});
+const s3 = new aws_sdk_1.default.S3({
+    apiVersion: "2012-10-17",
+    accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "AKIAUN3JSCPIUEP5BTB2",
+    secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY || "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"
+});
+let upload = (bucketName) => (multer_1.default({
+    storage: multer_s3_1.default({
+        s3: s3,
+        bucket: bucketName,
+        metadata: (req, file, cb) => {
+            cb(null, { fieldName: file.fieldname });
+        },
+        key: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            cb(null, `${uuid_1.v4()}_${ext}`);
+        }
+    })
+}));
 const getVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const videos = yield video_1.default.find();
@@ -27,24 +58,31 @@ const getVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getVideo = getVideo;
 const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // res.status(203).json({"name":"kota"})
-        // const blog = await Video.create(req.body)
+        const { course, chapter } = req.body;
         let body = req.body;
         console.log(body);
-        const video = new video_1.default({
-            title: body.title,
-            description: body.description,
-            content: body.content,
-            createdAt: body.createdAt,
-            authorId: body.authorId,
-            chapterId: body.chapterId,
-            courseId: body.courseId,
-            tags: body.tags
-        });
-        console.log(video);
-        const newBlog = yield video.save();
-        const allBlogs = yield video_1.default.find();
-        res.status(203).json({ message: "new Video as been added ", blog: newBlog, blogs: allBlogs });
+        // console.log(req.files);
+        const uploadVideo = upload(`linkden-learning/newVideos`).array("video");
+        uploadVideo(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+            if (err) {
+                return res.status(400).json({ success: false, message: err.message });
+            }
+            console.log(req.files);
+            // const video:IVideo =new Video({
+            //     title:body.title,
+            //     description:body.description,
+            //     content:req.files.location,
+            //     authorId:body.authorId,
+            //     chapterId:body.chapterId,
+            //     courseId:body.courseId,
+            //     tags:body.tags
+            // })
+            // console.log(video)
+            // const newVideo : IVideo =await video.save();
+            // const allVideos:IVideo[]= await Video.find()
+            // res.status(203).json({message: "new Vide o as been added ", blog: newVideo ,blogs:allVideos})
+            res.status(203).json({ message: "done" });
+        }));
     }
     catch (error) {
         res.end();
@@ -59,7 +97,7 @@ const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const updatedVideo = yield video_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allVideos = yield video_1.default.find();
-        res.status(202).json({ message: "new Video as been added ", blog: updatedVideo, blogs: allVideos });
+        res.status(202).json({ message: "new Video as been added ", video: updatedVideo, videos: allVideos });
         // console.log("new")
     }
     catch (error) {

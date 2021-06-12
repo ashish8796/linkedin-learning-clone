@@ -1,11 +1,11 @@
 import {Document} from 'mongoose';
 
 export default interface IChapter extends Document{
-    title:string;
-    description:string;
+    title:String;
+    description:String;
     content:any;
-    videosId?:Array<string>;
-    courseId:string;
-    authorId:string;
+    videosId?:Array<String>;
+    courseId:String;
+    authorId:String;
     createdAt?:Date;
 }

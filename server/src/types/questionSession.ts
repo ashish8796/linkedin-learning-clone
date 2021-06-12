@@ -1,7 +1,7 @@
 import {Document} from 'mongoose';
 
 export default interface IQuestionSession extends Document{
-    courseId?:string;
+    courseId?:String;
     questions?:any;
-    userId?:string;
+    userId?:String;
 } 
