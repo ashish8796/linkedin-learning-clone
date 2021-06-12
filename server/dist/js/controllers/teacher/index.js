@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.addTeacher = exports.getTeacher = void 0;
 const teacher_1 = __importDefault(require("../../models/teacher"));
+const user_1 = __importDefault(require("../../models/user"));
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const teachers = yield teacher_1.default.find();
+        const teachers = yield user_1.default.find({ "flag": true });
         res.status(200).json({ message: "all the teachers", teachers: teachers });
     }
     catch (error) {

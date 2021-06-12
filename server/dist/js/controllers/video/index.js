@@ -20,8 +20,6 @@ const uuid_1 = require("uuid");
 const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
-// import multer from 'multer';
-// import { isTryStatement } from 'typescript';
 aws_sdk_1.default.config.update({
     credentials: {
         accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "",
