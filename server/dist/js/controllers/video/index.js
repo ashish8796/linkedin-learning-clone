@@ -20,6 +20,7 @@ const uuid_1 = require("uuid");
 const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
+require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
         accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "",
@@ -95,9 +96,7 @@ const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const updatedVideo = yield video_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allVideos = yield video_1.default.find();
-        res
-            .status(202)
-            .json({
+        res.status(202).json({
             message: "new Video as been added ",
             video: updatedVideo,
             videos: allVideos,

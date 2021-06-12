@@ -7,6 +7,7 @@ const path = require("path");
 import IVideo from "../../types/video";
 import Video from "../../models/video";
 import process from "process";
+require("dotenv").config();
 
 AWS.config.update({
   credentials: {
@@ -104,13 +105,11 @@ export const updateVideo = async (
     // res.status(205).json({testing:"testing",blog: updatedBlog})
     const allVideos: IVideo[] = await Video.find();
 
-    res
-      .status(202)
-      .json({
-        message: "new Video as been added ",
-        video: updatedVideo,
-        videos: allVideos,
-      });
+    res.status(202).json({
+      message: "new Video as been added ",
+      video: updatedVideo,
+      videos: allVideos,
+    });
     // console.log("new")
   } catch (error) {
     console.log(error);

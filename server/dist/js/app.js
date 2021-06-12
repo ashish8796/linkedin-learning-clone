@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const bodyParser = require("body-parser");
+require("dotenv").config();
 const app = express_1.default();
 // const fs= require('fs');
 const teachers = require("./utils/data/teachers");
@@ -31,5 +32,9 @@ if (process.env.NODE_ENV == "production") {
 // console.log(file)
 mongoose_1.default
     .connect(URI, options)
-    .then(() => app.listen(PORT, () => console.log(`server lets see hosted on ${PORT}`)));
+    .then(() => app.listen(PORT, () => console.log(`server lets see hosted on ${PORT}`)))
+    .catch((err) => {
+    console.log(process.env.MONGODB_URI, process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY, process.env.NODE_ENV);
+    console.log(err);
+});
 // app.listen(3000,()=>console.log("connected"))

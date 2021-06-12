@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import route from "./routes/index";
 const bodyParser = require("body-parser");
-
+require("dotenv").config();
 const app: Express = express();
 // const fs= require('fs');
 const teachers = require("./utils/data/teachers");
@@ -38,6 +38,15 @@ mongoose
   .connect(URI, options)
   .then(() =>
     app.listen(PORT, () => console.log(`server lets see hosted on ${PORT}`))
-  );
+  )
+  .catch((err) => {
+    console.log(
+      process.env.MONGODB_URI,
+      process.env.AWS_ACCESS_KEY_ID,
+      process.env.AWS_SECRET_ACCESS_KEY,
+      process.env.NODE_ENV
+    );
+    console.log(err);
+  });
 
 // app.listen(3000,()=>console.log("connected"))
