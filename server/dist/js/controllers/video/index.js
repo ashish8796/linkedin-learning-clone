@@ -20,18 +20,19 @@ const uuid_1 = require("uuid");
 const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
+require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
         accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "",
-        secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY || ""
-    }
+        secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY || "",
+    },
 });
 const s3 = new aws_sdk_1.default.S3({
     apiVersion: "2012-10-17",
-    accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID || "AKIAUN3JSCPIUEP5BTB2",
-    secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY || "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"
+    accessKeyId: process_1.default.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process_1.default.env.AWS_SECRET_ACCESS_KEY,
 });
-let upload = (bucketName) => (multer_1.default({
+let upload = (bucketName) => multer_1.default({
     storage: multer_s3_1.default({
         s3: s3,
         bucket: bucketName,
@@ -41,9 +42,9 @@ let upload = (bucketName) => (multer_1.default({
         key: (req, file, cb) => {
             const ext = path.extname(file.originalname);
             cb(null, `${uuid_1.v4()}_${ext}`);
-        }
-    })
-}));
+        },
+    }),
+});
 const getVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const videos = yield video_1.default.find();
@@ -90,12 +91,16 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addVideo = addVideo;
 const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedVideo = yield video_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allVideos = yield video_1.default.find();
-        res.status(202).json({ message: "new Video as been added ", video: updatedVideo, videos: allVideos });
+        res.status(202).json({
+            message: "new Video as been added ",
+            video: updatedVideo,
+            videos: allVideos,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -105,7 +110,7 @@ const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.updateVideo = updateVideo;
 const getVideoId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id } } = req;
+        const { params: { id }, } = req;
         const video = yield video_1.default.findById({ _id: id });
         res.status(202).json({ message: "found", blog: video });
     }
@@ -118,7 +123,9 @@ const deleteVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const delete_video = yield video_1.default.findByIdAndRemove(req.params.id);
         const allVideos = yield video_1.default.find();
-        res.status(200).json({ message: "Video Deleted", blog: delete_video, blogs: allVideos });
+        res
+            .status(200)
+            .json({ message: "Video Deleted", blog: delete_video, blogs: allVideos });
     }
     catch (error) {
         console.log(error);
