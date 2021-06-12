@@ -36,6 +36,7 @@ route.get("/chapters", getChapter);
 // posting the video,Course,student,teacher
 
 route.post("/add-user", addUser);
+route.post("/register", addUser);
 
 route.post("/add-video", addVideo)
 

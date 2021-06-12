@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Container = styled.div`
+export const Container = styled.div`
     width: 25rem;
     background: #fff;
     margin: auto;
@@ -12,15 +12,16 @@ const Container = styled.div`
     margin-top: 20px;
 `;
 
-const Inp = styled.input`
+export const Inp = styled.input`
     border: 1px solid black;
     height: 32px;
     border-radius: 4px;
     margin-top: 5px;
     width: 100%;
+    padding: 0 10px;
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
     display: flex;
     flex-direction: column;
     font-size: 0.85rem;
@@ -38,7 +39,7 @@ const Span = styled.span`
     color: #0a66c2;
 `;
 
-const Btn = styled.button`
+export const Btn = styled.button`
     position: relative;
     background: #0a66c2;
     width: 100%;
@@ -103,7 +104,12 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-export const RegisterInput = () => {
+interface registerInpProps {
+    handleChange: any;
+    handleShowName: any;
+}
+
+export const RegisterInput = ({handleChange, handleShowName}: registerInpProps) => {
 
     const classes = useStyles();
     
@@ -111,16 +117,16 @@ export const RegisterInput = () => {
         <Container>
             <Label>
                 Email or phone number
-                <Inp type="email" />
+                <Inp type="email" onChange={handleChange} name="emailId" />
             </Label>
             <Label>
                 Password (6 or more characters)
-                <Inp type="password" />
+                <Inp type="password" onChange={handleChange} name="password" />
             </Label>
             <Text>
                 By clicking Agree & Join, you agree to the LinkedIn <Span>User Agreement, Privacy Policy,</Span> and <Span>Cookie Policy.</Span>
             </Text>
-            <Btn>Agree & Join</Btn>
+            <Btn onClick={handleShowName} >Agree & Join</Btn>
             <Divider>
                 <DividerSpan></DividerSpan>
                 or
