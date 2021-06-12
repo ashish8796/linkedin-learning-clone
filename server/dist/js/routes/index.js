@@ -22,7 +22,7 @@ route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
 // route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
-route.post("/add-user", user_1.addUser);
+route.post("/register", user_1.addUser);
 route.post("/add-video", index_2.addVideo);
 route.post("/add-course", index_1.addCourse);
 route.post("/add-teacher", teacher_1.addTeacher);

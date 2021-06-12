@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import { RegisterInput } from './RegisterInput';
 import { Footer } from '../../Routes/Footer';
+import { NameInput } from './NameInput';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../store/user/action';
+import Axios from 'axios';
 
 const Container = styled.div`
     position: absolute;
@@ -36,9 +40,48 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
+interface userData {
+    firstName: string;
+    lastName: string;
+    emailId: string;
+    password: string;
+}
+
+const initData: userData = {
+    firstName: '',
+    lastName: '',
+    emailId: '',
+    password: ''
+}
+
+const axios  = Axios.create({
+    baseURL: 'http://localhost:5000/'
+})
+
 export default function Register () {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const [ user, setUser ] = useState<userData>(initData)
+    const [ showName, setShowName ] = useState<boolean>(false);
+
+    const handleShowName: React.MouseEventHandler<HTMLButtonElement> = ()=>{
+        setShowName(true);
+    }
+
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e)=> {
+        const { name, value } = e.target;
+        const payload: userData = {
+            ...user,
+            [name]: value
+        };
+        setUser(payload);
+    };
+
+    const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = ()=>{
+        dispatch(registerUser(user));
+    }
     
     return (
         <Container>
@@ -48,7 +91,12 @@ export default function Register () {
                     <LinkedInIcon className={classes.logo} />
                 </Logo>
                 <Typography className={classes.text}>Make the most of your professional life</Typography>
-                <RegisterInput />
+                {
+                    !showName?
+                    <RegisterInput handleShowName={handleShowName} handleChange={handleChange} />
+                    :
+                    <NameInput handleSubmit={handleSubmit} handleChange={handleChange} />
+                }
             </Box>
             <Footer />
         </Container>
