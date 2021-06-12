@@ -1,6 +1,6 @@
 import React from "react";
 import { SetCurrentTime, SetDuration, SetVideoElem, SetVideoScreenSize } from "../tsTypes";
-import { SET_CURRENT_TIME, SET_DURATION, SET_VIDEO_ELEM, SET_VIDEO_SCREEN_SIZE } from "./actionTypes";
+import { SET_CURRENT_TIME, SET_DURATION, SET_VIDEO_ELEM, SET_VIDEO_SCREEN_SIZE, SET_VIDEO_URL } from "./actionTypes";
 
 export interface CurrentVideoState {
   duration: number;
@@ -35,6 +35,10 @@ function currentVideoReducer(state = initState, { type, payload }: MainAction) {
 
     case SET_VIDEO_SCREEN_SIZE: {
       return { ...state, size: payload }
+    }
+
+    case SET_VIDEO_URL: {
+      return { ...state, videoUrl: payload }
     }
 
     default:

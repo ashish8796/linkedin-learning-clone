@@ -12,6 +12,7 @@ import {
   handleUpdateTime,
   playPauseVideo,
 } from "./PlayerHelperFunction";
+import VideoLoader from "./VideoLoader";
 
 interface IChapterPlayerProps {
   videoUrl: string;
@@ -24,6 +25,7 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const dispatch = useDispatch();
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
+  const [isVideoLoading, setIsVideoLoading] = useState<boolean>(true);
   const [isControlsVisible, setIsControlsVisible] = useState<boolean>(false);
   const timeOutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -34,23 +36,18 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   const handleMouseOver: React.MouseEventHandler<any> = (e): void => {
     const target = e.target as HTMLVideoElement | HTMLDivElement;
 
-    console.log("MouseOver called");
-
     if (target.id === "custom-controls") {
       setIsControlsVisible(true);
     }
   };
 
   const handleMouseLeave = (): void => {
-    console.log("MouseLeave called");
-
     setTimeout(() => {
       !videoRef.current?.paused && setIsControlsVisible(false);
     }, 3000);
   };
 
   const handleMouseMove: React.MouseEventHandler<HTMLVideoElement> = (e) => {
-    console.log("MouseMove called");
     const target = e.target as HTMLVideoElement;
 
     if (document.fullscreenElement) {
@@ -76,14 +73,22 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
   useEffect(() => {
     playPauseVideo({ videoRef, dispatch });
     dispatch(setVideoElem(videoRef));
+
     return () => {};
   }, []);
 
   return (
     <PlayerWrapper>
+      {isVideoLoading && <VideoLoader />}
       <PlayerBox ref={videoWrapperRef}>
         <VideoWrapper onClick={handleClickOnVideo} size={size}>
           <VideoElem
+            onPlaying={(e) => {
+              setIsVideoLoading(false);
+            }}
+            onWaiting={(e) => {
+              setIsVideoLoading(true);
+            }}
             onMouseMove={handleMouseMove}
             id="chapter-video"
             ref={videoRef}
@@ -96,6 +101,8 @@ export default function ChapterPlayer({ videoUrl }: IChapterPlayerProps) {
                 target,
                 dispatch,
               });
+
+              setIsVideoLoading(false);
             }}
             onTimeUpdate={(e) => {
               const target = e.target as HTMLVideoElement;
@@ -136,6 +143,7 @@ const PlayerWrapper = styled.div`
   /* border: 1px solid red; */
   padding-bottom: 10px;
   margin-top: 4.1rem;
+  position: relative;
 `;
 
 const PlayerBox = styled.div`

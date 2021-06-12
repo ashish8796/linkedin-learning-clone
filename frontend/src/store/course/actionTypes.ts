@@ -1,0 +1,1 @@
+export const SET_COURSE: string = "SET_COURSE";

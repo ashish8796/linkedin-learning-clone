@@ -35,4 +35,5 @@ export const seedTeachers = async () => {
     process.exit();
   }
 };
+
 // seedTeachers();
