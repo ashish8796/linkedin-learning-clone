@@ -32,7 +32,7 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             lastName: body.lastName,
             qualification: body.qualification || [],
             savedCourseId: body.savedCourseId || [],
-            interest: body.interests || [],
+            interests: body.interests || [],
             flag: body.flag,
             emailId: body.emailId,
             password: body.password,
@@ -41,7 +41,13 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         let newStudent = yield new_student.save();
         let allStudents = yield user_1.default.find();
-        res.status(202).json({ message: "the user is added", user: newStudent, allStudents: allStudents });
+        res
+            .status(202)
+            .json({
+            message: "the user is added",
+            user: newStudent,
+            allStudents: allStudents,
+        });
     }
     catch (error) {
         res.end();
@@ -51,12 +57,18 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addUser = addUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedStudent = yield user_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allStudents = yield user_1.default.find();
-        res.status(202).json({ message: "new user as been added ", user: updatedStudent, teachers: allStudents });
+        res
+            .status(202)
+            .json({
+            message: "new user as been added ",
+            user: updatedStudent,
+            teachers: allStudents,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -66,7 +78,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.updateUser = updateUser;
 const getUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id } } = req;
+        const { params: { id }, } = req;
         const students = yield user_1.default.findById({ _id: id });
         res.status(202).json({ message: "found", user: students });
     }
@@ -79,7 +91,13 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const delete_student = yield user_1.default.findByIdAndRemove(req.params.id);
         const allStudents = yield user_1.default.find();
-        res.status(200).json({ message: "user Deleted", user: delete_student, teachers: allStudents });
+        res
+            .status(200)
+            .json({
+            message: "user Deleted",
+            user: delete_student,
+            teachers: allStudents,
+        });
     }
     catch (error) {
         console.log(error);

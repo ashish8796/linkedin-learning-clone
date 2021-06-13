@@ -1,23 +1,39 @@
 import IQuestionSession from "../types/questionSession";
-import {Schema,model} from 'mongoose';
+import { Schema, model } from "mongoose";
 
-const questionSessionSchema:Schema = new Schema ({
-    courseId:{
-        type:Schema.Types.ObjectId,
-        ref:"course",
-        required:[true,"course Id"]
+// _id
+const questionSessionSchema: Schema = new Schema(
+  {
+    courseId: {
+      type: Schema.Types.ObjectId,
+      ref: "course",
+      required: [true, "course Id"],
     },
-    questions:{
-        type:String
+    question: {
+      type: String,
     },
-    userId:{
-        type:Schema.Types.ObjectId,
-        ref:"user",
-        required:[true,"user Id is needed"]
-    }
-},{
-    timestamps: true
-})
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: [true, "user Id is needed"],
+    },
+    answers: [
+      {
+        answer: {
+          type: Schema.Types.ObjectId,
+          ref: "answerBox",
+        },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default model<IQuestionSession>("questionSession",questionSessionSchema)
+export default model<IQuestionSession>(
+  "questionSession",
+  questionSessionSchema
+);
 
+// ["mvenevv","vaemvnoenv","vmoienv"]

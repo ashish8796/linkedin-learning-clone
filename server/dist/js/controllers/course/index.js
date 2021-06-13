@@ -14,11 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourse = void 0;
 const course_1 = __importDefault(require("../../models/course"));
-// import { isTryStatement } from 'typescript';
+const answerBox_1 = __importDefault(require("../../models/answerBox"));
 const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const courses = yield course_1.default.find();
-        res.status(202).json({ courses });
+        yield res.status(202).json({ courses: courses });
     }
     catch (error) {
         console.log(error);
@@ -46,7 +46,22 @@ const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(course_1.default);
         const newCourse = yield new_course.save();
         const allCourses = yield course_1.default.find();
-        res.status(203).json({ message: "new course as been added ", course: newCourse, courses: allCourses });
+        // let CommentBox: any = [];
+        // allCourses.map((course) => {
+        //   let { _id } = course;
+        //   CommentBox.push(
+        //     answerBox
+        //       .find({ courseId: _id })
+        //       .populate("questionId")
+        //       .populate("userId")
+        //   );
+        // });
+        res.status(203).json({
+            message: "new course as been added ",
+            course: newCourse,
+            courses: allCourses,
+            //   CommentBox: CommentBox,
+        });
     }
     catch (error) {
         res.end();
@@ -56,12 +71,16 @@ const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addCourse = addCourse;
 const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedCourse = yield course_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allCourses = yield course_1.default.find();
-        res.status(202).json({ message: "new course as been added ", blog: updatedCourse, blogs: allCourses });
+        res.status(202).json({
+            message: "new course as been added ",
+            blog: updatedCourse,
+            blogs: allCourses,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -71,12 +90,16 @@ const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.updateCourse = updateCourse;
 const updateQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedQuestion = yield course_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allCourses = yield course_1.default.find();
-        res.status(202).json({ message: "new question as been added ", blog: updatedQuestion, blogs: allCourses });
+        res.status(202).json({
+            message: "new question as been added ",
+            blog: updatedQuestion,
+            blogs: allCourses,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -86,11 +109,19 @@ const updateQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.updateQuestion = updateQuestion;
 const getCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id } } = req;
+        const { params: { id }, } = req;
         const courses = yield course_1.default.findById({ _id: id });
-        res.status(202).json({ message: "found", blog: courses });
+        // let CommentBox: any = [];
+        // // allCourses.map((course) => {
+        // //   let { _id } = course;
+        // CommentBox.push(
+        //   answerBox.find({ courseId: id }).populate("questionId").populate("userId")
+        // );
+        // });
+        res.status(200).json({ message: "found", course: courses });
     }
     catch (error) {
+        res.end();
         console.log(error);
     }
 });
@@ -99,10 +130,27 @@ const deleteCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const delete_course = yield course_1.default.findByIdAndRemove(req.params.id);
         const allCourses = yield course_1.default.find();
-        res.status(200).json({ message: "course Deleted", blog: delete_course, blogs: allCourses });
+        res.status(200).json({
+            message: "course Deleted",
+            blog: delete_course,
+            blogs: allCourses,
+        });
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.deleteCourse = deleteCourse;
+const getComments = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let data = yield answerBox_1.default
+            .find({ courseId: id })
+            .populate("questionId")
+            .populate("userId");
+        console.log(data);
+        return yield data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});

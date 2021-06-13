@@ -1,1 +1,8 @@
-[{}]
+[
+  {
+    "title": "React along with Redux",
+    "authorId": "60c4ce5101636b1b6cf6e8f4",
+    "description": "This course is about React frontend development including Redux and Thunk library.",
+    "tags": ["React", "Redux", "JavaScript"]
+  }
+]
