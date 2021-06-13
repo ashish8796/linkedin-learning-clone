@@ -9,9 +9,11 @@ const index_3 = require("../controllers/student/index");
 const index_4 = require("../controllers/chapter/index");
 const user_1 = require("../controllers/user");
 const Index_1 = require("../controllers/utils/Index");
+const login_1 = require("../controllers/login");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
+function fn() { }
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
 route.get("/videos", index_2.getVideo);
@@ -20,8 +22,9 @@ route.get('/students', index_3.getStudent);
 route.get("/check-mail", Index_1.checkMailId);
 route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
-// route.get("/getAll",seedTeachers)
+// route.get("/getAll",seedTeachers);
 // posting the video,Course,student,teacher
+route.post("/add-user", user_1.addUser);
 route.post("/register", user_1.addUser);
 route.post("/add-video", index_2.addVideo);
 route.post("/add-course", index_1.addCourse);
@@ -51,4 +54,6 @@ route.delete("/delete-teacher/:id", teacher_1.deleteTeacher);
 route.delete('/delete-chapter', index_4.deleteChapter);
 // the data of seeding
 route.get("/seeding-data", seeder_1.seedTeachers);
+// login
+route.post('/login', login_1.loginUser);
 exports.default = route;

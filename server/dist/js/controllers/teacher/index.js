@@ -35,7 +35,8 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             DOB: body.DOB,
             specializations: body.specializations,
             description: body.description,
-            Image: body.Image
+            Image: body.Image,
+            linkedInProfile: body.linkedInProfile
         });
         let newTeacher = yield new_teacher.save();
         let allTeachers = yield teacher_1.default.find();
