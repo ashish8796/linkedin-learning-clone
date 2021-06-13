@@ -9,6 +9,7 @@ import SignIn from "../Pages/SignInPage";
 // import { PageNotFound } from "./PageNotFound";
 import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
+import InstructorRegister from "./../Pages/BecomeInstructor";
 
 export default function Routes() {
   return (
@@ -34,7 +35,9 @@ export default function Routes() {
           <Register />
         </Route>
 
-        <Route path="/become-instructor" exact></Route>
+        <Route path="/become-instructor" exact>
+          <InstructorRegister />
+        </Route>
         <Route>
           <PageNotFound />
         </Route>

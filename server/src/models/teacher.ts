@@ -19,6 +19,9 @@ const teacherSchema: Schema = new Schema({
         ref: "users",
         required: [true, "uniqueId needed"]
     },
+    linkedInProfile: {
+        type: String
+    }
 }, {
     timestamps: true
 })
