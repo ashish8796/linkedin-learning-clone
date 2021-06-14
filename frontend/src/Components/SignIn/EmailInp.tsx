@@ -14,18 +14,18 @@ const Join = styled.p`
 
 interface emailProps {
     handleChange: any;
-    email: string;
+    emailId: string;
     handleContinue: any;
 }
 
-export const EmailInp = ({handleChange, email, handleContinue}: emailProps) => {
+export const EmailInp = ({handleChange, emailId, handleContinue}: emailProps) => {
     
     return (
         <div>
             <div className="form-floating mb-3">
                 <Input
                     required
-                    name="email"
+                    name="emailId"
                     className="form-control"
                     type="email"
                     placeholder="Email"
@@ -35,7 +35,7 @@ export const EmailInp = ({handleChange, email, handleContinue}: emailProps) => {
             <Btn 
                 type="button" 
                 className="btn btn-primary" 
-                disabled={email.length < 1}
+                disabled={emailId.length < 1}
                 onClick={handleContinue}>
                     Continue
             </Btn>

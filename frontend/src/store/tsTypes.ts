@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { ICourseState } from "./course/courseReducer"
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer"
 import { PlayerState } from "./player/playerReducer"
