@@ -48,7 +48,7 @@ const userSchema: Schema = new Schema(
   }
 );
 
-export default model<IUser>("user", userSchema);
+// export default model<IUser>("user", userSchema);
 
 let secret = process.env.SECRET;
 

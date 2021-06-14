@@ -43,13 +43,11 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       });
       let newStudent: IUser = await new_student.save();
       let allStudents: IUser[] = await user.find();
-      res
-        .status(202)
-        .json({
-          message: "the user is added",
-          user: newStudent,
-          allStudents: allStudents,
-        });
+      res.status(202).json({
+        message: "the user is added",
+        user: newStudent,
+        allStudents: allStudents,
+      });
     }
     res.status(203).json({ message: "user already exists" });
   } catch (error) {
