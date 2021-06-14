@@ -92,7 +92,17 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         textAlign: 'center',
         padding: theme.spacing(0, 1),
-        lineHeight: '12px'
+        lineHeight: '12px',
+        margin: 0
+    },
+    userImgBox: {
+        border: '1px solid red',
+        height: '22px',
+        width: '22px'
+    },
+    title: {
+        position: 'absolute',
+        top: theme.spacing(4)
     }
 }));
 
@@ -121,16 +131,16 @@ export const AuthNavbar = () => {
                 <Box className= {classes.TSBtns}>
                     <Box className={classes.afterLoginIcons}>
                         <LanguageOutlinedIcon />
-                        <Box>
+                        <Box className={classes.title}>
                             EN
                             <ArrowDropDownIcon />
                         </Box>
                     </Box>
                     <Box className={classes.afterLoginIcons}>
-                        <Box>
+                        <Box className={classes.userImgBox}>
 
                         </Box>
-                        <Box>
+                        <Box className={classes.title}>
                             Me
                             <ArrowDropDownIcon />
                         </Box>
