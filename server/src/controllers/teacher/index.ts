@@ -2,6 +2,12 @@ import { Request, Response } from "express";
 import ITeacher from "../../types/teacher";
 import teacher from "../../models/teacher"
 import user from '../../models/user'
+import { uploadProfilePic } from "../utils/storeDataInAws";
+import { Multer } from "multer";
+
+const storeTeacherImage = () => {
+
+}
 
 export const getTeacher = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -11,19 +17,26 @@ export const getTeacher = async (req: Request, res: Response): Promise<void> => 
         console.log(error)
     }
 }
+interface MulterRequest extends Request {
+    file: Express.MulterS3.File
+}
 
-export const addTeacher = async (req: Request, res: Response): Promise<void> => {
+export const addTeacher = async (req: MulterRequest, res: Response): Promise<void> => {
+
     try {
-        let body = req.body as Pick<ITeacher, "firstName" | "lastName" | "qualification" | "description" | "DOB" | "specializations" | "Image" | "linkedInProfile">;
+        let body = req.body as Pick<ITeacher, "qualification" | "description" | "DOB" | "specializations" | "image" | "linkedInProfile" | "uniqueId">;
+
+        console.log(body);
+        console.log(req.file)
+
         const new_teacher: ITeacher = new teacher({
-            firstName: body.firstName,
-            lastName: body.lastName,
             qualification: body.qualification,
             DOB: body.DOB,
             specializations: body.specializations,
             description: body.description,
-            Image: body.Image,
-            linkedInProfile: body.linkedInProfile
+            image: req.file.location,
+            linkedInProfile: body.linkedInProfile,
+            uniqueId: body.uniqueId
         })
 
         let newTeacher: ITeacher = await new_teacher.save();

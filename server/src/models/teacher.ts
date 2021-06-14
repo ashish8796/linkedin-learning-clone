@@ -5,6 +5,9 @@ const teacherSchema: Schema = new Schema({
     qualification: {
         type: [String],
     },
+    image: {
+        type: String
+    },
     description: {
         type: String
     },
@@ -24,6 +27,8 @@ const teacherSchema: Schema = new Schema({
     }
 }, {
     timestamps: true
+    ,
+    versionKey: false,
 })
 
 export default model<ITeacher>("teacher", teacherSchema)

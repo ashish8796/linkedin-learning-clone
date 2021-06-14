@@ -7,6 +7,7 @@ import { getStudent, addStudent, updateStudent, deleteStudent, getStudentId } fr
 import { getChapter, addChapter, updateChapter, deleteChapter, getChapterId } from "../controllers/chapter/index";
 import { addUser, deleteUser, getUser, getUserId, updateUser } from '../controllers/user';
 import { checkMailId } from '../controllers/utils/Index';
+import { uploadProfilePic } from '../controllers/utils/storeDataInAws';
 const path = require("path");
 
 
@@ -42,7 +43,7 @@ route.post("/add-video", addVideo)
 
 route.post("/add-course", addCourse)
 
-route.post("/add-teacher", addTeacher)
+route.post("/add-teacher", uploadProfilePic("linkden-learning/profile-pics").single('image'), addTeacher)
 
 route.post("/add-student", addStudent)
 

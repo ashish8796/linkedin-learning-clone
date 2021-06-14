@@ -5,6 +5,9 @@ const teacherSchema = new mongoose_1.Schema({
     qualification: {
         type: [String],
     },
+    image: {
+        type: String
+    },
     description: {
         type: String
     },
@@ -19,7 +22,11 @@ const teacherSchema = new mongoose_1.Schema({
         ref: "users",
         required: [true, "uniqueId needed"]
     },
+    linkedInProfile: {
+        type: String
+    }
 }, {
-    timestamps: true
+    timestamps: true,
+    versionKey: false,
 });
 exports.default = mongoose_1.model("teacher", teacherSchema);

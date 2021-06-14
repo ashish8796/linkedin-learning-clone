@@ -9,9 +9,11 @@ const index_3 = require("../controllers/student/index");
 const index_4 = require("../controllers/chapter/index");
 const user_1 = require("../controllers/user");
 const Index_1 = require("../controllers/utils/Index");
+const storeDataInAws_1 = require("../controllers/utils/storeDataInAws");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
+function fn() { }
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
 route.get("/videos", index_2.getVideo);
@@ -22,10 +24,11 @@ route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
 // route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
+route.post("/add-user", user_1.addUser);
 route.post("/register", user_1.addUser);
 route.post("/add-video", index_2.addVideo);
 route.post("/add-course", index_1.addCourse);
-route.post("/add-teacher", teacher_1.addTeacher);
+route.post("/add-teacher", storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single('image'), teacher_1.addTeacher);
 route.post("/add-student", index_3.addStudent);
 route.post("/add-chapter", index_4.addChapter);
 // get them by Id
