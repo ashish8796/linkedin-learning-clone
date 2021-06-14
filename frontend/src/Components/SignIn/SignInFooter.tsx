@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Container = styled.div`
     position: relative;

@@ -19,6 +19,9 @@ const teacherSchema = new mongoose_1.Schema({
         ref: "user",
         required: [true, "uniqueId needed"],
     },
+    linkedInProfile: {
+        type: String
+    }
 }, {
     timestamps: true,
 });

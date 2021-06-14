@@ -12,21 +12,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkMailId = void 0;
+exports.checkPassword = exports.checkMailId = void 0;
 const user_1 = __importDefault(require("../../models/user"));
-const checkMailId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const checkMailId = (mail) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { mail } = req.body;
         const data = yield user_1.default.find({ emailId: mail });
         if (data.length == 0) {
-            res.status(200).send({ message: "user doesn't exist" });
+            return false;
         }
-        res.status(203).send({ message: "user exist" });
-        res.end();
+        return true;
     }
     catch (err) {
         console.log(err);
-        res.end();
     }
 });
 exports.checkMailId = checkMailId;
+const checkPassword = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userData = yield user_1.default.findOne({ emailId: email });
+        if (userData && userData.password === password) {
+            return true;
+        }
+        return false;
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.checkPassword = checkPassword;

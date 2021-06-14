@@ -43,16 +43,13 @@ import {
   updateUser,
 } from "../controllers/user";
 import { checkMailId } from "../controllers/utils/Index";
-import { addQuestion } from "../controllers/question";
-import {
-  addAnswer,
-  getAnswersToCourse,
-  getAnswersToQuestion,
-} from "../controllers/answer";
+import { loginUser } from "../controllers/login";
 const path = require("path");
 
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
+
+function fn() {}
 
 // getting all the videos, Courses, student, teacher
 
@@ -70,10 +67,11 @@ route.get("/teachers", getTeacher);
 
 route.get("/chapters", getChapter);
 
-// route.get("/getAll",seedTeachers)
+// route.get("/getAll",seedTeachers);
 // posting the video,Course,student,teacher
 
 route.post("/add-user", addUser);
+route.post("/register", addUser);
 
 route.post("/add-video", addVideo);
 
@@ -84,10 +82,6 @@ route.post("/add-teacher", addTeacher);
 route.post("/add-student", addStudent);
 
 route.post("/add-chapter", addChapter);
-
-route.post("/add-question", addQuestion);
-
-route.post("/add-answer", addAnswer);
 // get them by Id
 
 route.get("/get-user/:id", getUserId);
@@ -101,10 +95,6 @@ route.get("/get-student/:id", getStudentId);
 route.get("/get-teacher/:id", getTeacherId);
 
 route.get("/get-chapter/:id", getChapterId);
-
-route.get("/answerToCourse", getAnswersToCourse);
-
-route.get("/answerToQuestion", getAnswersToQuestion);
 
 // update the details
 
@@ -135,5 +125,9 @@ route.delete("/delete-chapter", deleteChapter);
 
 // the data of seeding
 route.get("/seeding-data", seedTeachers);
+
+// login
+
+route.post("/login", loginUser);
 
 export default route;

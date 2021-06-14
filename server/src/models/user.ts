@@ -1,5 +1,6 @@
 import IUser from "../types/user";
 import { Schema, model } from "mongoose";
+const encrypt = require("mongoose-encryption");
 
 const userSchema: Schema = new Schema(
   {
@@ -49,4 +50,8 @@ const userSchema: Schema = new Schema(
 
 export default model<IUser>("user", userSchema);
 
-// 60c4d25e2c441c43e4cc5b94
+let secret = process.env.SECRET;
+
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
+
+export default model<IUser>("user", userSchema);

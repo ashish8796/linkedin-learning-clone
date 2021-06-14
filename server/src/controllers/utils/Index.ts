@@ -1,21 +1,27 @@
 import user from "../../models/user";
-import express from "express";
 
-export const checkMailId = async (
-  req: express.Request,
-  res: express.Response
-): Promise<void> => {
-  try {
-    const { mail } = req.body;
-    const data = await user.find({ emailId: mail });
+export const checkMailId = async (mail: string) => {
+    try {
+        const data = await user.find({ emailId: mail });
 
-    if (data.length == 0) {
-      res.status(200).send({ message: "user doesn't exist" });
+        if (data.length == 0) {
+          return false;
+        }
+        return true;
+    } catch (err) {
+        console.log(err);
     }
-    res.status(203).send({ message: "user exist" });
-    res.end();
-  } catch (err) {
-    console.log(err);
-    res.end();
-  }
 };
+
+export const checkPassword = async (email: String, password: String)=>{
+    try {
+        const userData = await user.findOne({emailId: email});
+        if(userData && userData.password === password){
+            return true;
+        }
+        return false;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

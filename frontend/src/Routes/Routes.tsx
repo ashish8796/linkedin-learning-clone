@@ -9,35 +9,40 @@ import SignIn from "../Pages/SignInPage";
 // import { PageNotFound } from "./PageNotFound";
 import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
+import InstructorRegister from "./../Pages/BecomeInstructor";
 
 export default function Routes() {
-    return (
-        <div>
-            <Navbar />
-            <Switch>
-                <Route path='/' exact>
-                    <Home />
-                </Route>
-                <Route path="/learning" exact>
-                  <Learning />
-                </Route>
-                <Route path="/learning-login" exact>
-                    <SignIn />
-                </Route>
-                <Route path="/uploading-video" exact>
-                    <VideoUploaded />
-                </Route>
-                <Route path="/add-video">
-                    <PageNotFound />
-                    </Route>
-                <Route path="/signup" exact>
-                    <Register />
-                </Route>
-                <Route>
-                    <PageNotFound />
-                </Route>
-            </Switch>
-            <Footer />
-        </div>
-    );
+  return (
+    <div>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/learning" exact>
+          <Learning />
+        </Route>
+        <Route path="/learning-login" exact>
+          <SignIn />
+        </Route>
+        <Route path="/uploading-video" exact>
+          <VideoUploaded />
+        </Route>
+        <Route path="/add-video">
+          <PageNotFound />
+        </Route>
+        <Route path="/signup" exact>
+          <Register />
+        </Route>
+
+        <Route path="/become-instructor" exact>
+          <InstructorRegister />
+        </Route>
+        <Route>
+          <PageNotFound />
+        </Route>
+      </Switch>
+      <Footer />
+    </div>
+  );
 }

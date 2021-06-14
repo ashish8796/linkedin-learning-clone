@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { EmailInp } from './EmailInp';
 import { PasswordInp } from './PasswordInp';
-import { formData } from './SignIn';
+import { ILogin } from './SignIn';
 
 const Container = styled.div`
     position: relative;
@@ -40,12 +40,13 @@ export const InputLabel = styled.label`
 
 interface signInInputProps {
     handleContinue: any;
-    show: boolean;
     handleChange: any;
-    data: formData;
+    handleSubmit: any;
+    show: boolean;
+    data: ILogin;
 }
 
-export const SignInInput = ({handleContinue, show, handleChange, data}: signInInputProps) => {
+export const SignInInput = ({ handleContinue, show, handleChange, data, handleSubmit }: signInInputProps) => {
 
     return (
         <Container>
@@ -58,7 +59,8 @@ export const SignInInput = ({handleContinue, show, handleChange, data}: signInIn
             {
                 show && <PasswordInp
                                 {...data}
-                                handleChange={handleChange} />
+                                handleChange={handleChange}
+                                handleSubmit={handleSubmit} />
             }
         </Container>
     )

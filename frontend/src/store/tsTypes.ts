@@ -1,10 +1,12 @@
-import React from "react"
+import React from "react";
+import { ICourseState } from "./course/courseReducer"
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer"
 import { PlayerState } from "./player/playerReducer"
 
 export type State = {
   player: PlayerState;
   currentVideo: CurrentVideoState
+  course: ICourseState;
 }
 
 export type SetPlayerStatus = {
@@ -31,6 +33,16 @@ export type SetVideoElem = {
 }
 
 export type SetVideoScreenSize = {
+  type: string;
+  payload: string;
+}
+
+export type SetVideoUrl = {
+  type: string;
+  payload: string;
+}
+
+export type SetCourse = {
   type: string;
   payload: string;
 }
