@@ -4,7 +4,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
+import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 
 const LearnBtn = styled.button`
     display: flex;
@@ -19,47 +22,6 @@ const LearnBtn = styled.button`
     margin-right: 10px;
     border-radius: 5px 0 0 5px;
     background: inherit;
-`;
-
-const TrialBtn = styled.button`
-    position: relative;
-    width: 121px;
-    height: 40px;
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    margin-left: 30px;
-    background: none;
-    padding: 0 12px;
-    color: #766684;
-    
-    &:hover {
-        broder-radius: 5px;
-        background: #ebebeb;
-        cursor: pointer;
-        color: black;
-    }
-`;
-
-const SignInBtn = styled.button`
-    position: relative;
-    height: 40px;
-    min-width: 100px;
-    font-size: 1rem;
-    color: #0073b1;
-    border: 1px solid #0073b1;
-    outline: none;
-    background: #fff;
-    border-radius: 20px; 
-    font-weight: 600;
-    padding: 0 24px;
-    margin-left: 30px;
-
-    &:hover {
-        border: 3px solid #0073b1;
-        cursor: pointer;
-        background: #eaf4fe;
-    }
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -92,19 +54,19 @@ const useStyles = makeStyles((theme) => ({
     },
     learnTxt: {
         fontSize: '1rem',
-        fontWeight: 500,
+        fontWeight: 600,
         marginTop: '5px'
     },
     search: {
         borderRadius: '5px',
         backgroundColor: '#ebeff1',
-        width: '57%',
-        height: '40px',
+        width: '30%',
+        height: '35px',
         display: 'flex',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        padding: theme.spacing(0, 1)
     },
     searchIcon: {
-        padding: theme.spacing(0, 1),
         position: 'relative',
         color: '#94a2ac',
         height: '100%',
@@ -112,14 +74,29 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderLeft: '1px solid #94a2ac'
+        paddingRight: theme.spacing(1)
     },
     TSBtns: {
-        display: 'flex'
+        display: 'flex',
+        color: '#000',
+        fontWeight: 400,
+        flexGrow: 2,
+        flexDirection: 'row-reverse',
+        fontSize: '0.7rem',
+        alignItems: 'center'
+    },
+    afterLoginIcons: {
+        display: 'flex',
+        height: '2.5rem',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        padding: theme.spacing(0, 1),
+        lineHeight: '12px'
     }
 }));
 
-export const Navbar = () => {
+export const AuthNavbar = () => {
     const classes = useStyles();
 
   return (
@@ -133,18 +110,41 @@ export const Navbar = () => {
                     </Typography>
                 </Box>
                 <Box className={classes.search}>
-                    <LearnBtn>Learning <ArrowDropDownIcon /></LearnBtn>
+                    <div className={classes.searchIcon}>
+                        <SearchIcon />
+                    </div>
                     <InputBase
                         placeholder="Search skills, subjects or software"
                         fullWidth
                     />
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
                 </Box>
                 <Box className= {classes.TSBtns}>
-                    <TrialBtn>Start free trial</TrialBtn>
-                    <Link to="/learning-login"><SignInBtn>Sign in</SignInBtn></Link>
+                    <Box className={classes.afterLoginIcons}>
+                        <LanguageOutlinedIcon />
+                        <Box>
+                            EN
+                            <ArrowDropDownIcon />
+                        </Box>
+                    </Box>
+                    <Box className={classes.afterLoginIcons}>
+                        <Box>
+
+                        </Box>
+                        <Box>
+                            Me
+                            <ArrowDropDownIcon />
+                        </Box>
+                    </Box>
+                    <Box className={classes.afterLoginIcons}>
+                        <ImportContactsOutlinedIcon />
+                        My Learning
+                    </Box>
+                    <NavLink to="/">
+                        <Box className={classes.afterLoginIcons}>
+                            <HomeOutlinedIcon />
+                            Home
+                        </Box>
+                    </NavLink>
                 </Box>
             </Toolbar>
         </AppBar>

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SignInInput } from './SignInInput';
 import { SignInFooter } from './SignInFooter';
 import { loginUser } from '../../store/user/action';
+import { State } from '../../store/tsTypes';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
     position: absolute;
@@ -88,6 +90,8 @@ export default function SignIn () {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+    const isAuth = useSelector((state: State)=> state.user.isAuth);
     
     const [data, setData] = useState<ILogin>(initData);
     
@@ -112,7 +116,11 @@ export default function SignIn () {
     }
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = ()=>{
-        dispatch(loginUser(data))
+        dispatch(loginUser(data));
+    }
+
+    if(isAuth){
+        history.push('/');
     }
     
     return (
