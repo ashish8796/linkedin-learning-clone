@@ -17,7 +17,7 @@ const teacher_1 = __importDefault(require("../../models/teacher"));
 const user_1 = __importDefault(require("../../models/user"));
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const teachers = yield user_1.default.find({ flag: true });
+        const teachers = yield user_1.default.find({ "flag": true });
         res.status(200).json({ message: "all the teachers", teachers: teachers });
     }
     catch (error) {
@@ -28,16 +28,16 @@ exports.getTeacher = getTeacher;
 const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let body = req.body;
+        console.log(body);
+        console.log(req.file);
         const new_teacher = new teacher_1.default({
-            firstName: body.firstName,
-            lastName: body.lastName,
             qualification: body.qualification,
             DOB: body.DOB,
             specializations: body.specializations,
             description: body.description,
-            Image: body.Image,
+            image: req.file.location,
             linkedInProfile: body.linkedInProfile,
-            uniqueId: body.uniqueId,
+            uniqueId: body.uniqueId
         });
         let newTeacher = yield new_teacher.save();
         let allTeachers = yield teacher_1.default.find();

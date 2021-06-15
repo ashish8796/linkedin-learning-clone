@@ -15,11 +15,13 @@ AWS.config.update({
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
     },
 });
+
 const s3 = new AWS.S3({
     apiVersion: "2012-10-17",
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
+
 let upload = (bucketName: any) =>
     multer({
         storage: multerS3({
@@ -35,6 +37,7 @@ let upload = (bucketName: any) =>
         }),
     });
 
+
 export const getVideo = async (req: Request, res: Response): Promise<void> => {
     try {
         const videos: IVideo[] = await Video.find();
@@ -47,6 +50,7 @@ export const getVideo = async (req: Request, res: Response): Promise<void> => {
 export const addVideo = async (req: Request, res: Response): Promise<void> => {
     try {
         const { course, chapter } = req.body;
+
         let body = req.body as Pick<
             IVideo,
             | "title"
