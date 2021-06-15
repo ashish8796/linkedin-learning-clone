@@ -6,11 +6,11 @@ const mongoose_1 = require("mongoose");
 const courseSchema = new mongoose_1.Schema({
     title: {
         type: String,
-        required: [true, "Please Enter title"]
+        required: [true, "Please Enter title"],
     },
     description: {
         type: String,
-        required: [true, "enter description"]
+        required: [true, "enter description"],
     },
     tags: {
         type: Array,
@@ -18,32 +18,32 @@ const courseSchema = new mongoose_1.Schema({
     authorId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "teacher",
-        required: [true, "enter Teacher/ Author Id"]
+        required: [true, "enter Teacher/ Author Id"],
     },
     Image: [
         {
             url: {
                 type: String,
-                required: [true, "need the url"]
             },
             alt: {
                 type: String,
-            }
-        }
+            },
+        },
     ],
     blogId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "blog"
+        ref: "blog",
     },
     questionBlog: [
         {
             question: {
                 type: mongoose_1.Schema.Types.ObjectId,
-                ref: "questionSession"
-            }
-        }
-    ]
+                ref: "questionSession",
+            },
+        },
+    ],
 }, {
-    timestamps: true
+    timestamps: true,
 });
 exports.default = mongoose_1.model("course", courseSchema);
+// ["vajnionvtvnoitnv","vm ndionov","vonitviiolw"]

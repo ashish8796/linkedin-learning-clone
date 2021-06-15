@@ -1,0 +1,105 @@
+[
+  {
+    "firstName": "Kota Sai Krishna",
+    "lastName": "Reddy",
+    "startOfProgram": "2021-11-11",
+    "interests": ["React", "JavaScript", "Node.js"],
+    "savedCourseId": ["data", "new data"],
+    "emailId": "kota@gmail.com",
+    "password": "kotakota",
+    "flag": true
+  },
+  {
+    "firstName": "Asish",
+    "lastName": "Kumar",
+    "startOfProgram": "2021-10-11",
+    "interests": ["MongoDb", "WebGl"],
+    "emailId": "ashish@gmail.com",
+    "password": "ashish",
+    "flag": true
+  },
+  {
+    "firstName": "Karthik",
+    "lastName": "Yadav",
+    "startOfProgram": "2021-09-11",
+    "interests": ["MongoDb", "Angular", "Node.js"],
+    "emailId": "karthik@gmail.com",
+    "password": "karthik",
+    "flag": true
+  },
+  {
+    "firstName": "Student1",
+    "lastName": "Good",
+    "startOfProgram": "2021-03-11",
+    "interests": ["MongoDb", "WebGl"],
+    "emailId": "student1@gmail.com",
+    "password": "student1",
+    "flag": false
+  },
+  {
+    "firstName": "Student2",
+    "lastName": " Bad",
+    "startOfProgram": "2021-01-01",
+    "interests": ["MongoDb", "GraphQl", "Node.js"],
+    "emailId": "student2@gmail.com",
+    "password": "student2",
+    "flag": false
+  },
+  {
+    "firstName": "Steven",
+    "lastName": "Emmerich",
+    "emailId": "stevenEmmrich@gmail.com",
+    "startOfProgram": "",
+    "password": "steven",
+    "flag": true,
+    "interests": ["Big Data Analytics"],
+    "Image": [
+      {
+        "url": "https://media-exp1.licdn.com/dms/image/C560DAQE3_-30mnSqBw/learning-author-crop_200_200/0/1576190985878?e=1622822400&v=beta&t=qKBN6KrGbGz34FFUQI71C-s_lEInTT06kuws1jG3eRU",
+        "alt": "Profile Image"
+      }
+    ]
+  },
+  {
+    "firstName": "Curtis ",
+    "lastName": "Frye",
+    "emailId": "curtisFrye",
+    "startOfProgram": "",
+    "password": "curtisFrye",
+    "flag": true,
+    "interests": ["Data Management", "MatLab", "Excel", "Google Sheet"],
+    "Image": [
+      {
+        "url": "https://media-exp1.licdn.com/dms/image/C560DAQFh7lJO4gXmHQ/learning-author-crop_200_200/0/1576190473933?e=1622822400&v=beta&t=Nm5SJTg21LY592KVd5I6uj6z-NUgKNGiYjh_eE2lOrQ",
+        "alt": "ProfileImage"
+      }
+    ]
+  },
+  {
+    "firstName": "Ina",
+    "lastName": "Saltz",
+    "interests": ["Typography", "Calligraphy", "Graphic Design Foundation"],
+    "emailId": "Ina@gmail.com",
+    "password": "inaSaltz",
+    "flag": true,
+    "Image": [
+      {
+        "url": "https://media-exp1.licdn.com/dms/image/C560DAQE6WBsranBgsQ/learning-author-crop_200_200/0/1576191221400?e=1622822400&v=beta&t=0u6aDptin5Lmx8CEro6IkyW5pCdgqlVV_a0EF1vMDI8",
+        "alt": "ProfileImage"
+      }
+    ]
+  },
+  {
+    "firstName": "Chris",
+    "lastName": "Nodder",
+    "emailId": "chris@gmail.com",
+    "password": "chris",
+    "flag": true,
+    "Image": [
+      {
+        "url": "https://media-exp1.licdn.com/dms/image/C560DAQGQ6zwUV1aR4g/learning-author-crop_200_200/0/1576189200968?e=1622822400&v=beta&t=b4aaKXDu2HhJR_HevgMaEsivap2IuKo9ho9Yax2uk18",
+        "alt": "ProfileImage"
+      }
+    ]
+  }
+]

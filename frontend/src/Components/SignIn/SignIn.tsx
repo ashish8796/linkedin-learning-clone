@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
-import { Divider, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { SignInInput } from './SignInInput';
 import { SignInFooter } from './SignInFooter';
+import { loginUser } from '../../store/user/action';
 
 const Container = styled.div`
     position: absolute;
@@ -72,21 +74,22 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-export interface formData {
-    email: string;
+export interface ILogin {
+    emailId: string;
     password: string;
 }
 
-const initData: formData = {
-    email: "",
+const initData: ILogin = {
+    emailId: "",
     password: ""
 }
 
 export default function SignIn () {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
     
-    const [data, setData] = useState<formData>(initData);
+    const [data, setData] = useState<ILogin>(initData);
     
     const [show, setShow] = useState<boolean>(false);
 
@@ -107,6 +110,10 @@ export default function SignIn () {
         setShow(false);
         setData(initData);
     }
+
+    const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = ()=>{
+        dispatch(loginUser(data))
+    }
     
     return (
         <Container>
@@ -123,7 +130,7 @@ export default function SignIn () {
                             <LinkedInIcon className={classes.bigLogo} />
                         </LinkedInLogo>
                         <p className={classes.email}>
-                            {data.email} 
+                            {data.emailId} 
                             <span className={classes.span} onClick={handleChangeEmail} >
                                 Change
                             </span>
@@ -136,8 +143,9 @@ export default function SignIn () {
                 <Text>Sign in using the email address you use for Linkedin.com or your organisation email</Text>
                 <SignInInput 
                     handleContinue={handleContinue}
-                    show={show}
                     handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    show={show}
                     data={data} />
             </Signin>
             <hr/>

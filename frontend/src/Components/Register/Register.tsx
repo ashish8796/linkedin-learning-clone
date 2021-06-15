@@ -40,14 +40,14 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-interface userData {
+export interface IRegister {
     firstName: string;
     lastName: string;
     emailId: string;
     password: string;
 }
 
-const initData: userData = {
+const initData: IRegister = {
     firstName: '',
     lastName: '',
     emailId: '',
@@ -63,7 +63,7 @@ export default function Register () {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [ user, setUser ] = useState<userData>(initData)
+    const [ user, setUser ] = useState<IRegister>(initData)
     const [ showName, setShowName ] = useState<boolean>(false);
 
     const handleShowName: React.MouseEventHandler<HTMLButtonElement> = ()=>{
@@ -72,7 +72,7 @@ export default function Register () {
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e)=> {
         const { name, value } = e.target;
-        const payload: userData = {
+        const payload: IRegister = {
             ...user,
             [name]: value
         };

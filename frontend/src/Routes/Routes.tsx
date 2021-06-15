@@ -10,6 +10,9 @@ import SignIn from "../Pages/SignInPage";
 import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
 import InstructorRegister from "./../Pages/BecomeInstructor";
+import Instructor from "../Pages/Instructor";
+import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
+import Test from "../Components/QuestionNAnswer/Test";
 
 export default function Routes() {
   return (
@@ -35,8 +38,16 @@ export default function Routes() {
           <Register />
         </Route>
 
-        <Route path="/become-instructor" exact>
+        <Route path="/instructor" exact>
+          <Instructor />
+        </Route>
+
+        <Route path="/instructor/new" exact>
           <InstructorRegister />
+        </Route>
+
+        <Route path="/commentsPage">
+          <Test />
         </Route>
         <Route>
           <PageNotFound />

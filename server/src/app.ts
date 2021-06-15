@@ -26,7 +26,7 @@ mongoose.set("useFindAndModify", false);
 app.use(route);
 
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static("../../../frontend/build/index.html"));
+  app.use(express.static("../../../frontend/build"));
 }
 
 // console.log(teachers)
