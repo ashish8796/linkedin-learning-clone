@@ -1,15 +1,14 @@
 import React from "react";
-import { ICourseState } from "./course/courseReducer"
-import { CurrentVideoState } from "./currentVideo/currentVideoReducer"
-import { PlayerState } from "./player/playerReducer"
-import { UserState } from "./user/userReducer"
-
+import { ICourseState } from "./course/courseReducer";
+import { CurrentVideoState } from "./currentVideo/currentVideoReducer";
+import { PlayerState } from "./player/playerReducer";
+import { IState } from "./user/userReducer";
 
 export type State = {
   player: PlayerState;
   currentVideo: CurrentVideoState
   course: ICourseState;
-  user: UserState;
+  user: IState;
 }
 
 export type SetPlayerStatus = {

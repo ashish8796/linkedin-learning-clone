@@ -1,6 +1,7 @@
+import { loadData, saveData } from "../utils/localStorage";
 import { LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAILURE, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "./actionTypes";
 
-export interface UserState {
+export interface IState {
     isLoading: boolean,
     isError: boolean,
     userId: string
@@ -9,11 +10,13 @@ export interface UserState {
     token: string
 }
 
-const initState: UserState = {
+const isAuth: boolean = loadData("isAuth") || false;
+
+const initState: IState = {
     isLoading: false,
     isError: false,
+    isAuth: isAuth,
     userId: "60c45968eb2a7920e493e238",
-    isAuth: false,
     data: {},
     token: ''
 }
@@ -30,6 +33,7 @@ export const userReducer = (state = initState, action: any) => {
             }
         }
         case REGISTER_USER_SUCCESS: {
+            saveData("isAuth", true);
             return {
                 ...state,
                 isLoading: false,
@@ -55,6 +59,7 @@ export const userReducer = (state = initState, action: any) => {
             }
         }
         case LOGIN_USER_SUCCESS: {
+            saveData("isAuth", true);
             return {
                 ...state,
                 isLoading: false,
