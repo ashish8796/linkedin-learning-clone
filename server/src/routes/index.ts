@@ -1,21 +1,60 @@
-import { Router } from 'express';
-import { seedTeachers } from "../utils/seeder"
-import { addCourse, getCourse, updateCourse, deleteCourse, getCourseId } from '../controllers/course/index';
-import { getVideo, addVideo, updateVideo, deleteVideo, getVideoId } from '../controllers/video/index'
-import { getTeacher, updateTeacher, deleteTeacher, getTeacherId, addTeacher } from '../controllers/teacher';
-import { getStudent, addStudent, updateStudent, deleteStudent, getStudentId } from '../controllers/student/index'
-import { getChapter, addChapter, updateChapter, deleteChapter, getChapterId } from "../controllers/chapter/index";
-import { addUser, deleteUser, getUser, getUserId, updateUser } from '../controllers/user';
-import { checkMailId } from '../controllers/utils/Index';
-import { loginUser } from '../controllers/login';
+import { Router } from "express";
+import { seedTeachers } from "../utils/seeder";
+import {
+  addCourse,
+  getCourse,
+  updateCourse,
+  deleteCourse,
+  getCourseId,
+} from "../controllers/course/index";
+import {
+  getVideo,
+  addVideo,
+  updateVideo,
+  deleteVideo,
+  getVideoId,
+} from "../controllers/video/index";
+import {
+  getTeacher,
+  updateTeacher,
+  deleteTeacher,
+  getTeacherId,
+  addTeacher,
+} from "../controllers/teacher";
+import {
+  getStudent,
+  addStudent,
+  updateStudent,
+  deleteStudent,
+  getStudentId,
+} from "../controllers/student/index";
+import {
+  getChapter,
+  addChapter,
+  updateChapter,
+  deleteChapter,
+  getChapterId,
+  getChapterByCourseId,
+} from "../controllers/chapter/index";
+import {
+  addUser,
+  deleteUser,
+  getUser,
+  getUserId,
+  updateUser,
+} from "../controllers/user";
+import { deleteAnswer } from "../controllers/answer/index";
+import { checkMailId } from "../controllers/utils/Index";
+import { loginUser } from "../controllers/login";
+import { addQuestion, getQnAWithCourseId } from "../controllers/question";
+import { addAnswer } from "../controllers/answer";
+import { uploadProfilePic } from '../controllers/utils/storeDataInAws';
 const path = require("path");
-
 
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
 function fn() { }
-
 
 // getting all the videos, Courses, student, teacher
 
@@ -25,9 +64,9 @@ route.get("/videos", getVideo);
 
 route.get("/courses", getCourse);
 
-route.get('/students', getStudent);
+route.get("/students", getStudent);
 
-route.get("/check-mail", checkMailId)
+route.get("/check-mail", checkMailId);
 
 route.get("/teachers", getTeacher);
 
@@ -45,12 +84,16 @@ route.post("/add-course", addCourse);
 
 route.post("/add-teacher", addTeacher);
 
-route.post("/add-student", addStudent);
+route.post("/add-teacher", uploadProfilePic("linkden-learning/profile-pics").single('image'), addTeacher)
 
 route.post("/add-chapter", addChapter);
+
+route.post("/add-answer", addAnswer);
+
+route.post("/add-question", addQuestion);
 // get them by Id
 
-route.get('/get-user/:id', getUserId);
+route.get("/get-user/:id", getUserId);
 
 route.get("/get-video/:id", getVideoId);
 
@@ -60,11 +103,15 @@ route.get("/get-student/:id", getStudentId);
 
 route.get("/get-teacher/:id", getTeacherId);
 
+route.get("/getQnAWithCourseId/:id", getQnAWithCourseId);
+
+route.get("/getChapterNCourse/:id", getChapterByCourseId);
+
 route.get("/get-chapter/:id", getChapterId);
 
 // update the details
 
-route.put('/update-user/:id', updateUser);
+route.put("/update-user/:id", updateUser);
 
 route.put("/update-video/:id", updateVideo);
 
@@ -74,9 +121,9 @@ route.put("/update-student/:id", updateStudent);
 
 route.put("/update-teacher/:id", updateTeacher);
 
-route.put('/update-chapter/:id', updateChapter);
+route.put("/update-chapter/:id", updateChapter);
 
-// delete 
+// delete
 route.delete("/delete-user/:id", deleteUser);
 
 route.delete("/delete-video/:id", deleteVideo);
@@ -87,13 +134,15 @@ route.delete("/delete-student/:id", deleteStudent);
 
 route.delete("/delete-teacher/:id", deleteTeacher);
 
-route.delete('/delete-chapter', deleteChapter);
+route.delete("/delete-chapter/:id", deleteChapter);
+
+route.delete("/delete-answer/:id", deleteAnswer);
 
 // the data of seeding
 route.get("/seeding-data", seedTeachers);
 
 // login
 
-route.post('/login', loginUser);
+route.post("/login", loginUser);
 
 export default route;

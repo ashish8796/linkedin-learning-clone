@@ -4,6 +4,7 @@ import { LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_US
 export interface IState {
     isLoading: boolean,
     isError: boolean,
+    userId: string
     isAuth: boolean,
     data: any,
     token: string
@@ -15,13 +16,14 @@ const initState: IState = {
     isLoading: false,
     isError: false,
     isAuth: isAuth,
+    userId: "60c45968eb2a7920e493e238",
     data: {},
     token: ''
 }
 
-export const userReducer = (state=initState, action: any) =>{
+export const userReducer = (state = initState, action: any) => {
     const payload = action.payload;
-    switch(action?.type){
+    switch (action?.type) {
         case REGISTER_USER_REQUEST: {
             return {
                 ...state,
@@ -74,7 +76,7 @@ export const userReducer = (state=initState, action: any) =>{
                 isAuth: false
             }
         }
-        default: 
+        default:
             return state;
     }
 }

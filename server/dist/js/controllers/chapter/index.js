@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
+exports.getChapterByCourseId = exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
 const chapter_1 = __importDefault(require("../../models/chapter"));
+const video_1 = __importDefault(require("../../models/video"));
 // import { isTryStatement } from 'typescript';
 const getChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -43,7 +44,11 @@ const addChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log(chapter_1.default);
         const newChapter = yield new_chapter.save();
         const allChapter = yield chapter_1.default.find();
-        res.status(201).json({ message: "new chapter as been added ", chapter: newChapter, chapters: allChapter });
+        res.status(201).json({
+            message: "new chapter as been added ",
+            chapter: newChapter,
+            chapters: allChapter,
+        });
     }
     catch (error) {
         res.end();
@@ -53,12 +58,16 @@ const addChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.addChapter = addChapter;
 const updateChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedChapter = yield chapter_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allChapters = yield chapter_1.default.find();
-        res.status(202).json({ message: "new chapter as been added ", chapter: updatedChapter, chapters: allChapters });
+        res.status(202).json({
+            message: "new chapter as been added ",
+            chapter: updatedChapter,
+            chapters: allChapters,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -68,7 +77,7 @@ const updateChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.updateChapter = updateChapter;
 const getChapterId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id } } = req;
+        const { params: { id }, } = req;
         const chapters = yield chapter_1.default.findById({ _id: id });
         res.status(202).json({ message: "found", chapters: chapters });
     }
@@ -81,10 +90,33 @@ const deleteChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const delete_chapter = yield chapter_1.default.findByIdAndRemove(req.params.id);
         const allChapters = yield chapter_1.default.find();
-        res.status(200).json({ message: "chapter Deleted", chapter: delete_chapter, chapters: allChapters });
+        res.status(200).json({
+            message: "chapter Deleted",
+            chapter: delete_chapter,
+            chapters: allChapters,
+        });
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.deleteChapter = deleteChapter;
+const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { params: { id }, } = req;
+        let chapterWithId = chapter_1.default.find({ courseId: id });
+        let courseWithId = video_1.default
+            .find({ courseId: id })
+            .populate("chapterId")
+            .populate("courseId");
+        res
+            .status(200)
+            .json({
+            message: "the data of the course",
+            chapter: chapterWithId,
+            coursePopulate: courseWithId,
+        });
+    }
+    catch (error) { }
+});
+exports.getChapterByCourseId = getChapterByCourseId;

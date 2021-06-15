@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CreateInput from "./../Common/CreateInput/CrateInput";
+import { RegisterTeacherFormState } from "./RegisterForm";
 
-interface ISelectSpecializationProps {}
+interface ISelectSpecializationProps {
+  setRegisterData: React.Dispatch<
+    React.SetStateAction<RegisterTeacherFormState>
+  >;
+}
 
-const initState = {
-  specializations: [],
-};
+export default function SelectSpecilization({
+  setRegisterData,
+}: ISelectSpecializationProps) {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { value, checked } = e.target;
 
-export default function SelectSpecilization({}: ISelectSpecializationProps) {
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {};
+    if (checked) {
+      setRegisterData((prev) => ({
+        ...prev,
+        specializations: [...prev.specializations, value],
+      }));
+    } else if (checked === false) {
+      setRegisterData((prev) => ({
+        ...prev,
+        specializations: prev.specializations.filter(
+          (option) => option !== value
+        ),
+      }));
+    }
+  };
 
   const businessTopics = [
     "Business Software and Tools",
@@ -56,6 +75,7 @@ export default function SelectSpecilization({}: ISelectSpecializationProps) {
   const createOption = (arr: string[]) => {
     return arr.map((option: string) => (
       <CreateInput
+        key={option}
         type="checkbox"
         label={option}
         required={false}

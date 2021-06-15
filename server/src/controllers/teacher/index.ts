@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import ITeacher from "../../types/teacher";
 import teacher from "../../models/teacher"
 import user from '../../models/user'
+import { uploadProfilePic } from "../utils/storeDataInAws";
+import { Multer } from "multer";
 
 export const getTeacher = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -11,65 +13,116 @@ export const getTeacher = async (req: Request, res: Response): Promise<void> => 
         console.log(error)
     }
 }
+interface MulterRequest extends Request {
+    file: Express.MulterS3.File
+}
 
-export const addTeacher = async (req: Request, res: Response): Promise<void> => {
+export const addTeacher = async (req: MulterRequest, res: Response): Promise<void> => {
+
     try {
-        let body = req.body as Pick<ITeacher, "firstName" | "lastName" | "qualification" | "description" | "DOB" | "specializations" | "Image" | "linkedInProfile">;
+        let body = req.body as Pick<ITeacher, "qualification" | "description" | "DOB" | "specializations" | "image" | "linkedInProfile" | "uniqueId">;
+
+        console.log(body);
+        console.log(req.file)
+
         const new_teacher: ITeacher = new teacher({
-            firstName: body.firstName,
-            lastName: body.lastName,
             qualification: body.qualification,
             DOB: body.DOB,
             specializations: body.specializations,
             description: body.description,
-            Image: body.Image,
-            linkedInProfile: body.linkedInProfile
+            image: req.file.location,
+            linkedInProfile: body.linkedInProfile,
+            uniqueId: body.uniqueId
         })
 
         let newTeacher: ITeacher = await new_teacher.save();
         let allTeachers: ITeacher[] = await teacher.find();
-        res.status(202).json({ message: "the teacher is added", teacher: newTeacher, allTeachers: allTeachers });
+        res.status(202).json({
+            message: "the teacher is added",
+            teacher: newTeacher,
+            allTeachers: allTeachers,
+        });
     } catch (error) {
-        res.end()
-        console.log(error)
+        res.end();
+        console.log(error);
     }
-}
+};
 
-export const updateTeacher = async (req: Request, res: Response): Promise<void> => {
+export const updateTeacher = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
     try {
-
-        const { params: { id }, body } = req;
-        console.log(body, id)
-        const updatedTeacher: ITeacher | null = await teacher.findByIdAndUpdate({ _id: id }, body)
+        const {
+            params: { id },
+            body,
+        } = req;
+        console.log(body, id);
+        const updatedTeacher: ITeacher | null = await teacher.findByIdAndUpdate(
+            { _id: id },
+            body
+        );
         // res.status(205).json({testing:"testing",blog: updatedBlog})
-        const allTeachers: ITeacher[] = await teacher.find()
+        const allTeachers: ITeacher[] = await teacher.find();
 
-        res.status(202).json({ message: "new teacher as been added ", teacher: updatedTeacher, teachers: allTeachers })
+        res.status(202).json({
+            message: "new teacher as been added ",
+            teacher: updatedTeacher,
+            teachers: allTeachers,
+        });
         // console.log("new")
-
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
-export const getTeacherId = async (req: Request, res: Response): Promise<void> => {
+export const getTeacherId = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
     try {
-        const { params: { id } } = req;
-        const teachers: ITeacher | null = await teacher.findById({ _id: id })
-        res.status(202).json({ message: "found", teacher: teachers })
+        const {
+            params: { id },
+        } = req;
+        const teachers: ITeacher | null = await teacher.findById({ _id: id });
+        res.status(202).json({ message: "found", teacher: teachers });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
+// export const getTeacherId = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     const {
+//       params: { id },
+//     } = req;
+//     const teachers: ITeacher | null = await teacher
+//       .findById({ _id: id })
+//       .populate("uniqueId");
+//     res.status(202).json({ message: "found", teacher: teachers });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
-export const deleteTeacher = async (req: Request, res: Response): Promise<void> => {
+export const deleteTeacher = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
     try {
-        const delete_teacher: ITeacher | null = await teacher.findByIdAndRemove(req.params.id)
-        const allTeachers: ITeacher[] = await teacher.find()
-        res.status(200).json({ message: "teacher Deleted", teacher: delete_teacher, teachers: allTeachers })
-
+        const delete_teacher: ITeacher | null = await teacher.findByIdAndRemove(
+            req.params.id
+        );
+        const allTeachers: ITeacher[] = await teacher.find();
+        res.status(200).json({
+            message: "teacher Deleted",
+            teacher: delete_teacher,
+            teachers: allTeachers,
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};

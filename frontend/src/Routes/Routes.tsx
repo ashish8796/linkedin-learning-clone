@@ -12,9 +12,12 @@ import Register from "../Pages/RegisterPage";
 import InstructorRegister from "./../Pages/BecomeInstructor";
 import { State } from "../store/tsTypes";
 import { AuthNavbar } from "./AuthNavbar";
+import Instructor from "../Pages/Instructor";
+import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
+import Test from "../Components/QuestionNAnswer/Test";
 
 export default function Routes() {
-
+    
     const isAuth = useSelector((state: State) => state.user.isAuth);
   
     return (
@@ -45,11 +48,17 @@ export default function Routes() {
                 <Route path="/become-instructor" exact>
                     <InstructorRegister />
                 </Route>
+                <Route path="/instructor" exact>
+                  <Instructor />
+                </Route>
+                <Route path="/commentsPage">
+                  <Test />
+                </Route>
                 <Route>
-                    <PageNotFound />
+                  <PageNotFound />
                 </Route>
             </Switch>
-            <Footer />
-        </div>
-    );
+        <Footer />
+    </div>
+  );
 }
