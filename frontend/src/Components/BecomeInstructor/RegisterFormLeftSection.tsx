@@ -15,12 +15,12 @@ export default function RegisterFormLeftSection() {
         <p>
           <span>As a LinkedIn Learning instructor, you can:</span>
 
-          <ul>
+          <List>
             <li>Help people reach professional and personal goals</li>
             <li>Learn valuable skills applicable to your professional life</li>
             <li>Benefit from the massive visibility our platforms provide</li>
             <li>Earn extra income</li>
-          </ul>
+          </List>
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export default function RegisterFormLeftSection() {
       </AboutWorkingBox>
 
       <ApplyNowBox>
-        <h4>Apply Now!</h4>
+        <h3>Apply Now!</h3>
 
         <p>
           If you're interested in becoming an instructor, please apply on this
@@ -59,10 +59,33 @@ export default function RegisterFormLeftSection() {
   );
 }
 
-const FormLeftSection = styled.section``;
+const FormLeftSection = styled.section`
+  font-size: 15px;
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+
+  h3 {
+    font-size: 17px;
+    padding: 15px 0;
+  }
+`;
+
+const List = styled.ul`
+  padding: 1.5rem 2rem;
+
+  & > li {
+    list-style-type: disc;
+  }
+`;
 
 const AboutWorkingBox = styled.div``;
 
-const QuoteBox = styled.div``;
+const QuoteBox = styled.div`
+  color: #0091ca;
+  border-left: 2px solid #0091ca;
+  padding: 0 2rem;
+  margin: 2rem;
+  font-size: 23px;
+`;
 
 const ApplyNowBox = styled.div``;

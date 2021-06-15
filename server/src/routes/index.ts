@@ -59,7 +59,7 @@ const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
-function fn() {}
+function fn() { }
 
 // getting all the videos, Courses, student, teacher
 
@@ -91,11 +91,7 @@ route.post("/add-course", addCourse);
 
 route.post("/add-teacher", addTeacher);
 
-route.post(
-  "/add-teacher",
-  uploadProfilePic("linkden-learning/profile-pics").single("image"),
-  addTeacher
-);
+route.post("/add-teacher", addTeacher)
 
 route.post("/add-chapter", addChapter);
 

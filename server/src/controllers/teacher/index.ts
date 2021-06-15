@@ -3,7 +3,6 @@ import ITeacher from "../../types/teacher";
 import teacher from "../../models/teacher"
 import user from '../../models/user'
 import { uploadProfilePic } from "../utils/storeDataInAws";
-import { Multer } from "multer";
 
 export const getTeacher = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -13,39 +12,41 @@ export const getTeacher = async (req: Request, res: Response): Promise<void> => 
         console.log(error)
     }
 }
+
 interface MulterRequest extends Request {
     file: Express.MulterS3.File
 }
 
 export const addTeacher = async (req: MulterRequest, res: Response): Promise<void> => {
 
-    try {
-        let body = req.body as Pick<ITeacher, "qualification" | "description" | "DOB" | "specializations" | "image" | "linkedInProfile" | "uniqueId">;
+    const upload = uploadProfilePic("linkden-learning/profile-pics").single('image')
 
-        console.log(body);
-        console.log(req.file)
+    upload(req, res, async (err) => {
+        try {
+            let body = req.body as Pick<ITeacher, "qualification" | "description" | "DOB" | "specializations" | "image" | "linkedInProfile" | "uniqueId">;
 
-        const new_teacher: ITeacher = new teacher({
-            qualification: body.qualification,
-            DOB: body.DOB,
-            specializations: body.specializations,
-            description: body.description,
-            image: req.file.location,
-            linkedInProfile: body.linkedInProfile,
-            uniqueId: body.uniqueId
-        })
+            const new_teacher: ITeacher = new teacher({
+                qualification: body.qualification,
+                DOB: body.DOB,
+                specializations: body.specializations,
+                description: body.description,
+                image: req.file.location,
+                linkedInProfile: body.linkedInProfile,
+                uniqueId: body.uniqueId
+            })
 
-        let newTeacher: ITeacher = await new_teacher.save();
-        let allTeachers: ITeacher[] = await teacher.find();
-        res.status(202).json({
-            message: "the teacher is added",
-            teacher: newTeacher,
-            allTeachers: allTeachers,
-        });
-    } catch (error) {
-        res.end();
-        console.log(error);
-    }
+            let newTeacher: ITeacher = await new_teacher.save();
+            let allTeachers: ITeacher[] = await teacher.find();
+            res.status(202).json({
+                message: "the teacher is added",
+                teacher: newTeacher,
+                allTeachers: allTeachers,
+            });
+        } catch (error) {
+            res.end();
+            console.log(error);
+        }
+    })
 };
 
 export const updateTeacher = async (

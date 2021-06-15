@@ -13,7 +13,6 @@ import InstructorRegister from "./../Pages/BecomeInstructor";
 import { State } from "../store/tsTypes";
 import { AuthNavbar } from "./AuthNavbar";
 import Instructor from "../Pages/Instructor";
-import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
 import Test from "../Components/QuestionNAnswer/Test";
 import PaymentPage from "../Components/StripesPayment/PaymentPage";
 
