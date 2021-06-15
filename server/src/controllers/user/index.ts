@@ -2,6 +2,12 @@ import IUser from "../../types/user";
 import { Request, Response } from "express";
 import user from "../../models/user";
 import { checkMailId } from "../utils/Index";
+require("dotenv").config();
+// const encrypt = require("mongoose-encryption");
+
+// let secret = process.env.SECRET;
+
+// user.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
   try {

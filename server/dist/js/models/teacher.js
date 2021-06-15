@@ -16,12 +16,12 @@ const teacherSchema = new mongoose_1.Schema({
     },
     uniqueId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "user",
+        ref: "users",
         required: [true, "uniqueId needed"],
     },
     linkedInProfile: {
-        type: String
-    }
+        type: String,
+    },
 }, {
     timestamps: true,
 });

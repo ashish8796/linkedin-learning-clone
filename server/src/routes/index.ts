@@ -34,6 +34,7 @@ import {
   updateChapter,
   deleteChapter,
   getChapterId,
+  getChapterByCourseId,
 } from "../controllers/chapter/index";
 import {
   addUser,
@@ -42,8 +43,11 @@ import {
   getUserId,
   updateUser,
 } from "../controllers/user";
+import { deleteAnswer } from "../controllers/answer/index";
 import { checkMailId } from "../controllers/utils/Index";
 import { loginUser } from "../controllers/login";
+import { addQuestion, getQnAWithCourseId } from "../controllers/question";
+import { addAnswer } from "../controllers/answer";
 const path = require("path");
 
 // import {seedTeachers} from "../utils/seeder" ;
@@ -82,6 +86,10 @@ route.post("/add-teacher", addTeacher);
 route.post("/add-student", addStudent);
 
 route.post("/add-chapter", addChapter);
+
+route.post("/add-answer", addAnswer);
+
+route.post("/add-question", addQuestion);
 // get them by Id
 
 route.get("/get-user/:id", getUserId);
@@ -93,6 +101,10 @@ route.get("/get-course/:id", getCourseId);
 route.get("/get-student/:id", getStudentId);
 
 route.get("/get-teacher/:id", getTeacherId);
+
+route.get("/getQnAWithCourseId/:id", getQnAWithCourseId);
+
+route.get("/getChapterNCourse/:id", getChapterByCourseId);
 
 route.get("/get-chapter/:id", getChapterId);
 
@@ -121,7 +133,9 @@ route.delete("/delete-student/:id", deleteStudent);
 
 route.delete("/delete-teacher/:id", deleteTeacher);
 
-route.delete("/delete-chapter", deleteChapter);
+route.delete("/delete-chapter/:id", deleteChapter);
+
+route.delete("/delete-answer/:id", deleteAnswer);
 
 // the data of seeding
 route.get("/seeding-data", seedTeachers);

@@ -15,9 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourse = void 0;
 const course_1 = __importDefault(require("../../models/course"));
 const answerBox_1 = __importDefault(require("../../models/answerBox"));
+// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const courses = yield course_1.default.find();
+        const courses = yield course_1.default
+            .find()
+            .populate({ path: "questionBlog", populate: { path: "question" } })
+            .populate({
+            path: "questionBlog",
+            populate: { path: "question", populate: { path: "userId" } },
+        })
+            // .populate({
+            //   path: "questionBlog",
+            //   populate: { path: "question", populate: { path: "userId" } },
+            // })
+            .populate({
+            path: "questionBlog",
+            populate: {
+                path: "question",
+                populate: {
+                    path: "userId answers",
+                    populate: { path: "answer userId" },
+                },
+            },
+        });
         yield res.status(202).json({ courses: courses });
     }
     catch (error) {
@@ -110,7 +131,9 @@ exports.updateQuestion = updateQuestion;
 const getCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        const courses = yield course_1.default.findById({ _id: id });
+        const courses = yield course_1.default
+            .findById({ _id: id })
+            .populate({ path: "questionBlog", populate: { path: "question" } });
         // let CommentBox: any = [];
         // // allCourses.map((course) => {
         // //   let { _id } = course;

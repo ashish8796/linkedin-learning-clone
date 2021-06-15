@@ -29,6 +29,7 @@ export const addTeacher = async (
       | "DOB"
       | "specializations"
       | "Image"
+      | "uniqueId"
       | "linkedInProfile"
     >;
     const new_teacher: ITeacher = new teacher({
@@ -40,17 +41,16 @@ export const addTeacher = async (
       description: body.description,
       Image: body.Image,
       linkedInProfile: body.linkedInProfile,
+      uniqueId: body.uniqueId,
     });
 
     let newTeacher: ITeacher = await new_teacher.save();
     let allTeachers: ITeacher[] = await teacher.find();
-    res
-      .status(202)
-      .json({
-        message: "the teacher is added",
-        teacher: newTeacher,
-        allTeachers: allTeachers,
-      });
+    res.status(202).json({
+      message: "the teacher is added",
+      teacher: newTeacher,
+      allTeachers: allTeachers,
+    });
   } catch (error) {
     res.end();
     console.log(error);
@@ -74,13 +74,11 @@ export const updateTeacher = async (
     // res.status(205).json({testing:"testing",blog: updatedBlog})
     const allTeachers: ITeacher[] = await teacher.find();
 
-    res
-      .status(202)
-      .json({
-        message: "new teacher as been added ",
-        teacher: updatedTeacher,
-        teachers: allTeachers,
-      });
+    res.status(202).json({
+      message: "new teacher as been added ",
+      teacher: updatedTeacher,
+      teachers: allTeachers,
+    });
     // console.log("new")
   } catch (error) {
     console.log(error);
@@ -128,13 +126,11 @@ export const deleteTeacher = async (
       req.params.id
     );
     const allTeachers: ITeacher[] = await teacher.find();
-    res
-      .status(200)
-      .json({
-        message: "teacher Deleted",
-        teacher: delete_teacher,
-        teachers: allTeachers,
-      });
+    res.status(200).json({
+      message: "teacher Deleted",
+      teacher: delete_teacher,
+      teachers: allTeachers,
+    });
   } catch (error) {
     console.log(error);
   }

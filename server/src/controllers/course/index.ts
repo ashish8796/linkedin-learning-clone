@@ -2,10 +2,31 @@ import { Response, Request } from "express";
 import ICourse from "../../types/course";
 import course from "../../models/course";
 import answerBox from "../../models/answerBox";
+// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 
 export const getCourse = async (req: Request, res: Response): Promise<void> => {
   try {
-    const courses: ICourse[] = await course.find();
+    const courses: ICourse[] = await course
+      .find()
+      .populate({ path: "questionBlog", populate: { path: "question" } })
+      .populate({
+        path: "questionBlog",
+        populate: { path: "question", populate: { path: "userId" } },
+      })
+      // .populate({
+      //   path: "questionBlog",
+      //   populate: { path: "question", populate: { path: "userId" } },
+      // })
+      .populate({
+        path: "questionBlog",
+        populate: {
+          path: "question",
+          populate: {
+            path: "userId answers",
+            populate: { path: "answer userId" },
+          },
+        },
+      });
     await res.status(202).json({ courses: courses });
   } catch (error) {
     console.log(error);
@@ -127,7 +148,9 @@ export const getCourseId = async (
     const {
       params: { id },
     } = req;
-    const courses: ICourse | null = await course.findById({ _id: id });
+    const courses: ICourse | null = await course
+      .findById({ _id: id })
+      .populate({ path: "questionBlog", populate: { path: "question" } });
     // let CommentBox: any = [];
     // // allCourses.map((course) => {
     // //   let { _id } = course;

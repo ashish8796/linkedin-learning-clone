@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAnswersToCourse = exports.getAnswersToQuestion = exports.addAnswer = exports.getAnswers = void 0;
+exports.deleteAnswer = exports.addAnswer = exports.getAnswers = void 0;
 const answerBox_1 = __importDefault(require("../../models/answerBox"));
 const questionSession_1 = __importDefault(require("../../models/questionSession"));
 const getAnswers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,7 +39,7 @@ const addAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const allAnswers = yield answerBox_1.default.find({
             courseId: body.courseId,
         });
-        yield updateQuestionSession(body.questionId, newAnswer._id);
+        yield updateQuestionSessionWithAnswerId(body.questionId, newAnswer._id);
         //   .populate("questionId")
         //   .populate("courseId");
         res.status(202).json({
@@ -54,39 +54,79 @@ const addAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addAnswer = addAnswer;
-const getAnswersToQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// export const getAnswersToQuestion = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     const {
+//       params: { id },
+//     } = req;
+//     const answers = answerBox.find({ questionId: id }).populate("questionId");
+//     res.status(200).json({ message: "answers to question", answers: answers });
+//   } catch (error) {
+//     console.log(error);
+//     res.end();
+//   }
+// };
+// export const getAnswersToCourse = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     const {
+//       params: { id },
+//     } = req;
+//     const answers = answerBox
+//       .find({ courseId: id })
+//       .populate("courseId")
+//       .populate("questionId");
+//     res
+//       .status(200)
+//       .json({ message: "the answers to that course", answers: answers });
+//   } catch (error) {
+//     console.log(error);
+//     res.end();
+//   }
+// };
+const updateQuestionSessionWithAnswerId = (QId, AId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield questionSession_1.default.updateOne({ _id: QId }, {
+            $push: {
+                answers: {
+                    $each: [{ answer: AId }],
+                    $sort: { updateAt: -1 },
+                },
+            },
+        });
+        console.log("updated the question collection");
+        console.log(yield questionSession_1.default.find({ _id: QId }));
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+const deleteAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        const answers = answerBox_1.default.find({ questionId: id }).populate("questionId");
-        res.status(200).json({ message: "answers to question", answers: answers });
+        yield removingIdFromQuestionArray(id);
+        // const deleted = await answerBox.findByIdAndDelete(id);
+        res.status(200).json({ message: "the answer is deleted" });
     }
     catch (error) {
         console.log(error);
         res.end();
     }
 });
-exports.getAnswersToQuestion = getAnswersToQuestion;
-const getAnswersToCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.deleteAnswer = deleteAnswer;
+const removingIdFromQuestionArray = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, } = req;
-        const answers = answerBox_1.default
-            .find({ courseId: id })
-            .populate("courseId")
-            .populate("questionId");
-        res
-            .status(200)
-            .json({ message: "the answers to that course", answers: answers });
-    }
-    catch (error) {
-        console.log(error);
-        res.end();
-    }
-});
-exports.getAnswersToCourse = getAnswersToCourse;
-const updateQuestionSession = (QId, AId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let data = questionSession_1.default.updateOne({ _id: QId }, { $push: { answers: { $each: [{ answer: AId }] } } });
-        console.log("updated the question collection", data);
+        console.log(id);
+        let data = yield questionSession_1.default.aggregate([
+            { $unwind: "$answers" },
+            { $match: { "answers.answer": id } },
+        ]);
+        console.log(data);
     }
     catch (error) {
         console.log(error);
