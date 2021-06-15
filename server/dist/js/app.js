@@ -25,7 +25,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose_1.default.set("useFindAndModify", false);
 app.use(index_1.default);
 if (process.env.NODE_ENV == "production") {
-    app.use(express_1.default.static("../../../frontend/build/index.html"));
+    app.use(express_1.default.static("../../../frontend/build"));
 }
 // console.log(teachers)
 // let file=fs.readFileSync("./utils/data/teachers");

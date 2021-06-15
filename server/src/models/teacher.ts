@@ -1,29 +1,32 @@
-import ITeacher from '../types/teacher';
+import ITeacher from "../types/teacher";
 import { Schema, model } from "mongoose";
 
-const teacherSchema: Schema = new Schema({
+const teacherSchema: Schema = new Schema(
+  {
     qualification: {
-        type: [String],
+      type: [String],
     },
     description: {
-        type: String
+      type: String,
     },
     DOB: {
-        type: Date,
+      type: Date,
     },
     specializations: {
-        type: [String],
+      type: [String],
     },
     uniqueId: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-        required: [true, "uniqueId needed"]
+      type: Schema.Types.ObjectId,
+      ref: "users",
+      required: [true, "uniqueId needed"],
     },
     linkedInProfile: {
-        type: String
-    }
-}, {
-    timestamps: true
-})
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default model<ITeacher>("teacher", teacherSchema)
+export default model<ITeacher>("teacher", teacherSchema);
