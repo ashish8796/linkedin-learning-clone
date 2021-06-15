@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import styled from "styled-components";
 
 interface ICreateInputProps {
@@ -20,9 +20,11 @@ export default function CrateInput({
   placeholder,
   required,
 }: ICreateInputProps) {
+  // console.log(type);
+
   if (type === "checkbox") {
     return (
-      <Label>
+      <Label type={type} style={label ? inputStyles : {}}>
         <Input
           type={type}
           name={name}
@@ -31,13 +33,13 @@ export default function CrateInput({
           placeholder={placeholder}
           required={required}
         />
-        <span>{label}</span>
+        {label && <span>{label}</span>}
       </Label>
     );
   } else {
     return (
-      <Label>
-        <span>{label}</span>
+      <Label type={type} style={label ? inputStyles : {}}>
+        {label && <span>{label}</span>}
 
         <Input
           type={type}
@@ -52,5 +54,41 @@ export default function CrateInput({
   }
 }
 
-const Label = styled.label``;
-const Input = styled.input``;
+interface ILabelProps {
+  type: string;
+}
+
+const inputStyles: CSSProperties = {
+  margin: "10px 0",
+};
+
+const Label = styled.label`
+  /* border: 1px solid red; */
+  display: ${(props: ILabelProps) =>
+    props.type === "checkbox" ? "flex" : "block"};
+
+  align-items: center;
+  flex-direction: ${(props: ILabelProps) =>
+    props.type === "checkbox" ? "row" : "column"};
+`;
+
+const Input = styled.input`
+  &[type="checkbox"] {
+    width: fit-content;
+    margin: 0 10px 0 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &[type="file"] {
+    margin: 10px 0;
+  }
+
+  padding: 5px 10px;
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 2px;
+  margin: 10px 0;
+  &::placeholder {
+  }
+`;

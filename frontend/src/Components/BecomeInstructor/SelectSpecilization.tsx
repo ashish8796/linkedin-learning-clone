@@ -90,32 +90,32 @@ export default function SelectSpecilization({
   return (
     <SpecializationBox>
       <QuestionBox>
-        <div>
-          <p>
+        <OptionBox>
+          <QuestionText>
             What business topics are you qualified to teach? (Please select up
             to 3.)
-          </p>
+          </QuestionText>
 
-          {createOption(businessTopics)}
-        </div>
+          <div>{createOption(businessTopics)}</div>
+        </OptionBox>
 
-        <div>
-          <p>
+        <OptionBox>
+          <QuestionText>
             What creative topics are you qualified to teach? (Please select up
             to 3.
-          </p>
+          </QuestionText>
 
-          {createOption(creativeTopics)}
-        </div>
+          <div>{createOption(creativeTopics)}</div>
+        </OptionBox>
 
-        <div>
-          <p>
+        <OptionBox>
+          <QuestionText>
             What technology topics are you qualified to teach? (Please select up
             to 3.)
-          </p>
+          </QuestionText>
 
-          {createOption(technologyTopics)}
-        </div>
+          <div>{createOption(technologyTopics)}</div>
+        </OptionBox>
 
         <SelectBox></SelectBox>
       </QuestionBox>
@@ -126,3 +126,10 @@ export default function SelectSpecilization({
 const SpecializationBox = styled.div``;
 const QuestionBox = styled.div``;
 const SelectBox = styled.div``;
+
+const OptionBox = styled.div``;
+
+const QuestionText = styled.p`
+  font-size: 16px;
+  margin-top: 2em;
+`;

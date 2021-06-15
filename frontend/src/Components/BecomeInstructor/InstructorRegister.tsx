@@ -6,7 +6,7 @@ import RegisterForm from "./RegisterForm";
 export default function InstructorRegister() {
   return (
     <InstructorRegisterBox>
-      <Header>
+      {/* <Header>
         <Nav>
           <Logo>
             <h2>Linked</h2>
@@ -16,7 +16,7 @@ export default function InstructorRegister() {
             <p>Learning</p>
           </Logo>
         </Nav>
-      </Header>
+      </Header> */}
 
       <FormSection>
         <RegisterForm />
@@ -25,7 +25,12 @@ export default function InstructorRegister() {
   );
 }
 
-const InstructorRegisterBox = styled.div``;
+const InstructorRegisterBox = styled.div`
+  padding-top: 5rem;
+  width: 80%;
+  margin: 0 auto 3rem;
+`;
+
 const Header = styled.header``;
 const Nav = styled.nav``;
 const Logo = styled.div``;

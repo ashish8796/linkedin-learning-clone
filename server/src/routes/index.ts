@@ -84,7 +84,7 @@ route.post("/add-course", addCourse);
 
 route.post("/add-teacher", addTeacher);
 
-route.post("/add-teacher", uploadProfilePic("linkden-learning/profile-pics").single('image'), addTeacher)
+route.post("/add-teacher", addTeacher)
 
 route.post("/add-chapter", addChapter);
 
