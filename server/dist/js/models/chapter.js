@@ -19,14 +19,14 @@ const chapterSchema = new mongoose_1.Schema({
     courseId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "course",
-        required: [true, "Course ID id Required"]
+        required: [true, "Course ID id Required"],
     },
     authorId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "teacher",
-        required: [true, "authorID or teacher Id is needed"]
-    }
+        required: [true, "authorID or teacher Id is needed"],
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 exports.default = mongoose_1.model("chapter", chapterSchema);

@@ -1,11 +1,11 @@
-import { Document } from 'mongoose';
+import { Document } from "mongoose";
 
 export default interface ITeacher extends Document {
     qualification?: Array<String>;
     description?: String;
     DOB?: Date;
     specializations: string;
-    image?: Array<String>;
+    image?: string;
     linkedInProfile: string;
     uniqueId?: string;
 }

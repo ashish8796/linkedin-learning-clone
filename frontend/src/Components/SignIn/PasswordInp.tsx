@@ -68,9 +68,10 @@ const useStyles = makeStyles(theme=>({
 interface passwordProps {
     password: string;
     handleChange: any;
+    handleSubmit: any;
 }
 
-export const PasswordInp = ({password, handleChange}: passwordProps) => {
+export const PasswordInp = ({ password, handleChange, handleSubmit }: passwordProps) => {
 
     const classes = useStyles();
 
@@ -97,6 +98,7 @@ export const PasswordInp = ({password, handleChange}: passwordProps) => {
                 type="button"
                 style={{borderRadius: '1.5rem'}}
                 className="btn btn-primary"
+                onClick={handleSubmit}
                 disabled={password.length < 1}>
                     Continue
             </Btn>

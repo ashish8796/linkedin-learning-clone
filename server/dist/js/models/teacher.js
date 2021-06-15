@@ -9,7 +9,7 @@ const teacherSchema = new mongoose_1.Schema({
         type: String,
     },
     description: {
-        type: String
+        type: String,
     },
     DOB: {
         type: Date,
@@ -20,7 +20,7 @@ const teacherSchema = new mongoose_1.Schema({
     uniqueId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "users",
-        required: [true, "uniqueId needed"]
+        required: [true, "uniqueId needed"],
     },
     linkedInProfile: {
         type: String

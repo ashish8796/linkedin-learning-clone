@@ -15,24 +15,24 @@ const videoSchema = new mongoose_1.Schema({
         required: true,
     },
     userId: {
-        type: String
+        type: String,
     },
     chapterId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "chapter",
-        required: [true, "Chapter ID is required"]
+        required: [true, "Chapter ID is required"],
     },
     courseId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "course",
-        required: [true, "Course ID id Required"]
+        required: [true, "Course ID id Required"],
     },
     tags: [
         {
-            type: String
-        }
-    ]
+            type: String,
+        },
+    ],
 }, {
-    timestamps: true
+    timestamps: true,
 });
 exports.default = mongoose_1.model("video", videoSchema);

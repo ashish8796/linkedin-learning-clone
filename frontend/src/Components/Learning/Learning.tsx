@@ -4,7 +4,7 @@ import ChapterPlayer from "../Player/ChapterPlayer";
 export default function Learning() {
   return (
     <div>
-      <ChapterPlayer videoUrl="https://testing-linkden.s3.ap-south-1.amazonaws.com/anothertest/b77f489b-5323-4d38-b9fa-d736ce1b1c94-.mp4" />
+      <ChapterPlayer videoUrl="https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4" />
 
       {/* <ChapterPlayer videoUrl="https://firebasestorage.googleapis.com/v0/b/linked-learning-project.appspot.com/o/2_Installi[…]?alt=media&token=ed5d23db-821b-4a10-9879-ab7073ef61b9" /> */}
 

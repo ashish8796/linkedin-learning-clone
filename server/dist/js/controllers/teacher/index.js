@@ -15,8 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.addTeacher = exports.getTeacher = void 0;
 const teacher_1 = __importDefault(require("../../models/teacher"));
 const user_1 = __importDefault(require("../../models/user"));
-const storeTeacherImage = () => {
-};
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const teachers = yield user_1.default.find({ "flag": true });
@@ -43,7 +41,11 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         let newTeacher = yield new_teacher.save();
         let allTeachers = yield teacher_1.default.find();
-        res.status(202).json({ message: "the teacher is added", teacher: newTeacher, allTeachers: allTeachers });
+        res.status(202).json({
+            message: "the teacher is added",
+            teacher: newTeacher,
+            allTeachers: allTeachers,
+        });
     }
     catch (error) {
         res.end();
@@ -53,12 +55,16 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.addTeacher = addTeacher;
 const updateTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id }, body } = req;
+        const { params: { id }, body, } = req;
         console.log(body, id);
         const updatedTeacher = yield teacher_1.default.findByIdAndUpdate({ _id: id }, body);
         // res.status(205).json({testing:"testing",blog: updatedBlog})
         const allTeachers = yield teacher_1.default.find();
-        res.status(202).json({ message: "new teacher as been added ", teacher: updatedTeacher, teachers: allTeachers });
+        res.status(202).json({
+            message: "new teacher as been added ",
+            teacher: updatedTeacher,
+            teachers: allTeachers,
+        });
         // console.log("new")
     }
     catch (error) {
@@ -68,7 +74,7 @@ const updateTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.updateTeacher = updateTeacher;
 const getTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { params: { id } } = req;
+        const { params: { id }, } = req;
         const teachers = yield teacher_1.default.findById({ _id: id });
         res.status(202).json({ message: "found", teacher: teachers });
     }
@@ -77,11 +83,31 @@ const getTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getTeacherId = getTeacherId;
+// export const getTeacherId = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     const {
+//       params: { id },
+//     } = req;
+//     const teachers: ITeacher | null = await teacher
+//       .findById({ _id: id })
+//       .populate("uniqueId");
+//     res.status(202).json({ message: "found", teacher: teachers });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 const deleteTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const delete_teacher = yield teacher_1.default.findByIdAndRemove(req.params.id);
         const allTeachers = yield teacher_1.default.find();
-        res.status(200).json({ message: "teacher Deleted", teacher: delete_teacher, teachers: allTeachers });
+        res.status(200).json({
+            message: "teacher Deleted",
+            teacher: delete_teacher,
+            teachers: allTeachers,
+        });
     }
     catch (error) {
         console.log(error);
