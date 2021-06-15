@@ -15,6 +15,7 @@ import { AuthNavbar } from "./AuthNavbar";
 import Instructor from "../Pages/Instructor";
 import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
 import Test from "../Components/QuestionNAnswer/Test";
+import PaymentPage from "../Components/StripesPayment/PaymentPage";
 
 export default function Routes() {
     
@@ -44,18 +45,20 @@ export default function Routes() {
                 <Route path="/signup" exact>
                     <Register />
                 </Route>
-
                 <Route path="/become-instructor" exact>
                     <InstructorRegister />
                 </Route>
                 <Route path="/instructor" exact>
-                  <Instructor />
+                    <Instructor />
                 </Route>
                 <Route path="/commentsPage">
-                  <Test />
+                    <Test />
+                </Route>
+                <Route path="/payment-page">
+                    <PaymentPage />
                 </Route>
                 <Route>
-                  <PageNotFound />
+                    <PageNotFound />
                 </Route>
             </Switch>
         <Footer />

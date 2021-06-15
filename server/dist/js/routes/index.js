@@ -13,6 +13,7 @@ const Index_1 = require("../controllers/utils/Index");
 const login_1 = require("../controllers/login");
 const question_1 = require("../controllers/question");
 const answer_1 = require("../controllers/answer");
+const stripes_1 = require("../Components/stripes");
 const storeDataInAws_1 = require("../controllers/utils/storeDataInAws");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
@@ -26,6 +27,7 @@ route.get("/students", index_3.getStudent);
 route.get("/check-mail", Index_1.checkMailId);
 route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
+route.get("/check-status", stripes_1.checkStatus);
 // route.get("/getAll",seedTeachers);
 // posting the video,Course,student,teacher
 route.post("/add-user", user_1.addUser);
@@ -33,10 +35,11 @@ route.post("/register", user_1.addUser);
 route.post("/add-video", index_2.addVideo);
 route.post("/add-course", index_1.addCourse);
 route.post("/add-teacher", teacher_1.addTeacher);
-route.post("/add-teacher", storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single('image'), teacher_1.addTeacher);
+route.post("/add-teacher", storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single("image"), teacher_1.addTeacher);
 route.post("/add-chapter", index_4.addChapter);
 route.post("/add-answer", answer_1.addAnswer);
 route.post("/add-question", question_1.addQuestion);
+route.post("/payment", stripes_1.paymentWithCard);
 // get them by Id
 route.get("/get-user/:id", user_1.getUserId);
 route.get("/get-video/:id", index_2.getVideoId);

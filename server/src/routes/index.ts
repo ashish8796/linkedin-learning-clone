@@ -48,13 +48,18 @@ import { checkMailId } from "../controllers/utils/Index";
 import { loginUser } from "../controllers/login";
 import { addQuestion, getQnAWithCourseId } from "../controllers/question";
 import { addAnswer } from "../controllers/answer";
-import { uploadProfilePic } from '../controllers/utils/storeDataInAws';
+import {
+  checkStatus,
+  getPaymentDetails,
+  paymentWithCard,
+} from "../Components/stripes";
+import { uploadProfilePic } from "../controllers/utils/storeDataInAws";
 const path = require("path");
 
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
-function fn() { }
+function fn() {}
 
 // getting all the videos, Courses, student, teacher
 
@@ -72,6 +77,8 @@ route.get("/teachers", getTeacher);
 
 route.get("/chapters", getChapter);
 
+route.get("/check-status", checkStatus);
+
 // route.get("/getAll",seedTeachers);
 // posting the video,Course,student,teacher
 
@@ -84,13 +91,20 @@ route.post("/add-course", addCourse);
 
 route.post("/add-teacher", addTeacher);
 
-route.post("/add-teacher", uploadProfilePic("linkden-learning/profile-pics").single('image'), addTeacher)
+route.post(
+  "/add-teacher",
+  uploadProfilePic("linkden-learning/profile-pics").single("image"),
+  addTeacher
+);
 
 route.post("/add-chapter", addChapter);
 
 route.post("/add-answer", addAnswer);
 
 route.post("/add-question", addQuestion);
+
+route.post("/payment", paymentWithCard);
+
 // get them by Id
 
 route.get("/get-user/:id", getUserId);
