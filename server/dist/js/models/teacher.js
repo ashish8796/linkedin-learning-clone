@@ -6,7 +6,7 @@ const teacherSchema = new mongoose_1.Schema({
         type: [String],
     },
     image: {
-        type: String
+        type: String,
     },
     description: {
         type: String

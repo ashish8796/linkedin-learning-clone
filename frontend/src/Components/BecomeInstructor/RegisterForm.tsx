@@ -18,7 +18,7 @@ export interface RegisterTeacherFormState {
   qualification: Array<string>;
   description: string;
   DOB: string;
-  specializations: Array<String>;
+  specializations: Array<string>;
   linkedInProfile: string;
   image: Blob | null;
 }
@@ -47,21 +47,6 @@ export default function RegisterForm({}: IRegisterFormProps) {
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { type, name, value } = e.target;
 
-    // if (name === "image") {
-    //   let file = e.target.files![0];
-
-    //   let reader = new FileReader();
-
-    //   reader.readAsText(file);
-
-    //   reader.onload = function () {
-    //     setRegisterData({
-    //       ...registerData,
-    //       [name]: new Blob(reader.result),
-    //     });
-    //   };
-    // }
-
     if (name === "qualificationText") {
       setQualificationText(value);
     } else if (name === "image") {
@@ -88,22 +73,21 @@ export default function RegisterForm({}: IRegisterFormProps) {
 
   const handleSubmitForm: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
-    const profilePic: FormData = new FormData();
-    if (registerData.image) {
-      profilePic.append("image", registerData.image);
+    const registerFormData: FormData = new FormData();
+
+    const payload = { ...registerData, uniqueId: userId };
+
+    // let key: keyof typeof payload;
+
+    for (let key in payload) {
+      if (key) {
+        //@ts-ignore
+        registerFormData.append(key, payload[key!]);
+      }
     }
 
-    profilePic.append("uniqueId", userId);
-    // Object.keys()
-
-    // const payload: PostTeacher = {
-    //   ...registerData,
-    //   uniqueId: userId,
-    //   image: profilePic,
-    // };
-
     try {
-      const data = await dispatch(addTeacher(profilePic));
+      const data = await dispatch(addTeacher(registerFormData));
       console.log(typeof data);
 
       // @ts-ignore
