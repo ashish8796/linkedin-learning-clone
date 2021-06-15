@@ -9,6 +9,6 @@ export default interface ICourse extends Document {
   questionBlog?: Array<Object>;
   createdAt?: Date;
   chapterIds?: Array<String>;
-  Image?: Array<Object>;
+  Image?: String;
   blogId?: String;
 }

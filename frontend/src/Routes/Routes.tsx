@@ -13,6 +13,7 @@ import InstructorRegister from "./../Pages/BecomeInstructor";
 import Instructor from "../Pages/Instructor";
 import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
 import Test from "../Components/QuestionNAnswer/Test";
+import PaymentPage from "../Components/StripesPayment/PaymentPage";
 
 export default function Routes() {
   return (
@@ -49,6 +50,9 @@ export default function Routes() {
         <Route path="/commentsPage">
           <Test />
         </Route>
+        <Route path="/payment-page">
+          <PaymentPage />
+          </Route>
         <Route>
           <PageNotFound />
         </Route>
