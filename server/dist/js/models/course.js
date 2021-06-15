@@ -20,16 +20,9 @@ const courseSchema = new mongoose_1.Schema({
         ref: "teacher",
         required: [true, "enter Teacher/ Author Id"],
     },
-    Image: [
-        {
-            url: {
-                type: String,
-            },
-            alt: {
-                type: String,
-            },
-        },
-    ],
+    Image: {
+        type: String,
+    },
     blogId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "blog",

@@ -13,6 +13,7 @@ const Index_1 = require("../controllers/utils/Index");
 const login_1 = require("../controllers/login");
 const question_1 = require("../controllers/question");
 const answer_1 = require("../controllers/answer");
+const stripes_1 = require("../Components/stripes");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
@@ -25,6 +26,7 @@ route.get("/students", index_3.getStudent);
 route.get("/check-mail", Index_1.checkMailId);
 route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
+route.get("/check-status", stripes_1.checkStatus);
 // route.get("/getAll",seedTeachers);
 // posting the video,Course,student,teacher
 route.post("/add-user", user_1.addUser);
@@ -36,6 +38,7 @@ route.post("/add-student", index_3.addStudent);
 route.post("/add-chapter", index_4.addChapter);
 route.post("/add-answer", answer_1.addAnswer);
 route.post("/add-question", question_1.addQuestion);
+route.post("/payment", stripes_1.paymentWithCard);
 // get them by Id
 route.get("/get-user/:id", user_1.getUserId);
 route.get("/get-video/:id", index_2.getVideoId);
