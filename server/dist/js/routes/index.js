@@ -12,6 +12,7 @@ const Index_1 = require("../controllers/utils/Index");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
+function fn() { }
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
 route.get("/videos", index_2.getVideo);
@@ -22,6 +23,7 @@ route.get("/teachers", teacher_1.getTeacher);
 route.get("/chapters", index_4.getChapter);
 // route.get("/getAll",seedTeachers)
 // posting the video,Course,student,teacher
+route.post("/add-user", user_1.addUser);
 route.post("/register", user_1.addUser);
 route.post("/add-video", index_2.addVideo);
 route.post("/add-course", index_1.addCourse);
