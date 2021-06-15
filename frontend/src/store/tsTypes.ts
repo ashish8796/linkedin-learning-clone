@@ -2,6 +2,7 @@ import React from "react";
 import { ICourseState } from "./course/courseReducer";
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer";
 import { PlayerState } from "./player/playerReducer";
+import { ITeacher, TeacherState } from "./teacher/teacherReducer";
 import { IState } from "./user/userReducer";
 
 export type State = {
@@ -9,6 +10,7 @@ export type State = {
   currentVideo: CurrentVideoState
   course: ICourseState;
   user: IState;
+  teacher: TeacherState;
 }
 
 export type SetPlayerStatus = {
@@ -51,5 +53,5 @@ export type SetCourse = {
 
 export type SetTeacher = {
   type: string;
-  payload: string;
+  payload: ITeacher;
 }
