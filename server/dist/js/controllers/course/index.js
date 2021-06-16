@@ -20,25 +20,23 @@ const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const courses = yield course_1.default
             .find()
-            .populate({ path: "questionBlog", populate: { path: "question" } })
-            .populate({
-            path: "questionBlog",
-            populate: { path: "question", populate: { path: "userId" } },
-        })
-            // .populate({
-            //   path: "questionBlog",
-            //   populate: { path: "question", populate: { path: "userId" } },
-            // })
-            .populate({
-            path: "questionBlog",
-            populate: {
-                path: "question",
-                populate: {
-                    path: "userId answers",
-                    populate: { path: "answer userId" },
-                },
-            },
-        });
+            // .populate({ path: "questionBlog", populate: { path: "question" } });
+            .populate("authorId");
+        // .populate({path:"authorId",populate:{path:""}})
+        // .populate({
+        //   path: "questionBlog",
+        //   populate: { path: "question", populate: { path: "userId" } },
+        // })
+        // .populate({
+        //   path: "questionBlog",
+        //   populate: {
+        //     path: "question",
+        //     populate: {
+        //       path: "userId answers",
+        //       populate: { path: "answer userId" },
+        //     },
+        //   },
+        // });
         yield res.status(202).json({ courses: courses });
     }
     catch (error) {

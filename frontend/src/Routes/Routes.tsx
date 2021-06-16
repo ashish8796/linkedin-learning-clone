@@ -14,8 +14,9 @@ import { State } from "../store/tsTypes";
 import { AuthNavbar } from "./AuthNavbar";
 import Instructor from "../Pages/Instructor";
 import Test from "../Components/QuestionNAnswer/Test";
-import PaymentPage from "../Components/StripesPayment/PaymentPage";
 import BecomeInstructor from "./../Pages/BecomeInstructor";
+// import PaymentPage from "../Components/StripesPayment/PaymentPag";
+import PaymentPage from "../Pages/PaymentPage";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);

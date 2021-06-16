@@ -32,7 +32,9 @@ exports.getUser = getUser;
 const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let body = req.body;
+        console.log(body.emailId, "back end");
         let userExist = yield Index_1.checkMailId(body.emailId);
+        console.log(userExist);
         if (!userExist) {
             const new_student = new user_1.default({
                 firstName: body.firstName,
@@ -48,33 +50,32 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             let newStudent = yield new_student.save();
             let allStudents = yield user_1.default.find();
-            res.status(202).json({
+            res.status(200).json({
                 message: "the user is added",
                 user: newStudent,
                 allStudents: allStudents,
             });
         }
-        res.status(203).json({ message: "user already exists" });
+        res.status(201).json({ message: "user already exists" });
     }
     catch (error) {
-        res.end();
         console.log(error);
+        // res.end();
     }
 });
 exports.addUser = addUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, body, } = req;
-        console.log(body, id);
-        const updatedStudent = yield user_1.default.findByIdAndUpdate({ _id: id }, body);
-        // res.status(205).json({testing:"testing",blog: updatedBlog})
-        const allStudents = yield user_1.default.find();
-        res.status(202).json({
-            message: "new user as been added ",
-            user: updatedStudent,
-            teachers: allStudents,
+        // console.log(body, id);
+        const updatedStudent = yield user_1.default.findByIdAndUpdate({ _id: id }, body, function (err, result) {
+            if (err) {
+                res.status(400).json({ message: "update failed", error: err });
+            }
+            else {
+                res.status(200).json({ message: "user updated", result: result });
+            }
         });
-        // console.log("new")
     }
     catch (error) {
         console.log(error);

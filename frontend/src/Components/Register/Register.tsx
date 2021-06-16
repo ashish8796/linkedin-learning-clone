@@ -8,6 +8,8 @@ import { NameInput } from './NameInput';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../store/user/action';
 import Axios from 'axios';
+import { useHistory , Redirect} from 'react-router';
+import PaymentPage from '../StripesPayment/PaymentPage';
 
 const Container = styled.div`
     position: absolute;
@@ -60,9 +62,11 @@ const axios  = Axios.create({
 
 export default function Register () {
 
+    const history = useHistory()
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    //  const isAuth = useSelector((state) => state.user.isAuth) 
     const [ user, setUser ] = useState<IRegister>(initData)
     const [ showName, setShowName ] = useState<boolean>(false);
 
@@ -80,6 +84,8 @@ export default function Register () {
     };
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = ()=>{
+        console.log(user)
+        history.push("/payment-page");
         dispatch(registerUser(user));
     }
     
