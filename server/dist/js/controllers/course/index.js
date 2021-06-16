@@ -21,8 +21,12 @@ const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const courses = yield course_1.default
             .find()
             // .populate({ path: "questionBlog", populate: { path: "question" } });
-            .populate("authorId");
-        // .populate({path:"authorId",populate:{path:""}})
+            // .populate("authorId");
+            .populate({
+            path: "authorId",
+            populate: { path: "authorId uniqueId", select: "firstName lastName" },
+        });
+        // .select();
         // .populate({
         //   path: "questionBlog",
         //   populate: { path: "question", populate: { path: "userId" } },

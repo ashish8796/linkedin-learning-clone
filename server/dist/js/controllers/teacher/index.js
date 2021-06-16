@@ -77,7 +77,7 @@ exports.updateTeacher = updateTeacher;
 const getTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        const teachers = yield teacher_1.default.findById(id);
+        const teachers = yield teacher_1.default.find({ _id: id });
         res.status(202).json({ message: "found", teacher: teachers });
     }
     catch (error) {

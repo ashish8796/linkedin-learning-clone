@@ -14,9 +14,14 @@ const chapterSchema: Schema = new Schema(
     content: {
       type: Object,
     },
-    videoId: {
-      type: Array,
-    },
+    videoIds: [
+      {
+        videoId: {
+          type: Schema.Types.ObjectId,
+          ref: "video",
+        },
+      },
+    ],
     courseId: {
       type: Schema.Types.ObjectId,
       ref: "course",

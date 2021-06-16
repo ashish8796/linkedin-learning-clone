@@ -13,9 +13,14 @@ const chapterSchema = new mongoose_1.Schema({
     content: {
         type: Object,
     },
-    videoId: {
-        type: Array,
-    },
+    videoIds: [
+        {
+            videoId: {
+                type: mongoose_1.Schema.Types.ObjectId,
+                ref: "video",
+            },
+        },
+    ],
     courseId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "course",

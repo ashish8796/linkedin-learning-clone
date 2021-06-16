@@ -133,12 +133,10 @@ export const getChapterByCourseId = async (
       .find({ courseId: id })
       .populate("chapterId")
       .populate("courseId");
-    res
-      .status(200)
-      .json({
-        message: "the data of the course",
-        chapter: chapterWithId,
-        coursePopulate: courseWithId,
-      });
+    res.status(200).json({
+      message: "the data of the course",
+      chapter: chapterWithId,
+      coursePopulate: courseWithId,
+    });
   } catch (error) {}
 };
