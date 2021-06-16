@@ -6,7 +6,16 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   SUBSCRIBE_USER,
+  GET_USER_BY_EMAIL_REQUEST,
+  GET_USER_BY_EMAIL_SUCCESS,
+  GET_USER_BY_EMAIL_FAILURE,
+  LOGOUT_USER,
 } from "./actionTypes";
+
+import { 
+  loadData, 
+  saveData 
+} from "../utils/localStorage";
 
 export interface UserState {
   isLoading: boolean;
@@ -15,7 +24,11 @@ export interface UserState {
   isAuth: boolean;
   data: any;
   token: string;
+  userDetails: any;
 }
+
+const isAuth: boolean = loadData("isAuth") || false;
+const userDetails: any = loadData("userDetails") || {};
 
 const initState: UserState = {
   isLoading: false,
@@ -24,71 +37,102 @@ const initState: UserState = {
   isAuth: false,
   data: {},
   token: "",
+  userDetails: userDetails
 };
 
 export const userReducer = (state = initState, action: any) => {
-  const payload = action.payload;
-  switch (action?.type) {
-    case REGISTER_USER_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        isAuth: false,
-      };
+    const payload = action.payload;
+    switch (action?.type) {
+        case REGISTER_USER_REQUEST: {
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isAuth: false,
+            };
+        }
+        case REGISTER_USER_SUCCESS: {
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                isAuth: true,
+                data: payload,
+            };
+        }
+        case REGISTER_USER_FAILURE: {
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isAuth: false,
+            };
+        }
+        case LOGIN_USER_REQUEST: {
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isAuth: false,
+            };
+        }
+        case LOGIN_USER_SUCCESS: {
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                isAuth: true,
+                token: payload,
+            };
+        }
+        case LOGIN_USER_FAILURE: {
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isAuth: false,
+            };
+        }
+        case SUBSCRIBE_USER: {
+            console.log(payload);
+            return {
+                ...state,
+                userId: payload.data.result._id,
+                isAuth: true,
+                data: payload.data.result,
+            }
+        }
+        case GET_USER_BY_EMAIL_REQUEST: {
+            return {
+                ...state,
+                isLoading: true,
+                isError: false
+            }
+        }
+        case GET_USER_BY_EMAIL_SUCCESS: {
+            saveData("userDetails", payload)
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                userDetails: payload
+            }
+        }
+        case GET_USER_BY_EMAIL_FAILURE: {
+            return {
+                isLoading: false,
+                isError: true
+            }
+        }
+        case LOGOUT_USER: {
+            saveData("isAuth", false);
+            saveData("userDetails", {});
+            return {
+                ...state,
+                isAuth: false
+            }
+        }
+        default:
+            return state;
     }
-    case REGISTER_USER_SUCCESS: {
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        isAuth: true,
-        data: payload,
-      };
-    }
-    case REGISTER_USER_FAILURE: {
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        isAuth: false,
-      };
-    }
-    case LOGIN_USER_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        isAuth: false,
-      };
-    }
-    case LOGIN_USER_SUCCESS: {
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        isAuth: true,
-        token: payload,
-      };
-    }
-    case LOGIN_USER_FAILURE: {
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        isAuth: false,
-      };
-    }
-    case SUBSCRIBE_USER: {
-      console.log(payload);
-      return {
-        ...state,
-        userId: payload.data.result._id,
-        isAuth: true,
-        data: payload.data.result,
-      };
-    }
-    default:
-      return state;
-  }
 };

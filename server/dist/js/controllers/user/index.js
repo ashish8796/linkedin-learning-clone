@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.getUserId = exports.updateUser = exports.addUser = exports.getUser = void 0;
+exports.deleteUser = exports.getUserEmailId = exports.getUserId = exports.updateUser = exports.addUser = exports.getUser = void 0;
 const user_1 = __importDefault(require("../../models/user"));
 const Index_1 = require("../utils/Index");
 require("dotenv").config();
@@ -86,13 +86,24 @@ const getUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
         const students = yield user_1.default.findById({ _id: id });
-        res.status(202).json({ message: "found", user: students });
+        res.status(200).json({ message: "found", user: students });
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.getUserId = getUserId;
+const getUserEmailId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const emailId = req.params.emailId;
+        const students = yield user_1.default.findOne({ emailId: emailId });
+        res.status(200).json({ message: "found", user: students });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getUserEmailId = getUserEmailId;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const delete_student = yield user_1.default.findByIdAndRemove(req.params.id);
