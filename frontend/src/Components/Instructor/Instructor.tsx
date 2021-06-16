@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { setTeacher } from "../../store/teacher/actions";
 import { State } from "../../store/tsTypes";
+import InstructorFeatures from "../InstructorFeatures/InstructorFeatures";
 import InstructorProfile from "../InstructorProfile/InstructorProfile";
 
 export default function Instructor() {
@@ -19,6 +20,10 @@ export default function Instructor() {
       <UpperSection>
         <InstructorProfile />
       </UpperSection>
+
+      <LowerSection>
+        <InstructorFeatures />
+      </LowerSection>
     </InstructorWrapper>
   );
 }
@@ -31,3 +36,5 @@ const InstructorWrapper = styled.div`
 const UpperSection = styled.section`
   background-color: #f3f6f8;
 `;
+
+const LowerSection = styled.div``;

@@ -15,13 +15,18 @@ export const postTeacher = (payload: any) => {
 
   return axios.post("/add-teacher", payload, {
     headers: {
-      "content-type": "multipart/form-data"
+      "Content-Type": "multipart/form-data"
     }
   })
 }
 
 export const getTeacher = (id: string): Promise<AxiosResponse<any>> => {
   return axios.get(`/get-teacher/${id}`)
+}
+
+export const getAllCoursesOfTeacher = (id: string) => {
+
+  // return axios.get()
 }
 
 export const getData = () => {

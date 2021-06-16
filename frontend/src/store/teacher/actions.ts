@@ -17,5 +17,12 @@ export const setTeacher = (id: string) => async (dispatch: Dispatch) => {
   } catch (error) {
 
   }
+}
 
+export const setAllCourses = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    // const { data } = 
+  } catch (error) {
+
+  }
 }

@@ -77,7 +77,7 @@ export default function RegisterForm({}: IRegisterFormProps) {
     for (let key in payload) {
       if (key) {
         //@ts-ignore
-        registerFormData.append(`${key}`, payload[key!]);
+        registerFormData.append(key, payload[key]);
       }
     }
 

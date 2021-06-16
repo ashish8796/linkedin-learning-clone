@@ -17,7 +17,8 @@ export interface ITeacher {
 }
 
 export interface TeacherState {
-  teacher: ITeacher
+  teacher: ITeacher;
+  allCourses: Array<object>
 }
 
 export const initTeacher: ITeacher = {
@@ -37,7 +38,8 @@ export const initTeacher: ITeacher = {
 
 
 const initState: TeacherState = {
-  teacher: initTeacher
+  teacher: initTeacher,
+  allCourses: []
 }
 
 type MainAction = SetTeacher

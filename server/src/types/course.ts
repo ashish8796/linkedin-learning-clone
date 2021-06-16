@@ -5,10 +5,9 @@ export default interface ICourse extends Document {
   title: String;
   description: String;
   tags?: Array<String>;
-  authorId?: String;
+  authorId: String;
   questionBlog?: Array<Object>;
-  createdAt?: Date;
   chapterIds?: Array<String>;
-  Image?: String;
+  image?: String;
   blogId?: String;
 }

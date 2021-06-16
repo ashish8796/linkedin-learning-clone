@@ -33,6 +33,17 @@ export const getCourse = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const getCourseByTeacherId = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { teacherId } = req.params;
+
+    const courses = await course.find({ authorId: teacherId }).exec();
+
+  } catch (error) {
+
+  }
+}
+
 export const addCourse = async (req: Request, res: Response): Promise<void> => {
   try {
     // res.status(203).json({"name":"kota"})
@@ -44,7 +55,7 @@ export const addCourse = async (req: Request, res: Response): Promise<void> => {
       | "authorId"
       | "tags"
       | "questionBlog"
-      | "Image"
+      | "image"
       | "blogId"
     >;
     console.log(body);
@@ -56,7 +67,7 @@ export const addCourse = async (req: Request, res: Response): Promise<void> => {
       tags: body.tags,
       questionBlog: body.questionBlog,
       blogId: body.blogId,
-      Image: body.Image,
+      Image: body.image,
       // questionSession:body.questionSession,
       // chapterIds:body.chapterIds,
     });
