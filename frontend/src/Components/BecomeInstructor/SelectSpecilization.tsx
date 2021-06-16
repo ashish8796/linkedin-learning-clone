@@ -91,28 +91,34 @@ export default function SelectSpecilization({
     <SpecializationBox>
       <QuestionBox>
         <OptionBox>
-          <QuestionText>
-            What business topics are you qualified to teach? (Please select up
-            to 3.)
-          </QuestionText>
+          <div>
+            <QuestionText>
+              What business topics are you qualified to teach? (Please select up
+              to 3.)
+            </QuestionText>
+          </div>
 
           <div>{createOption(businessTopics)}</div>
         </OptionBox>
 
         <OptionBox>
-          <QuestionText>
-            What creative topics are you qualified to teach? (Please select up
-            to 3.
-          </QuestionText>
+          <div>
+            <QuestionText>
+              What creative topics are you qualified to teach? (Please select up
+              to 3.
+            </QuestionText>
+          </div>
 
           <div>{createOption(creativeTopics)}</div>
         </OptionBox>
 
         <OptionBox>
-          <QuestionText>
-            What technology topics are you qualified to teach? (Please select up
-            to 3.)
-          </QuestionText>
+          <div>
+            <QuestionText>
+              What technology topics are you qualified to teach? (Please select
+              up to 3.)
+            </QuestionText>
+          </div>
 
           <div>{createOption(technologyTopics)}</div>
         </OptionBox>

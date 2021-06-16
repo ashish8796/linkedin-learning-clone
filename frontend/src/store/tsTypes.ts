@@ -3,12 +3,17 @@ import { ICourseState } from "./course/courseReducer";
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer";
 import { PlayerState } from "./player/playerReducer";
 import { UserState } from "./user/userReducer";
+import { ITeacher, TeacherState } from "./teacher/teacherReducer";
+// import { IState } from "./user/userReducer";
 
 export type State = {
   player: PlayerState;
   currentVideo: CurrentVideoState;
   course: ICourseState;
   user: UserState;
+  // };
+  //   user: IState;
+  teacher: TeacherState;
 };
 
 export type SetPlayerStatus = {
@@ -51,5 +56,5 @@ export type SetCourse = {
 
 export type SetTeacher = {
   type: string;
-  payload: string;
+  payload: ITeacher;
 };

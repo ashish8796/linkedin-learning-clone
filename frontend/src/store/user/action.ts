@@ -16,9 +16,9 @@ import { setData } from "../temp/state";
 
 const registerUserRequest = () => {
   return {
-    type: REGISTER_USER_REQUEST,
-  };
-};
+    type: REGISTER_USER_REQUEST
+  }
+}
 
 export const subscribeUser =
   (userId: string, payload: any) => async (dispatch: Dispatch) => {
@@ -30,6 +30,7 @@ export const subscribeUser =
       console.log(error);
     }
   };
+
 const registerUserSuccess = (payload: any) => {
   setData("data", { userId: payload.user._id });
   console.log(payload.user._id);

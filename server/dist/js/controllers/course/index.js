@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourse = void 0;
+exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourseByTeacherId = exports.getCourse = void 0;
 const course_1 = __importDefault(require("../../models/course"));
 const answerBox_1 = __importDefault(require("../../models/answerBox"));
 // userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
@@ -48,6 +48,15 @@ const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getCourse = getCourse;
+const getCourseByTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { teacherId } = req.params;
+        const courses = yield course_1.default.find({ authorId: teacherId }).exec();
+    }
+    catch (error) {
+    }
+});
+exports.getCourseByTeacherId = getCourseByTeacherId;
 const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // res.status(203).json({"name":"kota"})
@@ -62,7 +71,7 @@ const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             tags: body.tags,
             questionBlog: body.questionBlog,
             blogId: body.blogId,
-            Image: body.Image,
+            Image: body.image,
             // questionSession:body.questionSession,
             // chapterIds:body.chapterIds,
         });

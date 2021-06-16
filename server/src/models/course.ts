@@ -21,7 +21,7 @@ const courseSchema: Schema = new Schema(
       ref: "teacher",
       // required: [true, "enter Teacher/ Author Id"],
     },
-    Image: {
+    image: {
       type: String,
     },
     blogId: {
