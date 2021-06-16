@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { SignInInput } from './SignInInput';
 import { SignInFooter } from './SignInFooter';
-import { loginUser } from '../../store/user/action';
+import { getUserByEmail, loginUser } from '../../store/user/action';
 import { State } from '../../store/tsTypes';
 import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Container = styled.div`
     position: absolute;
@@ -117,11 +118,18 @@ export default function SignIn () {
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = ()=>{
         dispatch(loginUser(data));
+        dispatch(getUserByEmail(data))
     }
 
     if(isAuth){
         history.push('/');
     }
+
+    // useEffect(()=>{
+    //     if(isAuth){
+    //         dispatch(getUserByEmail(data))
+    //     }
+    // },[])
     
     return (
         <Container>

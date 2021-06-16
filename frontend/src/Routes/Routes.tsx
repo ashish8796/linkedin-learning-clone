@@ -11,7 +11,7 @@ import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
 import InstructorRegister from "./../Pages/BecomeInstructor";
 import { State } from "../store/tsTypes";
-import { AuthNavbar } from "./AuthNavbar";
+import { AuthNavbar } from "./AuthNavbar/AuthNavbar";
 import Instructor from "../Pages/Instructor";
 import Test from "../Components/QuestionNAnswer/Test";
 import PaymentPage from "../Components/StripesPayment/PaymentPage";

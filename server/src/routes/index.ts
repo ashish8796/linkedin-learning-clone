@@ -42,6 +42,7 @@ import {
   getUser,
   getUserId,
   updateUser,
+  getUserEmailId,
 } from "../controllers/user";
 import { deleteAnswer } from "../controllers/answer/index";
 import { checkMailId } from "../controllers/utils/Index";
@@ -104,6 +105,8 @@ route.post("/payment", paymentWithCard);
 // get them by Id
 
 route.get("/get-user/:id", getUserId);
+
+route.get('/get-user-detail/:emailId', getUserEmailId);
 
 route.get("/get-video/:id", getVideoId);
 

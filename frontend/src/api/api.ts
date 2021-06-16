@@ -31,3 +31,7 @@ export const registerUsers = (payload: IRegister) => {
 export const loginUsers = (payload: ILogin) => {
   return axios.post('/login', payload)
 }
+
+export const getUserDetailsByEmail = (payload: string) =>{
+  return axios.get(`/get-user-detail/${payload}`)
+}

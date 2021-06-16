@@ -1,5 +1,5 @@
-import { LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAILURE, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "./actionTypes";
-import { loginUsers, registerUsers } from "../../api/api";
+import { GET_USER_BY_EMAIL_FAILURE, GET_USER_BY_EMAIL_REQUEST, GET_USER_BY_EMAIL_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER, REGISTER_USER_FAILURE, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "./actionTypes";
+import { getUserDetailsByEmail, loginUsers, registerUsers } from "../../api/api";
 import { ILogin } from '../../Components/SignIn/SignIn';
 import { IRegister } from '../../Components/Register/Register';
 
@@ -43,6 +43,32 @@ const loginUserFailure = (err: any)=>{
     }
 }
 
+const getUserByEmailRequest = ()=>{
+    return {
+        type: GET_USER_BY_EMAIL_REQUEST
+    }
+}
+
+const getUserByEmailSuccess = (payload: any)=>{
+    return {
+        type: GET_USER_BY_EMAIL_SUCCESS,
+        payload
+    }
+}
+
+const getUserByEmailFailure = (err: any)=>{
+    return {
+        type: GET_USER_BY_EMAIL_FAILURE,
+        payload: err
+    }
+}
+
+export const logoutUser = ()=>{
+    return {
+        type: LOGOUT_USER
+    }
+}
+
 export const registerUser = (payload: IRegister)=> async (dispatch: any)=>{
     dispatch(registerUserRequest());
 
@@ -65,5 +91,17 @@ export const loginUser = (payload: ILogin) => async (dispatch: any) => {
     })
     .catch((err: any)=>{
         dispatch(loginUserFailure(err));
+    })
+}
+
+export const getUserByEmail = (payload: ILogin) => async (dispatch: any) => {
+    dispatch(getUserByEmailRequest());
+
+    await getUserDetailsByEmail(payload.emailId)
+    .then((res: any)=>{
+        dispatch(getUserByEmailSuccess(res.data.user));
+    })
+    .catch((err: any)=>{
+        dispatch(getUserByEmailFailure(err));
     })
 }

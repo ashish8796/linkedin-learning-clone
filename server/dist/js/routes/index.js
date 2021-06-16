@@ -41,6 +41,7 @@ route.post("/add-question", question_1.addQuestion);
 route.post("/payment", stripes_1.paymentWithCard);
 // get them by Id
 route.get("/get-user/:id", user_1.getUserId);
+route.get('/get-user-detail/:emailId', user_1.getUserEmailId);
 route.get("/get-video/:id", index_2.getVideoId);
 route.get("/get-course/:id", index_1.getCourseId);
 route.get("/get-student/:id", index_3.getStudentId);
