@@ -23,18 +23,44 @@ export const getTeacher = (id: string): Promise<AxiosResponse<any>> => {
   return axios.get(`/get-teacher/${id}`)
 }
 
+
+//Course related requests
+export const getCourse = (id: string): Promise<any> => {
+  return axios.get(`/get-course/${id}`)
+}
+
+export const postNewCourse = (payload: any) => {
+  return axios.post("/add-course", payload)
+}
+
 export const getAllCoursesOfTeacher = (id: string) => {
 
   // return axios.get()
 }
 
-export const getData = () => {
+//Chapter related requests
+export const getAllChaptersByCourseId = (id: string) => {
+  return axios.get(`/getChapterNCourse/${id}`)
+}
+
+export const postNewChapter = (payload: any) => {
+  return axios.post("/add-chapter", payload)
+}
+
+//Video related requests
+export const getVideosByChapterId = (id: string) => {
   return axios.get("/");
 };
+
+export const postNewLecture = (payload: any) => {
+  return axios.post("/add-video", payload)
+}
 
 export const registerUsers = (payload: IRegister) => {
   return axios.post("/register", payload);
 };
+
+
 
 export const loginUsers = (payload: ILogin) => {
   return axios.post("/login", payload);

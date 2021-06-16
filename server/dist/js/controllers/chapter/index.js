@@ -104,17 +104,22 @@ exports.deleteChapter = deleteChapter;
 const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        let chapterWithId = chapter_1.default.find({ courseId: id });
-        let courseWithId = video_1.default
+        let chapterWithId = yield chapter_1.default.find({ courseId: id }).exec();
+        let courseWithId = yield video_1.default
             .find({ courseId: id })
             .populate("chapterId")
             .populate("courseId");
-        res.status(200).json({
+        res
+            .status(200)
+            .json({
             message: "the data of the course",
             chapter: chapterWithId,
-            coursePopulate: courseWithId,
+            videosWithCoursePopulate: courseWithId,
         });
     }
-    catch (error) { }
+    catch (error) {
+        console.log(error);
+        res.end();
+    }
 });
 exports.getChapterByCourseId = getChapterByCourseId;

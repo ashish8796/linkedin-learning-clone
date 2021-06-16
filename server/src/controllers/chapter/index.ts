@@ -14,7 +14,7 @@ export const getChapter = async (
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 export const addChapter = async (
   req: Request,
@@ -128,15 +128,22 @@ export const getChapterByCourseId = async (
     const {
       params: { id },
     } = req;
-    let chapterWithId = chapter.find({ courseId: id });
-    let courseWithId = video
+    let chapterWithId = await chapter.find({ courseId: id }).exec();
+
+
+    let courseWithId = await video
       .find({ courseId: id })
       .populate("chapterId")
       .populate("courseId");
-    res.status(200).json({
-      message: "the data of the course",
-      chapter: chapterWithId,
-      coursePopulate: courseWithId,
-    });
-  } catch (error) {}
+    res
+      .status(200)
+      .json({
+        message: "the data of the course",
+        chapter: chapterWithId,
+        videosWithCoursePopulate: courseWithId,
+      });
+  } catch (error) {
+    console.log(error);
+    res.end();
+  }
 };

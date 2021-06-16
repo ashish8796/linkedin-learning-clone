@@ -9,6 +9,7 @@ const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
+require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
@@ -20,10 +21,10 @@ const s3 = new aws_sdk_1.default.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
-console.log({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
+// console.log({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// })
 const uploadProfilePic = (bucketName) => {
     return multer_1.default({
         storage: multer_s3_1.default({

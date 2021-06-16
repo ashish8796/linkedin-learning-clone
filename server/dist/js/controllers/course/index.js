@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCourse = exports.getCourseId = exports.updateQuestion = exports.updateCourse = exports.addCourse = exports.getCourseByTeacherId = exports.getCourse = void 0;
 const course_1 = __importDefault(require("../../models/course"));
 const answerBox_1 = __importDefault(require("../../models/answerBox"));
-// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
+const storeDataInAws_1 = require("../utils/storeDataInAws");
 const getCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const courses = yield course_1.default
@@ -58,47 +58,51 @@ const getCourseByTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getCourseByTeacherId = getCourseByTeacherId;
 const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        // res.status(203).json({"name":"kota"})
-        // const blog = await course.create(req.body)
-        let body = req.body;
-        console.log(body);
-        const new_course = new course_1.default({
-            title: body.title,
-            description: body.description,
-            // createdAt:body.createdAt,
-            authorId: body.authorId,
-            tags: body.tags,
-            questionBlog: body.questionBlog,
-            blogId: body.blogId,
-            Image: body.image,
-            // questionSession:body.questionSession,
-            // chapterIds:body.chapterIds,
-        });
-        console.log(course_1.default);
-        const newCourse = yield new_course.save();
-        const allCourses = yield course_1.default.find();
-        // let CommentBox: any = [];
-        // allCourses.map((course) => {
-        //   let { _id } = course;
-        //   CommentBox.push(
-        //     answerBox
-        //       .find({ courseId: _id })
-        //       .populate("questionId")
-        //       .populate("userId")
-        //   );
-        // });
-        res.status(203).json({
-            message: "new course as been added ",
-            course: newCourse,
-            courses: allCourses,
-            //   CommentBox: CommentBox,
-        });
-    }
-    catch (error) {
-        res.end();
-        console.log(error);
-    }
+    const uploadCourseThumbnails = storeDataInAws_1.uploadProfilePic(`linkden-learning/course-thumbnails/`).single("image");
+    uploadCourseThumbnails(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            // res.status(203).json({"name":"kota"})
+            // const blog = await course.create(req.body)
+            console.log(req.file.location);
+            let body = req.body;
+            console.log(body);
+            const new_course = new course_1.default({
+                title: body.title,
+                description: body.description,
+                // createdAt:body.createdAt,
+                authorId: body.authorId,
+                tags: body.tags,
+                questionBlog: body.questionBlog,
+                blogId: body.blogId,
+                image: req.file.location,
+                // questionSession:body.questionSession,
+                // chapterIds:body.chapterIds,
+            });
+            console.log(course_1.default);
+            const newCourse = yield new_course.save();
+            const allCourses = yield course_1.default.find();
+            // let CommentBox: any = [];
+            // allCourses.map((course) => {
+            //   let { _id } = course;
+            //   CommentBox.push(
+            //     answerBox
+            //       .find({ courseId: _id })
+            //       .populate("questionId")
+            //       .populate("userId")
+            //   );
+            // });
+            res.status(203).json({
+                message: "new course as been added ",
+                course: newCourse,
+                courses: allCourses,
+                //   CommentBox: CommentBox,
+            });
+        }
+        catch (error) {
+            res.end();
+            console.log(error);
+        }
+    }));
 });
 exports.addCourse = addCourse;
 const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

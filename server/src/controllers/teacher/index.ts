@@ -15,6 +15,7 @@ export const getTeacher = async (
     console.log(error);
   }
 };
+
 interface MulterRequest extends Request {
   file: Express.MulterS3.File;
 }
