@@ -104,8 +104,9 @@ exports.deleteChapter = deleteChapter;
 const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        let chapterWithId = chapter_1.default.find({ courseId: id });
-        let courseWithId = video_1.default
+        let chapterWithId = yield chapter_1.default.find({ courseId: id }).exec();
+        console.log(chapterWithId);
+        let courseWithId = yield video_1.default
             .find({ courseId: id })
             .populate("chapterId")
             .populate("courseId");
@@ -117,6 +118,9 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
             coursePopulate: courseWithId,
         });
     }
-    catch (error) { }
+    catch (error) {
+        console.log(error);
+        res.end();
+    }
 });
 exports.getChapterByCourseId = getChapterByCourseId;

@@ -14,7 +14,7 @@ const videoSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    userId: {
+    authorId: {
         type: String,
     },
     chapterId: {
@@ -26,6 +26,10 @@ const videoSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "course",
         required: [true, "Course ID id Required"],
+    },
+    url: {
+        type: String,
+        required: [true, "Lecture link is required"]
     },
     tags: [
         {

@@ -56,16 +56,16 @@ export const addVideo = async (req: Request, res: Response): Promise<void> => {
             | "title"
             | "description"
             | "content"
-            | "createdAt"
             | "authorId"
             | "chapterId"
             | "courseId"
             | "tags"
-            | "userId"
+            | "url"
         >;
+
         console.log(body);
         // console.log(req.files);
-        const uploadVideo = upload(`linkden-learning/newVideos`).array("video");
+        const uploadVideo = upload(`linkden-learning/newVideos`).single("video");
         uploadVideo(req, res, async (err) => {
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });

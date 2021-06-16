@@ -1,5 +1,5 @@
 import { SetTeacher } from "../tsTypes";
-import { SET_COURSE, SET_TEACHER } from "./actionTypes";
+import { SET_COURSE, SET_NEW_CHAPTER, SET_TEACHER } from "./actionTypes";
 
 export interface ITeacher {
   DOB?: string;
@@ -17,16 +17,28 @@ export interface ITeacher {
 }
 
 export interface ICourse {
+  _id: string;
   title: string;
   description: string;
   image?: string;
   tags: Array<string>;
+  authorId: string
+}
+
+export interface IVideo {
+  video: string;
+}
+
+export interface IChapter {
+  _id: string;
 }
 
 export interface TeacherState {
   teacher: ITeacher;
   allCourses: Array<ICourse>
   course: ICourse;
+  newChapter: IChapter;
+  allChapters: IChapter[]
 }
 
 
@@ -51,6 +63,12 @@ export const initCourse: ICourse = {
   description: "",
   tags: [],
   image: "",
+  _id: "",
+  authorId: ""
+}
+
+export const initChapter: IChapter = {
+  _id: ""
 }
 
 
@@ -58,6 +76,8 @@ const initState: TeacherState = {
   teacher: initTeacher,
   allCourses: [],
   course: initCourse,
+  newChapter: initChapter,
+  allChapters: []
 }
 
 type MainAction = SetTeacher
@@ -71,6 +91,10 @@ function teacherReducer(state = initState, { type, payload }: MainAction) {
 
     case SET_COURSE: {
       return { ...state, course: payload }
+    }
+
+    case SET_NEW_CHAPTER: {
+      return { ...state, newChapter: payload }
     }
 
     default:

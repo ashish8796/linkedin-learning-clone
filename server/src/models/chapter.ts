@@ -9,7 +9,6 @@ const chapterSchema: Schema = new Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     content: {
       type: Object,

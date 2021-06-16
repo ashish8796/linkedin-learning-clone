@@ -5,6 +5,7 @@ import styled, { CSSProperties } from "styled-components";
 import { createNewCourse } from "../../store/teacher/actions";
 import { State } from "../../store/tsTypes";
 import CreateButton from "../Common/CreateButton";
+import Modal from "../Common/Modal/Modal";
 import CreateInput from "./../Common/CreateInput/CrateInput";
 import ShowCourseTags from "./ShowCourseTags";
 
@@ -157,6 +158,14 @@ export default function CourseModal({
             required={false}
           />
 
+          <Cancel
+            onClick={() => {
+              setIsCourseModalVisible(false);
+            }}
+          >
+            Cancel
+          </Cancel>
+
           <SubmitButton type="submit">Save Details</SubmitButton>
         </ModalForm>
       </CourseDetailsWrapper>
@@ -173,34 +182,17 @@ const addTagStyles: CSSProperties = {
   margin: "10px 0",
 };
 
-const Modal = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #80808028;
-`;
-
 const CourseDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  width: 60%;
-  /* height: 70vh; */
-  padding: 30px;
-
-  box-shadow: 0px 0px 9px 4px #80808075;
-  border-radius: 3px;
 `;
+
+const Cancel = styled.button``;
 
 const Heading = styled.h4``;
 const Title = styled.div``;
 const InfoBox = styled.div``;
+
 const ModalForm = styled.form`
   /* flex: 1; */
 `;

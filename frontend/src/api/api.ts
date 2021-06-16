@@ -38,6 +38,16 @@ export const getAllCoursesOfTeacher = (id: string) => {
   // return axios.get()
 }
 
+//Chapter related requests
+export const getAllChaptersByCourseId = (id: string) => {
+  return axios.get(`/getChapterNCourse/${id}`)
+}
+
+export const postNewChapter = (payload: any) => {
+  return axios.post("/add-chapter", payload)
+}
+
+
 export const getData = () => {
   return axios.get("/");
 };

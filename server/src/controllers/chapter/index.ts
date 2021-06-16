@@ -14,7 +14,7 @@ export const getChapter = async (
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 export const addChapter = async (
   req: Request,
@@ -128,8 +128,10 @@ export const getChapterByCourseId = async (
     const {
       params: { id },
     } = req;
-    let chapterWithId = chapter.find({ courseId: id });
-    let courseWithId = video
+    let chapterWithId = await chapter.find({ courseId: id }).exec();
+    console.log(chapterWithId);
+
+    let courseWithId = await video
       .find({ courseId: id })
       .populate("chapterId")
       .populate("courseId");
@@ -140,5 +142,8 @@ export const getChapterByCourseId = async (
         chapter: chapterWithId,
         coursePopulate: courseWithId,
       });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.end();
+  }
 };

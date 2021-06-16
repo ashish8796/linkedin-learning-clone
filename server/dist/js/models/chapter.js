@@ -8,7 +8,6 @@ const chapterSchema = new mongoose_1.Schema({
     },
     description: {
         type: String,
-        required: true,
     },
     content: {
         type: Object,

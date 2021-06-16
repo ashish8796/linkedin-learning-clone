@@ -205,6 +205,7 @@ const Form = styled.form`
 
 const QualificationBox = styled.div``;
 const ShowQualificationBox = styled.div``;
+
 const Submit = styled.button`
   padding: 8px 2rem;
   width: fit-content;

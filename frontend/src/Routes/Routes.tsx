@@ -9,7 +9,6 @@ import Learning from "../Pages/LearningPage";
 import SignIn from "../Pages/SignInPage";
 import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
-import InstructorRegister from "./../Pages/BecomeInstructor";
 import { State } from "../store/tsTypes";
 import { AuthNavbar } from "./AuthNavbar";
 import Instructor from "../Pages/Instructor";
@@ -44,11 +43,6 @@ export default function Routes() {
         <Route path="/signup" exact>
           <Register />
         </Route>
-
-        {/* <Route path="/become-instructor" exact>
-          <InstructorRegister />
-        </Route> */}
-
         <Route path="/instructor" exact>
           <Instructor />
         </Route>

@@ -110,7 +110,7 @@ route.get("/get-video/:id", getVideoId);
 
 route.get("/get-course/:id", getCourseId);
 
-route.get("/get-course/:teacherId", getCourseByTeacherId);
+route.get("/get-course/:teacherId", getCourseByTeacherId)
 
 route.get("/get-student/:id", getStudentId);
 

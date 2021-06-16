@@ -61,7 +61,7 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let body = req.body;
         console.log(body);
         // console.log(req.files);
-        const uploadVideo = upload(`linkden-learning/newVideos`).array("video");
+        const uploadVideo = upload(`linkden-learning/newVideos`).single("video");
         uploadVideo(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });
