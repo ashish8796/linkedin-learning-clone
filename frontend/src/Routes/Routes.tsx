@@ -13,7 +13,8 @@ import InstructorRegister from "./../Pages/BecomeInstructor";
 import Instructor from "../Pages/Instructor";
 import QuestionNAnswer from "../Components/QuestionNAnswer/QuestionNAnswer";
 import Test from "../Components/QuestionNAnswer/Test";
-import PaymentPage from "../Components/StripesPayment/PaymentPage";
+// import PaymentPage from "../Components/StripesPayment/PaymentPag";
+import PaymentPage from "../Pages/PaymentPage";
 
 export default function Routes() {
   return (

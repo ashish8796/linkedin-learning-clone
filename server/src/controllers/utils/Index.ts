@@ -2,12 +2,17 @@ import user from "../../models/user";
 
 export const checkMailId = async (mail: String | undefined) => {
   try {
-    const data = await user.find({ emailId: mail });
-
-    if (data.length == 0) {
+    console.log(mail);
+    if (mail !== undefined) {
+      const data = await user.find({ emailId: mail });
+      console.log(data);
+      if (data.length == 0) {
+        return false;
+      }
+      return true;
+    } else {
       return false;
     }
-    return true;
   } catch (err) {
     console.log(err);
   }

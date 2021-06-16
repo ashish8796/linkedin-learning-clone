@@ -43,11 +43,12 @@ export const paymentWithCard = async (req: Request, res: Response) => {
       ],
       mode: "payment",
 
-      success_url: `http://localhost:5000/check-status?success=true`,
+      success_url: `http://localhost:3000/payment-page?success=true`,
 
-      cancel_url: `http://localhost:5000/check-status?canceled=true`,
+      cancel_url: `http://localhost:3000/payment-page?canceled=true`,
     });
 
+    // console.log(session);
     res.status(200).json({ id: session.id, client_secret: session });
   } catch (error) {
     console.log(error);

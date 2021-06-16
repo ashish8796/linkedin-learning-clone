@@ -32,6 +32,10 @@ const userSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
+    subscribe: {
+        type: Boolean,
+        default: false,
+    },
     Image: [
         {
             url: {

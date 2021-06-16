@@ -33,7 +33,9 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       | "Image"
       | "flag"
     >;
+    console.log(body.emailId, "back end");
     let userExist = await checkMailId(body.emailId);
+    console.log(userExist);
     if (!userExist) {
       const new_student: IUser = new user({
         firstName: body.firstName,
@@ -49,16 +51,16 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       });
       let newStudent: IUser = await new_student.save();
       let allStudents: IUser[] = await user.find();
-      res.status(202).json({
+      res.status(200).json({
         message: "the user is added",
         user: newStudent,
         allStudents: allStudents,
       });
     }
-    res.status(203).json({ message: "user already exists" });
+    res.status(201).json({ message: "user already exists" });
   } catch (error) {
-    res.end();
     console.log(error);
+    // res.end();
   }
 };
 
@@ -71,20 +73,18 @@ export const updateUser = async (
       params: { id },
       body,
     } = req;
-    console.log(body, id);
+    // console.log(body, id);
     const updatedStudent: IUser | null = await user.findByIdAndUpdate(
       { _id: id },
-      body
+      body,
+      function (err, result) {
+        if (err) {
+          res.status(400).json({ message: "update failed", error: err });
+        } else {
+          res.status(200).json({ message: "user updated", result: result });
+        }
+      }
     );
-    // res.status(205).json({testing:"testing",blog: updatedBlog})
-    const allStudents: IUser[] = await user.find();
-
-    res.status(202).json({
-      message: "new user as been added ",
-      user: updatedStudent,
-      teachers: allStudents,
-    });
-    // console.log("new")
   } catch (error) {
     console.log(error);
   }
