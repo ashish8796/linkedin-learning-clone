@@ -46,6 +46,7 @@ export default function CourseModal({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
+    setIsCourseModalVisible(false);
     console.log("Form Submitted");
   };
 
@@ -89,7 +90,7 @@ export default function CourseModal({
             value={tag}
             handleChange={handleOnTagChange}
             placeholder="Write tag*"
-            required={true}
+            required={false}
           />
 
           <ShowCourseTags tags={tags} setCourseData={setCourseData} />
