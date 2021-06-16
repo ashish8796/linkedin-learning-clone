@@ -4,11 +4,14 @@ import styled from "styled-components";
 interface ICreateInputProps {
   label: string;
   type: string;
-  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
   name: string;
   value: any;
   placeholder: string;
   required: boolean;
+  labelStyles?: CSSProperties;
 }
 
 export default function CrateInput({
@@ -19,6 +22,7 @@ export default function CrateInput({
   value,
   placeholder,
   required,
+  labelStyles,
 }: ICreateInputProps) {
   // console.log(type);
 
@@ -41,14 +45,26 @@ export default function CrateInput({
       <Label type={type} style={label ? inputStyles : {}}>
         {label && <span>{label}</span>}
 
-        <Input
-          type={type}
-          name={name}
-          value={value}
-          onChange={handleChange}
-          placeholder={placeholder}
-          required={required}
-        />
+        {type !== "textarea" && (
+          <Input
+            type={type}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            placeholder={placeholder}
+            required={required}
+          />
+        )}
+
+        {type === "textarea" && (
+          <TextArea
+            name={name}
+            value={value}
+            onChange={handleChange}
+            placeholder={placeholder}
+            required={required}
+          ></TextArea>
+        )}
       </Label>
     );
   }
@@ -91,4 +107,11 @@ const Input = styled.input`
   margin: 10px 0;
   &::placeholder {
   }
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  margin-top: 10px;
+  outline: none;
+  padding: 5px 10px;
 `;

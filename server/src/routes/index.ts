@@ -6,6 +6,7 @@ import {
   updateCourse,
   deleteCourse,
   getCourseId,
+  getCourseByTeacherId
 } from "../controllers/course/index";
 import {
   getVideo,
@@ -108,6 +109,8 @@ route.get("/get-user/:id", getUserId);
 route.get("/get-video/:id", getVideoId);
 
 route.get("/get-course/:id", getCourseId);
+
+route.get("/get-course/:teacherId", getCourseByTeacherId);
 
 route.get("/get-student/:id", getStudentId);
 
