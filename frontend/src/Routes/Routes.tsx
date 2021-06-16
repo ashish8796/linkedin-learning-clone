@@ -17,6 +17,7 @@ import Test from "../Components/QuestionNAnswer/Test";
 import BecomeInstructor from "./../Pages/BecomeInstructor";
 // import PaymentPage from "../Components/StripesPayment/PaymentPag";
 import PaymentPage from "../Pages/PaymentPage";
+import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -57,6 +58,9 @@ export default function Routes() {
         </Route>
         <Route path="/payment-page">
           <PaymentPage />
+        </Route>
+        <Route path="/testing">
+          <ProgressPoint />
         </Route>
         <Route>
           <PageNotFound />
