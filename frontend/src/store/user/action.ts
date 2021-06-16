@@ -6,8 +6,12 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   SUBSCRIBE_USER,
+  GET_USER_BY_EMAIL_REQUEST,
+  GET_USER_BY_EMAIL_SUCCESS,
+  GET_USER_BY_EMAIL_FAILURE,
+  LOGOUT_USER,
 } from "./actionTypes";
-import { loginUsers, putSubscribeUser, registerUsers } from "../../api/api";
+import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail } from "../../api/api";
 import { ILogin } from "../../Components/SignIn/SignIn";
 import { IRegister } from "../../Components/Register/Register";
 import { Dispatch } from "redux";
@@ -66,6 +70,31 @@ const loginUserFailure = (err: any) => {
     payload: err,
   };
 };
+const getUserByEmailRequest = ()=>{
+    return {
+        type: GET_USER_BY_EMAIL_REQUEST
+    }
+}
+
+const getUserByEmailSuccess = (payload: any)=>{
+    return {
+        type: GET_USER_BY_EMAIL_SUCCESS,
+        payload
+    }
+}
+
+const getUserByEmailFailure = (err: any)=>{
+    return {
+        type: GET_USER_BY_EMAIL_FAILURE,
+        payload: err
+    }
+}
+
+export const logoutUser = ()=>{
+    return {
+        type: LOGOUT_USER
+    }
+}
 
 export const registerUser = (payload: IRegister) => async (dispatch: any) => {
   dispatch(registerUserRequest());
@@ -93,3 +122,15 @@ export const loginUser = (payload: ILogin) => async (dispatch: any) => {
       dispatch(loginUserFailure(err));
     });
 };
+
+export const getUserByEmail = (payload: ILogin) => async (dispatch: any) => {
+    dispatch(getUserByEmailRequest());
+
+    await getUserDetailsByEmail(payload.emailId)
+    .then((res: any)=>{
+        dispatch(getUserByEmailSuccess(res.data.user));
+    })
+    .catch((err: any)=>{
+        dispatch(getUserByEmailFailure(err));
+    })
+}

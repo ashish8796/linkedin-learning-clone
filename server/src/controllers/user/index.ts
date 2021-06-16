@@ -91,32 +91,42 @@ export const updateUser = async (
 };
 
 export const getUserId = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const {
-      params: { id },
-    } = req;
-    const students: IUser | null = await user.findById({ _id: id });
-    res.status(202).json({ message: "found", user: students });
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        const {
+        params: { id },
+        } = req;
+        const students: IUser | null = await user.findById({ _id: id });
+        res.status(200).json({ message: "found", user: students });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
+export const getUserEmailId = async(req: Request, res: Response): Promise<void>=> {
+    try {
+        const emailId = req.params.emailId;
+        const students = await user.findOne({emailId: emailId})
+        res.status(200).json({message:"found",user:students})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const deleteUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const delete_student: IUser | null = await user.findByIdAndRemove(
-      req.params.id
-    );
-    const allStudents: IUser[] = await user.find();
-    res.status(200).json({
-      message: "user Deleted",
-      user: delete_student,
-      teachers: allStudents,
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    req: Request,
+    res: Response
+    ): Promise<void> => {
+    try {
+        const delete_student: IUser | null = await user.findByIdAndRemove(
+        req.params.id
+        );
+        const allStudents: IUser[] = await user.find();
+        res.status(200).json({
+        message: "user Deleted",
+        user: delete_student,
+        teachers: allStudents,
+        });
+    } catch (error) {
+        console.log(error);
+    }
 };
