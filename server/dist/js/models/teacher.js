@@ -19,7 +19,7 @@ const teacherSchema = new mongoose_1.Schema({
     },
     uniqueId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "users",
+        ref: "user",
         required: [true, "uniqueId needed"],
     },
     linkedInProfile: {

@@ -20,7 +20,7 @@ const teacherSchema: Schema = new Schema(
     },
     uniqueId: {
       type: Schema.Types.ObjectId,
-      ref: "users",
+      ref: "user",
       required: [true, "uniqueId needed"],
     },
     linkedInProfile: {

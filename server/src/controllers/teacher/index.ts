@@ -100,7 +100,7 @@ export const getTeacherId = async (
     const {
       params: { id },
     } = req;
-    const teachers: ITeacher | null = await teacher.findById(id);
+    const teachers: ITeacher[] | null = await teacher.find({ _id: id });
     res.status(202).json({ message: "found", teacher: teachers });
   } catch (error) {
     console.log(error);

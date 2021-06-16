@@ -66,7 +66,7 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });
             }
-            console.log(req.files);
+            console.log(req.files, body);
             // const video:IVideo =new Video({
             //     title:body.title,
             //     description:body.description,
@@ -80,7 +80,7 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             // const newVideo : IVideo =await video.save();
             // const allVideos:IVideo[]= await Video.find()
             // res.status(203).json({message: "new Vide o as been added ", blog: newVideo ,blogs:allVideos})
-            res.status(203).json({ message: "done" });
+            res.status(200).json({ message: "done" });
         }));
     }
     catch (error) {
