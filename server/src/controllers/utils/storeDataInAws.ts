@@ -3,6 +3,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import path from "path";
 import { v4 as uuid } from "uuid";
+require("dotenv").config();
 
 AWS.config.update({
   credentials: {

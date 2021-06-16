@@ -17,6 +17,7 @@ import Test from "../Components/QuestionNAnswer/Test";
 import BecomeInstructor from "./../Pages/BecomeInstructor";
 // import PaymentPage from "../Components/StripesPayment/PaymentPag";
 import PaymentPage from "../Pages/PaymentPage";
+import CourseDetails from "../Pages/CourseDetails";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -43,15 +44,22 @@ export default function Routes() {
         <Route path="/signup" exact>
           <Register />
         </Route>
-        <Route path="/become-instructor" exact>
+
+        {/* <Route path="/become-instructor" exact>
           <InstructorRegister />
-        </Route>
+        </Route> */}
+
         <Route path="/instructor" exact>
           <Instructor />
         </Route>
         <Route path="/instructor/new">
           <BecomeInstructor />
         </Route>
+
+        <Route path="/instructor/courses/:id">
+          <CourseDetails />
+        </Route>
+
         <Route path="/commentsPage">
           <Test />
         </Route>

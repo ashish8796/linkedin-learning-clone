@@ -23,6 +23,16 @@ export const getTeacher = (id: string): Promise<AxiosResponse<any>> => {
   return axios.get(`/get-teacher/${id}`)
 }
 
+
+//Course related requests
+export const getCourse = (id: string): Promise<any> => {
+  return axios.get(`/get-course/${id}`)
+}
+
+export const postNewCourse = (payload: any) => {
+  return axios.post("/add-course", payload)
+}
+
 export const getAllCoursesOfTeacher = (id: string) => {
 
   // return axios.get()
@@ -35,6 +45,8 @@ export const getData = () => {
 export const registerUsers = (payload: IRegister) => {
   return axios.post("/register", payload);
 };
+
+
 
 export const loginUsers = (payload: ILogin) => {
   return axios.post("/login", payload);

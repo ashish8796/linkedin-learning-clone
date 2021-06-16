@@ -3,13 +3,13 @@ import { ICourseState } from "./course/courseReducer";
 import { CurrentVideoState } from "./currentVideo/currentVideoReducer";
 import { PlayerState } from "./player/playerReducer";
 import { ITeacher, TeacherState } from "./teacher/teacherReducer";
-import { IState } from "./user/userReducer";
+import { UserState } from "./user/userReducer";
 
 export type State = {
   player: PlayerState;
   currentVideo: CurrentVideoState
   course: ICourseState;
-  user: IState;
+  user: UserState;
   teacher: TeacherState;
 }
 

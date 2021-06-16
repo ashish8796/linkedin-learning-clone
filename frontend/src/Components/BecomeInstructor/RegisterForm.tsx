@@ -32,7 +32,6 @@ const initState: RegisterTeacherFormState = {
 export default function RegisterForm({}: IRegisterFormProps) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const imgRef = useRef<HTMLInputElement>(null);
   const { data } = useSelector((state: State) => state.user);
   const [registerData, setRegisterData] =
     useState<RegisterTeacherFormState>(initState);

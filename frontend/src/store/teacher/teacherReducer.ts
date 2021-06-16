@@ -1,5 +1,5 @@
 import { SetTeacher } from "../tsTypes";
-import { SET_TEACHER } from "./actionTypes";
+import { SET_COURSE, SET_TEACHER } from "./actionTypes";
 
 export interface ITeacher {
   DOB?: string;
@@ -16,10 +16,20 @@ export interface ITeacher {
   _id: string;
 }
 
+export interface ICourse {
+  title: string;
+  description: string;
+  image?: string;
+  tags: Array<string>;
+}
+
 export interface TeacherState {
   teacher: ITeacher;
-  allCourses: Array<object>
+  allCourses: Array<ICourse>
+  course: ICourse;
 }
+
+
 
 export const initTeacher: ITeacher = {
   DOB: "",
@@ -36,10 +46,18 @@ export const initTeacher: ITeacher = {
   _id: "",
 }
 
+export const initCourse: ICourse = {
+  title: "",
+  description: "",
+  tags: [],
+  image: "",
+}
+
 
 const initState: TeacherState = {
   teacher: initTeacher,
-  allCourses: []
+  allCourses: [],
+  course: initCourse,
 }
 
 type MainAction = SetTeacher
@@ -50,6 +68,10 @@ function teacherReducer(state = initState, { type, payload }: MainAction) {
       {
         return { ...state, teacher: payload }
       }
+
+    case SET_COURSE: {
+      return { ...state, course: payload }
+    }
 
     default:
       return state

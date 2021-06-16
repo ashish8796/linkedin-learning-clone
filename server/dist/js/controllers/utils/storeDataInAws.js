@@ -9,6 +9,7 @@ const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
+require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
