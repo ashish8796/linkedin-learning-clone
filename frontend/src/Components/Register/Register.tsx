@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Box, makeStyles, Typography } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { RegisterInput } from './RegisterInput';
 import { Footer } from '../../Routes/Footer';
 import { NameInput } from './NameInput';
-import { useDispatch } from 'react-redux';
 import { registerUser } from '../../store/user/action';
-import Axios from 'axios';
-import { useHistory , Redirect} from 'react-router';
 import PaymentPage from '../StripesPayment/PaymentPage';
+import { State } from '../../store/tsTypes';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
     position: absolute;
@@ -56,15 +56,12 @@ const initData: IRegister = {
     password: ''
 }
 
-const axios  = Axios.create({
-    baseURL: 'http://localhost:5000/'
-})
-
 export default function Register () {
 
     const history = useHistory()
     const classes = useStyles();
     const dispatch = useDispatch();
+    const isAuth = useSelector((state: State)=> state.user.isAuth);
 
     //  const isAuth = useSelector((state) => state.user.isAuth) 
     const [ user, setUser ] = useState<IRegister>(initData)
@@ -87,6 +84,10 @@ export default function Register () {
         console.log(user)
         history.push("/payment-page");
         dispatch(registerUser(user));
+    }
+
+    if(isAuth){
+        history.push('/')
     }
     
     return (

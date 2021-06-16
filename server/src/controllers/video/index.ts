@@ -37,7 +37,6 @@ let upload = (bucketName: any) =>
         }),
     });
 
-
 interface MulterRequest extends Request {
     file: Express.MulterS3.File;
 }

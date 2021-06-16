@@ -15,8 +15,12 @@ export const getCourse = async (req: Request, res: Response): Promise<void> => {
     const courses: ICourse[] = await course
       .find()
       // .populate({ path: "questionBlog", populate: { path: "question" } });
-      .populate("authorId");
-    // .populate({path:"authorId",populate:{path:""}})
+      // .populate("authorId");
+      .populate({
+        path: "authorId",
+        populate: { path: "authorId uniqueId", select: "firstName lastName" },
+      });
+    // .select();
     // .populate({
     //   path: "questionBlog",
     //   populate: { path: "question", populate: { path: "userId" } },
