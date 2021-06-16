@@ -31,7 +31,7 @@ const ContentBox = styled.div`
   flex-direction: column;
   background-color: #fff;
   width: 60%;
-  min-height: 70vh;
+  min-height: 50vh;
   height: fit-content;
   padding: 30px;
   box-shadow: 0px 0px 9px 4px #80808075;

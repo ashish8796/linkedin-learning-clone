@@ -8,11 +8,9 @@ const videoSchema = new mongoose_1.Schema({
     },
     description: {
         type: String,
-        required: true,
     },
     content: {
         type: String,
-        required: true,
     },
     authorId: {
         type: String,

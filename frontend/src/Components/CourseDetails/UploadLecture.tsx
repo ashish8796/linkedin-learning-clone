@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled, { CSSProperties } from "styled-components";
 import { State } from "../../store/tsTypes";
 import Modal from "../Common/Modal/Modal";
 import CreateInput from "../Common/CreateInput/CrateInput";
+import { IChapter } from "../../store/teacher/teacherReducer";
+import { uploadNewLecture } from "../../store/teacher/actions";
 
 interface IUploadLectureProps {
-  setIsChapterUploadVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  chapter: IChapter;
 }
 
 interface ILecture {
@@ -20,24 +23,58 @@ const initLecture: ILecture = {
 };
 
 export default function UploadLecture({
-  setIsChapterUploadVisible,
+  setIsModalVisible,
+  chapter,
 }: IUploadLectureProps) {
   const { course } = useSelector((state: State) => state.teacher);
+  const dispatch = useDispatch();
   const [lectureData, setLectureData] = useState<ILecture>(initLecture);
 
-  const handleUplaodChapter = () => {};
+  const handleUploadChapter = async () => {
+    const videoFormData: FormData = new FormData();
+
+    const payload = {
+      ...lectureData,
+      authorId: chapter.authorId,
+      chapterId: chapter._id,
+      courseId: chapter.courseId,
+    };
+
+    console.log(payload);
+
+    for (let key in payload) {
+      //@ts-ignore
+      videoFormData.append(key, payload[key]);
+    }
+
+    try {
+      const data = await dispatch(uploadNewLecture(videoFormData));
+
+      //@ts-ignore
+      if (data) {
+        setIsModalVisible(false);
+      }
+    } catch (error) {}
+  };
 
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, type, value } = e.target;
+    const { name, value } = e.target;
 
-    setLectureData({
-      ...lectureData,
-      [type === "file" ? "video" : "title"]:
-        type === "file"
-          ? new Blob([e.target.files![0]], { type: "video/mp4" })
-          : value,
-    });
+    if (name === "title") {
+      setLectureData({ ...lectureData, [name]: value });
+    } else {
+      setLectureData({
+        ...lectureData,
+        [name]: new Blob([e.target.files![0]], { type: "video/mp4" }),
+      });
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      setLectureData(initLecture);
+    };
+  }, []);
 
   return (
     <Modal>
@@ -46,7 +83,7 @@ export default function UploadLecture({
           label="Lecture Title"
           value={lectureData.title}
           placeholder="Write title for the lecture*"
-          name="lecture-title"
+          name="title"
           required={true}
           handleChange={handleOnChange}
           type="text"
@@ -58,7 +95,7 @@ export default function UploadLecture({
           //@ts-ignore
           value={lectureData.video ? lectureData.video.name : ""}
           placeholder="Write title for the lecture*"
-          name="lecture-file"
+          name="video"
           required={true}
           handleChange={handleOnChange}
           type="file"
@@ -67,13 +104,15 @@ export default function UploadLecture({
 
         <Cancel
           onClick={() => {
-            setIsChapterUploadVisible(false);
+            setIsModalVisible(false);
           }}
         >
           Cancel
         </Cancel>
 
-        <UploadLectureButton>Upload Lecture</UploadLectureButton>
+        <UploadLectureButton onClick={handleUploadChapter}>
+          Upload Lecture
+        </UploadLectureButton>
       </UploadLectureBox>
     </Modal>
   );

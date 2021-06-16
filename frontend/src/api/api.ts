@@ -47,10 +47,14 @@ export const postNewChapter = (payload: any) => {
   return axios.post("/add-chapter", payload)
 }
 
-
-export const getData = () => {
+//Video related requests
+export const getVideosByChapterId = (id: string) => {
   return axios.get("/");
 };
+
+export const postNewLecture = (payload: any) => {
+  return axios.post("/add-video", payload)
+}
 
 export const registerUsers = (payload: IRegister) => {
   return axios.post("/register", payload);

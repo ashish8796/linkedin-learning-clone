@@ -7,7 +7,7 @@ export default interface IVideo extends Document {
     authorId?: String;
     chapterId: String;
     courseId: String;
-    tags: Array<String>;
+    tags?: Array<String>;
     url: string;
 }
 

@@ -38,6 +38,10 @@ let upload = (bucketName: any) =>
     });
 
 
+interface MulterRequest extends Request {
+    file: Express.MulterS3.File;
+}
+
 export const getVideo = async (req: Request, res: Response): Promise<void> => {
     try {
         const videos: IVideo[] = await Video.find();
@@ -47,44 +51,46 @@ export const getVideo = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const addVideo = async (req: Request, res: Response): Promise<void> => {
+export const addVideo = async (req: MulterRequest, res: Response): Promise<void> => {
     try {
-        const { course, chapter } = req.body;
-
-        let body = req.body as Pick<
-            IVideo,
-            | "title"
-            | "description"
-            | "content"
-            | "authorId"
-            | "chapterId"
-            | "courseId"
-            | "tags"
-            | "url"
-        >;
-
-        console.log(body);
-        // console.log(req.files);
         const uploadVideo = upload(`linkden-learning/newVideos`).single("video");
         uploadVideo(req, res, async (err) => {
+
+            const { course, chapter } = req.body;
+
+            let body = req.body as Pick<
+                IVideo,
+                | "title"
+                | "description"
+                | "content"
+                | "authorId"
+                | "chapterId"
+                | "courseId"
+                | "tags"
+                | "url"
+            >;
+
+
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });
             }
-            console.log(req.files);
-            // const video:IVideo =new Video({
-            //     title:body.title,
-            //     description:body.description,
-            //     content:req.files.location,
-            //     authorId:body.authorId,
-            //     chapterId:body.chapterId,
-            //     courseId:body.courseId,
-            //     tags:body.tags
-            // })
-            // console.log(video)
-            // const newVideo : IVideo =await video.save();
-            // const allVideos:IVideo[]= await Video.find()
-            // res.status(203).json({message: "new Vide o as been added ", blog: newVideo ,blogs:allVideos})
-            res.status(203).json({ message: "done" });
+
+            const video: IVideo = new Video({
+                title: body.title,
+                description: body.description,
+                url: req.file.location,
+                authorId: body.authorId,
+                chapterId: body.chapterId,
+                courseId: body.courseId,
+                tags: body.tags,
+                content: body.content
+            })
+
+            const newVideo: IVideo = await video.save();
+            const allVideos: IVideo[] = await Video.find()
+
+
+            res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos })
         });
     } catch (error) {
         res.end();

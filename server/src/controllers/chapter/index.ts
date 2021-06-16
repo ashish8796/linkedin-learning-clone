@@ -129,7 +129,7 @@ export const getChapterByCourseId = async (
       params: { id },
     } = req;
     let chapterWithId = await chapter.find({ courseId: id }).exec();
-    console.log(chapterWithId);
+
 
     let courseWithId = await video
       .find({ courseId: id })
@@ -140,7 +140,7 @@ export const getChapterByCourseId = async (
       .json({
         message: "the data of the course",
         chapter: chapterWithId,
-        coursePopulate: courseWithId,
+        videosWithCoursePopulate: courseWithId,
       });
   } catch (error) {
     console.log(error);

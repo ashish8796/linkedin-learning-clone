@@ -105,7 +105,6 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         const { params: { id }, } = req;
         let chapterWithId = yield chapter_1.default.find({ courseId: id }).exec();
-        console.log(chapterWithId);
         let courseWithId = yield video_1.default
             .find({ courseId: id })
             .populate("chapterId")
@@ -115,7 +114,7 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
             .json({
             message: "the data of the course",
             chapter: chapterWithId,
-            coursePopulate: courseWithId,
+            videosWithCoursePopulate: courseWithId,
         });
     }
     catch (error) {
