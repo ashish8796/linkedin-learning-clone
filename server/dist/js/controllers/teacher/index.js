@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.addTeacher = exports.getTeacher = void 0;
 const teacher_1 = __importDefault(require("../../models/teacher"));
 const user_1 = __importDefault(require("../../models/user"));
+const storeDataInAws_1 = require("../utils/storeDataInAws");
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const teachers = yield user_1.default.find({ flag: true });
@@ -26,31 +27,32 @@ const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.getTeacher = getTeacher;
 const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let body = req.body;
-        console.log(body);
-        console.log(req.file);
-        const new_teacher = new teacher_1.default({
-            qualification: body.qualification,
-            DOB: body.DOB,
-            specializations: body.specializations,
-            description: body.description,
-            image: req.file.location,
-            linkedInProfile: body.linkedInProfile,
-            uniqueId: body.uniqueId,
-        });
-        let newTeacher = yield new_teacher.save();
-        let allTeachers = yield teacher_1.default.find();
-        res.status(202).json({
-            message: "the teacher is added",
-            teacher: newTeacher,
-            allTeachers: allTeachers,
-        });
-    }
-    catch (error) {
-        res.end();
-        console.log(error);
-    }
+    const upload = storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single("image");
+    upload(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            let body = req.body;
+            const new_teacher = new teacher_1.default({
+                qualification: body.qualification,
+                DOB: body.DOB,
+                specializations: body.specializations,
+                description: body.description,
+                image: req.file.location,
+                linkedInProfile: body.linkedInProfile,
+                uniqueId: body.uniqueId,
+            });
+            let newTeacher = yield new_teacher.save();
+            let allTeachers = yield teacher_1.default.find();
+            res.status(202).json({
+                message: "the teacher is added",
+                teacher: newTeacher,
+                allTeachers: allTeachers,
+            });
+        }
+        catch (error) {
+            res.end();
+            console.log(error);
+        }
+    }));
 });
 exports.addTeacher = addTeacher;
 const updateTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

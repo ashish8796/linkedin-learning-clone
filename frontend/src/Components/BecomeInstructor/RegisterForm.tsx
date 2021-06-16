@@ -1,16 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, CSSProperties } from "react";
 import styled from "styled-components";
 import RegisterFormLeftSection from "./RegisterFormLeftSection";
 import CreateInput from "./../Common/CreateInput/CrateInput";
 import CreateButton from "../Common/CreateButton";
-import { type } from "os";
 import SelectSpecilization from "./SelectSpecilization";
 import { useDispatch, useSelector } from "react-redux";
 import { addTeacher } from "../../store/course/actions";
-import { PostTeacher } from "../../api/apiTypes";
 import { State } from "../../store/tsTypes";
 import { useHistory } from "react-router-dom";
-import { UserState } from "../../store/user/userReducer";
 
 interface IRegisterFormProps {}
 
@@ -53,7 +50,7 @@ export default function RegisterForm({}: IRegisterFormProps) {
       console.log(e.target.files![0]);
       setRegisterData({
         ...registerData,
-        [name]: new Blob([e.target.files![0]], { type: "image/png" }),
+        [name]: new Blob([e.target.files![0]], { type: "image/jpeg" }),
       });
     } else {
       setRegisterData({ ...registerData, [name]: value });
@@ -77,12 +74,10 @@ export default function RegisterForm({}: IRegisterFormProps) {
 
     const payload = { ...registerData, uniqueId: userId };
 
-    // let key: keyof typeof payload;
-
     for (let key in payload) {
       if (key) {
         //@ts-ignore
-        registerFormData.append(key, payload[key!]);
+        registerFormData.append(`${key}`, payload[key!]);
       }
     }
 
@@ -92,14 +87,14 @@ export default function RegisterForm({}: IRegisterFormProps) {
 
       // @ts-ignore
       if (data) {
-        // history.push("/instructor");
+        history.push("/instructor");
       }
     } catch (error) {}
   };
 
   return (
-    <div>
-      {/* <RegisterFormLeftSection /> */}
+    <FormWrapper>
+      <RegisterFormLeftSection />
       <FormRightSection onSubmit={handleSubmitForm}>
         <p>Instructor Application</p>
 
@@ -113,15 +108,16 @@ export default function RegisterForm({}: IRegisterFormProps) {
               type="text"
               name="qualificationText"
               value={qualificationText}
-              label="Add qualifications"
+              label=""
               handleChange={handleOnChange}
-              placeholder="Qualification"
+              placeholder="Write qualifications*"
               required={qualification.length === 0}
             />
 
             <CreateButton
-              label="Add qualification"
+              label="Add Qualification"
               handleClick={handleAddQualification}
+              styles={AddQualificationStyles}
             />
 
             <CreateInput
@@ -129,29 +125,21 @@ export default function RegisterForm({}: IRegisterFormProps) {
               name="linkedInProfile"
               value={linkedInProfile}
               handleChange={handleOnChange}
-              label="Linkedin Profile"
+              label=""
               required={true}
-              placeholder="Enter Linkedin Profile Url"
+              placeholder="Enter Linkedin Profile Url*"
             />
 
             <CreateInput
               type="file"
               name="image"
-              value=""
+              //@ts-ignore
+              value={image ? image?.name : ""}
               handleChange={handleOnChange}
               label="Select Profile Image"
               required={false}
               placeholder=""
             />
-
-            {/* <SelectImgBox>
-              <input
-                type="file"
-                ref={imgRef}
-                onChange={handleOnChange}
-                name="image"
-              />
-            </SelectImgBox> */}
 
             <CreateInput
               type="date"
@@ -167,9 +155,9 @@ export default function RegisterForm({}: IRegisterFormProps) {
               type="text"
               name="description"
               value={description}
-              label="Describe Yourself"
+              label=""
               required={true}
-              placeholder="Enter description"
+              placeholder="Describe Yourself*"
               handleChange={handleOnChange}
             />
 
@@ -179,13 +167,52 @@ export default function RegisterForm({}: IRegisterFormProps) {
           <Submit type="submit">Submit</Submit>
         </Form>
       </FormRightSection>
-    </div>
+    </FormWrapper>
   );
 }
 
-const FormRightSection = styled.section``;
-const Form = styled.form``;
+const AddQualificationStyles: CSSProperties = {
+  border: "1px solid grey",
+  padding: "10px",
+  borderRadius: "2px",
+  backgroundColor: "gray",
+  color: "#fff",
+  margin: "10px 0 30px",
+};
+
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & > section {
+    flex: 1;
+  }
+`;
+
+const FormRightSection = styled.section`
+  background-color: #ececec;
+  padding: 2rem;
+
+  & > p {
+    font-size: 2rem;
+    font-weight: 200;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
 const QualificationBox = styled.div``;
 const ShowQualificationBox = styled.div``;
-const Submit = styled.button``;
+const Submit = styled.button`
+  padding: 8px 2rem;
+  width: fit-content;
+  background-color: #0073b1;
+  color: #fff;
+  border-radius: 2px;
+  margin: 10px 0;
+`;
+
 const SelectImgBox = styled.div``;

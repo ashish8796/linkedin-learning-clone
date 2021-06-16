@@ -5,7 +5,7 @@ export default interface ITeacher extends Document {
     description?: String;
     DOB?: Date;
     specializations: string;
-    image?: string;
+    image?: Array<string>;
     linkedInProfile: string;
     uniqueId?: string;
 }

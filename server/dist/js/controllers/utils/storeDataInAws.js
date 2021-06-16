@@ -16,17 +16,20 @@ aws_sdk_1.default.config.update({
     },
 });
 const s3 = new aws_sdk_1.default.S3({
+    apiVersion: "2012-10-17",
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+console.log({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 const uploadProfilePic = (bucketName) => {
-    console.log(bucketName);
     return multer_1.default({
         storage: multer_s3_1.default({
             s3: s3,
             bucket: bucketName,
             metadata: (req, file, cb) => {
-                console.log({ file });
                 cb(null, { fieldName: file.fieldname });
             },
             key: (req, file, cb) => {
