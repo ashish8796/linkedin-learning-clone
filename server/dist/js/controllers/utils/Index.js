@@ -16,11 +16,18 @@ exports.checkPassword = exports.checkMailId = void 0;
 const user_1 = __importDefault(require("../../models/user"));
 const checkMailId = (mail) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield user_1.default.find({ emailId: mail });
-        if (data.length == 0) {
+        console.log(mail);
+        if (mail !== undefined) {
+            const data = yield user_1.default.find({ emailId: mail });
+            console.log(data);
+            if (data.length == 0) {
+                return false;
+            }
+            return true;
+        }
+        else {
             return false;
         }
-        return true;
     }
     catch (err) {
         console.log(err);

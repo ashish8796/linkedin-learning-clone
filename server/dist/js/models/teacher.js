@@ -23,8 +23,8 @@ const teacherSchema = new mongoose_1.Schema({
         required: [true, "uniqueId needed"],
     },
     linkedInProfile: {
-        type: String
-    }
+        type: String,
+    },
 }, {
     timestamps: true,
     versionKey: false,

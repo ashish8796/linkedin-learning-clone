@@ -18,7 +18,7 @@ const user_1 = __importDefault(require("../../models/user"));
 const storeDataInAws_1 = require("../utils/storeDataInAws");
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const teachers = yield user_1.default.find({ "flag": true });
+        const teachers = yield user_1.default.find({ flag: true });
         res.status(200).json({ message: "all the teachers", teachers: teachers });
     }
     catch (error) {
@@ -27,7 +27,7 @@ const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.getTeacher = getTeacher;
 const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const upload = storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single('image');
+    const upload = storeDataInAws_1.uploadProfilePic("linkden-learning/profile-pics").single("image");
     upload(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             let body = req.body;
@@ -38,7 +38,7 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 description: body.description,
                 image: req.file.location,
                 linkedInProfile: body.linkedInProfile,
-                uniqueId: body.uniqueId
+                uniqueId: body.uniqueId,
             });
             let newTeacher = yield new_teacher.save();
             let allTeachers = yield teacher_1.default.find();
@@ -77,7 +77,7 @@ exports.updateTeacher = updateTeacher;
 const getTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        const teachers = yield teacher_1.default.findById({ _id: id });
+        const teachers = yield teacher_1.default.findById(id);
         res.status(202).json({ message: "found", teacher: teachers });
     }
     catch (error) {
