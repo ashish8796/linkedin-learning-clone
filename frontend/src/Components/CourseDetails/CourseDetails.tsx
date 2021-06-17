@@ -71,28 +71,55 @@ export default function CourseDetails() {
 
         {isNewChapterVisible && (
           <NewChapterBox>
-            <CreateInput
-              label="Chapter Title"
-              value={chapterTitle}
-              placeholder="Write title for the chapter*"
-              name="title"
-              required={true}
-              handleChange={(e) => {
-                setChapterTitle(e.target.value);
-              }}
-              type="text"
-              labelStyles={chapterTitleLabelStyles}
-            />
+            <div>
+              <CreateInput
+                label="Chapter Title"
+                value={chapterTitle}
+                placeholder="Write title for the chapter*"
+                name="title"
+                required={true}
+                handleChange={(e) => {
+                  setChapterTitle(e.target.value);
+                }}
+                type="text"
+                labelStyles={chapterTitleLabelStyles}
+              />
 
-            <button onClick={handleStartNewChapter}>Start New Chapter</button>
+              <ButtonBox>
+                <Cancel
+                  onClick={() => {
+                    setIsNewChapterVisible(false);
+                  }}
+                >
+                  Cancel
+                </Cancel>
+
+                <StartNewChapterBtn onClick={handleStartNewChapter}>
+                  Start New Chapter
+                </StartNewChapterBtn>
+              </ButtonBox>
+            </div>
           </NewChapterBox>
         )}
 
-        <CreateButton label="Add Chapter" handleClick={handleChapterClick} />
+        <CreateButton
+          label="Add Chapter"
+          handleClick={handleChapterClick}
+          styles={addChapterBtnStyles}
+        />
       </UpdateCourseBox>
     </CourseDetailsBox>
   );
 }
+
+const addChapterBtnStyles: CSSProperties = {
+  color: "#0073b1",
+  boxShadow: "inset 0 0 0 1px #0073b1",
+  padding: "5px",
+  borderRadius: "1px",
+  fontWeight: 500,
+  margin: "30px 0 10px",
+};
 
 const chapterTitleLabelStyles: CSSProperties = {
   fontWeight: 500,
@@ -102,13 +129,10 @@ const chapterTitleLabelStyles: CSSProperties = {
 const CourseDetailsBox = styled.div`
   padding: 3rem 0;
   background-color: #f2f3f3;
-  /* background-color: #fff; */
 `;
 
 const UpdateCourseBox = styled.div`
   background-color: #fff;
-  /* background-color: #f2f3f3; */
-
   width: 80%;
   margin: auto;
   padding: 30px;
@@ -117,14 +141,35 @@ const UpdateCourseBox = styled.div`
 `;
 
 const NewChapterBox = styled.div`
-  display: flex;
-  border: 1px solid red;
-  justify-content: center;
-  align-items: center;
+  margin-top: 2rem;
+  box-shadow: 0 0px 3px #cbcccc;
+  padding: 10px;
 
-  button {
-    height: fit-content;
-    padding: 10px;
-    margin-left: 10px;
+  & > div {
+    width: 60%;
   }
+`;
+
+const StartNewChapterBtn = styled.button`
+  padding: 10px 15px;
+  background-color: #0073b1;
+  color: #fff;
+  border-radius: 2px;
+`;
+
+const Cancel = styled.button`
+  color: #0073b1;
+  box-shadow: inset 0 0 0 1px #0073b1;
+  font-weight: 500;
+  background-color: #fff;
+  margin-right: 20px;
+  padding: 8px 2rem;
+  border-radius: 2px;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 30px;
 `;
