@@ -86,9 +86,9 @@ export default function Register () {
         dispatch(registerUser(user));
     }
 
-    if(isAuth){
-        history.push('/')
-    }
+    // if(isAuth){
+    //     history.push('/')
+    // }
     
     return (
         <Container>

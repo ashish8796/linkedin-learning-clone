@@ -56,12 +56,15 @@ import {
   paymentWithCard,
 } from "../Components/stripes";
 import { uploadProfilePic } from "../controllers/utils/storeDataInAws";
+import { getAllData } from "../controllers/allData";
 const path = require("path");
 
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
 function fn() { }
+
+route.get('/whole-data/:search', getAllData);
 
 // getting all the videos, Courses, student, teacher
 

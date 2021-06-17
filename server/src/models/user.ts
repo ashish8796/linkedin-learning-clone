@@ -9,10 +9,12 @@ const userSchema: Schema = new Schema(
     firstName: {
       type: String,
       required: [true, "Enter First Name"],
+      text: true
     },
     lastName: {
       type: String,
       required: [true, "Enter Second Name"],
+      text: true
     },
     //["Ph.D","M.tech"]
     startOfProgram: {
