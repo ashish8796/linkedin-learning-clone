@@ -1,4 +1,5 @@
-import { BottomNavigation, BottomNavigationAction, LinearProgress } from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction, Box, LinearProgress, Typography } from '@material-ui/core';
+import CircularProgress, { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import React from 'react'
 import styled from 'styled-components';
 
@@ -70,7 +71,7 @@ const CourseDetails = styled.div`
 `
 
 
-export default function ProgressPoint() {
+export default function ProgressPoint(props:CircularProgressProps & {value:number , size:number}) {
 
     const lastWeek = `34`+"minutes"
     const color = "#0073b1";
@@ -84,8 +85,20 @@ export default function ProgressPoint() {
                         </h6>
                 </Title>
                     <WeeklyGoal>
-                        <div>
-                            <img src="https://via.placeholder.com/168x160" alt="" />
+                        <div style={{padding:"2rem"}} >
+                        < CircularProgress variant="determinate"  {...props}/>
+                        <Box
+                                top={0}
+                                left={0}
+                                bottom={0}
+                                right={0}
+                                position="absolute"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                            >
+                                <Typography variant="caption" component="div" color="textSecondary">{`${props.value}%`}</Typography>
+                            </Box>
                         </div>
                         <div>
                             <span style={{opacity:"0.8"}}>Jun 13 to Jun 19</span>

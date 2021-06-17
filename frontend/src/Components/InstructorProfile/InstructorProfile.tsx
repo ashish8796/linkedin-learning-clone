@@ -33,7 +33,7 @@ export default function InstructorProfile() {
               <div>
                 <Name>{`${firstName} ${lastName}`} </Name>
                 <QualificationBox>
-                  {qualification?.length > 0 && qualification.join(", ")}
+                  {qualification.length > 0 && qualification.join(", ")}
                 </QualificationBox>
               </div>
 

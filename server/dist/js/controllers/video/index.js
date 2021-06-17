@@ -21,7 +21,6 @@ const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
 const chapter_1 = __importDefault(require("../../models/chapter"));
-const chapter_2 = require("../chapter");
 require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
@@ -74,12 +73,18 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 chapterId: body.chapterId,
                 courseId: body.courseId,
                 tags: body.tags,
-                content: body.content
+                content: body.content,
             });
             const newVideo = yield video.save();
             const allVideos = yield video_1.default.find();
             updateChapterWithVideoId(body.chapterId, newVideo._id);
-            res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos });
+            res
+                .status(203)
+                .json({
+                message: "new Vide o as been added ",
+                newLecture: newVideo,
+                allLectures: allVideos,
+            });
         }));
     }
     catch (error) {
@@ -111,7 +116,7 @@ const getVideoId = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { params: { id }, } = req;
         const video = yield video_1.default.findById({ _id: id });
-        res.status(202).json({ message: "found", blog: video });
+        res.status(202).json({ message: "found", lecture: video });
     }
     catch (error) {
         console.log(error);
@@ -121,11 +126,14 @@ exports.getVideoId = getVideoId;
 const deleteVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const delete_video = yield video_1.default.findByIdAndRemove(req.params.id);
-        chapter_2.removeIdFromChapterVideoArr(delete_video === null || delete_video === void 0 ? void 0 : delete_video._id, delete_video === null || delete_video === void 0 ? void 0 : delete_video.chapterId);
         const allVideos = yield video_1.default.find();
         res
             .status(200)
-            .json({ message: "Video Deleted", deleted_lecture: delete_video, allLectures: allVideos });
+            .json({
+            message: "Video Deleted",
+            deleted_lecture: delete_video,
+            allLectures: allVideos,
+        });
     }
     catch (error) {
         console.log(error);

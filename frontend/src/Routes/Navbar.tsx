@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   AppBar,
@@ -12,6 +12,70 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import styled from "styled-components";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllData } from "../store/app/action";
+
+export const Navbar = () => {
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const [ searchInp, setSerchInp ] = useState<string>("");
+
+  const handleLogoClick = () => {
+    if (location.pathname !== "/") {
+      history.push("/");
+    }
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) =>{
+    const value = e.target.value;
+    setSerchInp(value);
+  }
+
+  const handleSearch: React.KeyboardEventHandler<HTMLDivElement> = (e) =>{
+    console.log(e.key)
+    if(e.key === 'Enter'){
+      dispatch(getAllData(searchInp));
+    }
+  }
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar variant="dense" className={classes.toolBar}>
+          <Box className={classes.logo} onClick={handleLogoClick}>
+            <LinkedInIcon className={classes.icon} />
+            <Typography className={classes.learnTxt}>
+              L E A R N I N G
+            </Typography>
+          </Box>
+          <Box className={classes.search}>
+            <LearnBtn>
+              Learning <ArrowDropDownIcon />
+            </LearnBtn>
+            <InputBase
+              placeholder="Search skills, subjects or software"
+              fullWidth
+              onChange= {handleChange}
+              onKeyPress={handleSearch}
+            />
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+          </Box>
+          <Box className={classes.TSBtns}>
+            <TrialBtn>Start free trial</TrialBtn>
+            <Link to="/learning-login">
+              <SignInBtn>Sign in</SignInBtn>
+            </Link>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 
 const LearnBtn = styled.button`
   display: flex;
@@ -129,48 +193,3 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
 }));
-
-export const Navbar = () => {
-  const classes = useStyles();
-  const history = useHistory();
-  const location = useLocation();
-
-  const handleLogoClick = () => {
-    if (location.pathname !== "/") {
-      history.push("/");
-    }
-  };
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar variant="dense" className={classes.toolBar}>
-          <Box className={classes.logo} onClick={handleLogoClick}>
-            <LinkedInIcon className={classes.icon} />
-            <Typography className={classes.learnTxt}>
-              L E A R N I N G
-            </Typography>
-          </Box>
-          <Box className={classes.search}>
-            <LearnBtn>
-              Learning <ArrowDropDownIcon />
-            </LearnBtn>
-            <InputBase
-              placeholder="Search skills, subjects or software"
-              fullWidth
-            />
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-          </Box>
-          <Box className={classes.TSBtns}>
-            <TrialBtn>Start free trial</TrialBtn>
-            <Link to="/learning-login">
-              <SignInBtn>Sign in</SignInBtn>
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};

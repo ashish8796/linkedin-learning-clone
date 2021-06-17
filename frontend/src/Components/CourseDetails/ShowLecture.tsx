@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled, { CSSProperties } from "styled-components";
@@ -14,7 +15,9 @@ export default function ShowLecture({ lecture }: IShowLectureProps) {
   const dispatch = useDispatch();
   // console.log(lecture);
 
-  const { title, url, _id } = lecture;
+  const [lectureData,setLectureData] = React.useState({}) 
+  //@ts-ignore
+  const { title, url, _id } = lectureData;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -39,11 +42,16 @@ export default function ShowLecture({ lecture }: IShowLectureProps) {
   };
 
   useEffect(() => {
+     (async ()=>{
+      //@ts-ignore
+        let {data} = await axios.get(`http://localhost:5000/get-video/${lecture.videoId}`)
+        setLectureData(data.lecture)
+    })()
     return () => {
       setIsError(false);
       setIsLoading(false);
     };
-  }, []);
+  }, [lectureData]);
 
   return (
     <LectureBox>

@@ -52,11 +52,13 @@ export const getVideo = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const addVideo = async (req: MulterRequest, res: Response): Promise<void> => {
+export const addVideo = async (
+    req: MulterRequest,
+    res: Response
+): Promise<void> => {
     try {
         const uploadVideo = upload(`linkden-learning/newVideos`).single("video");
         uploadVideo(req, res, async (err) => {
-
             const { course, chapter } = req.body;
 
             let body = req.body as Pick<
@@ -71,7 +73,6 @@ export const addVideo = async (req: MulterRequest, res: Response): Promise<void>
                 | "url"
             >;
 
-
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });
             }
@@ -84,15 +85,21 @@ export const addVideo = async (req: MulterRequest, res: Response): Promise<void>
                 chapterId: body.chapterId,
                 courseId: body.courseId,
                 tags: body.tags,
-                content: body.content
-            })
+                content: body.content,
+            });
 
             const newVideo: IVideo = await video.save();
-            const allVideos: IVideo[] = await Video.find()
+            const allVideos: IVideo[] = await Video.find();
 
-            updateChapterWithVideoId(body.chapterId, newVideo._id)
+            updateChapterWithVideoId(body.chapterId, newVideo._id);
 
-            res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos })
+            res
+                .status(203)
+                .json({
+                    message: "new Vide o as been added ",
+                    newLecture: newVideo,
+                    allLectures: allVideos,
+                });
         });
     } catch (error) {
         res.end();
@@ -137,7 +144,7 @@ export const getVideoId = async (
             params: { id },
         } = req;
         const video: IVideo | null = await Video.findById({ _id: id });
-        res.status(202).json({ message: "found", blog: video });
+        res.status(202).json({ message: "found", lecture: video });
     } catch (error) {
         console.log(error);
     }
@@ -152,17 +159,18 @@ export const deleteVideo = async (
             req.params.id
         );
 
-        removeIdFromChapterVideoArr(delete_video?._id, delete_video?.chapterId)
-
         const allVideos: IVideo[] = await Video.find();
         res
             .status(200)
-            .json({ message: "Video Deleted", deleted_lecture: delete_video, allLectures: allVideos });
+            .json({
+                message: "Video Deleted",
+                deleted_lecture: delete_video,
+                allLectures: allVideos,
+            });
     } catch (error) {
         console.log(error);
     }
 };
-
 
 const updateChapterWithVideoId = async (
     id: String | undefined,
