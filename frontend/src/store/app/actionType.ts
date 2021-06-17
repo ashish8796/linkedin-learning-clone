@@ -1,0 +1,3 @@
+export const SEARCH_DATA_REQUEST: string = 'SEARCH_DATA_REQUEST';
+export const SEARCH_DATA_SUCCESS: string = 'SEARCH_DATA_SUCCESS';
+export const SEARCH_DATA_FAILURE: string = 'SEARCH_DATA_FAILURE';

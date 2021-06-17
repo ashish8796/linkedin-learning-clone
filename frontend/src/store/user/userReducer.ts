@@ -49,6 +49,7 @@ export const userReducer = (state = initState, action: any) => {
       };
     }
     case REGISTER_USER_SUCCESS: {
+        saveData("isAuth", true);
       return {
         ...state,
         isLoading: false,
@@ -76,6 +77,7 @@ export const userReducer = (state = initState, action: any) => {
       };
     }
     case LOGIN_USER_SUCCESS: {
+        saveData("userDetails", payload)
       return {
         ...state,
         isLoading: false,
