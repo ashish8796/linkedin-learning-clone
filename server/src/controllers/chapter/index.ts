@@ -128,8 +128,8 @@ export const getChapterByCourseId = async (
     const {
       params: { id },
     } = req;
-    let chapterWithId = chapter.find({ courseId: id });
-    let courseWithId = video
+    let chapterWithId = await chapter.find({ courseId: id });
+    let courseWithId = await video
       .find({ courseId: id })
       .populate("chapterId")
       .populate("courseId");

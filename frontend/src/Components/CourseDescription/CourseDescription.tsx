@@ -49,10 +49,21 @@ interface TabPanelProps {
     //   backgroundColor: theme.palette.background.paper,
       opacity: 1
         },
-        tab:{
+        app:{
+          boxShadow: "0px 0px 0px 0px",
+          // height: "1.7rem"  
+        }
+        ,
+        tabs:{
             background: "#ffffff",
             // border: "0px",
-            boxShadow:"1px"
+            display: "flex",
+            boxShadow:"none",
+            // height:"1.5rem"
+        },
+        tab:{
+          display: "flex",
+          flexDirection:"column"
         }
   }));
 export default function CourseDescription() {
@@ -67,15 +78,15 @@ export default function CourseDescription() {
         <Section className={classes.root} style={{marginTop:"100px"}}>
             <TopBar>
 
-            <AppBar position="static">
+            <AppBar className={classes.app} position="static">
   <Tabs  value={value}
     onChange={handleChange}
     variant="fullWidth"
-    className={classes.tab}
+    className={classes.tabs}
     indicatorColor="primary"
     textColor="primary"
     aria-label="icon label tabs example">
-    <Tab  icon={<BallotIcon />} label="OverView"  {...a11yProps(0)} />
+    <Tab className={classes.tab}  icon={<BallotIcon />} label="OverView"  {...a11yProps(0)} />
     <Tab icon={<QuestionAnswerIcon />}label="Q&A"  {...a11yProps(1)} />
     <Tab icon={<MenuBookIcon />}label="Notebook" {...a11yProps(2)} />
     <Tab icon={<SubjectIcon />} label="Transcript" {...a11yProps(2)} />
