@@ -183,12 +183,13 @@ const AnswerBoxStyle= styled.div`
     }
 `
 const AnswerBox=({answer}:IAnswers)=>{
+    if(answer!=undefined){
 
-    const {_id,answer:AnswerString, userId}:IAnswerComment = answer
-
-    const {firstName,lastName}:IUser= userId
-    return(
-        <AnswerBoxStyle >
+        const {_id,answer:AnswerString, userId}:IAnswerComment = answer
+        const {firstName,lastName}:IUser= userId
+        
+        return(
+            <AnswerBoxStyle >
             <NameTag>
                 <ImageHolder>
                 <img src="https://via.placeholder.com/168x160" alt=""  />
@@ -217,6 +218,37 @@ const AnswerBox=({answer}:IAnswers)=>{
             </Text>
         </AnswerBoxStyle>
     )
+}else{
+    return(
+        <AnswerBoxStyle >
+        <NameTag>
+            <ImageHolder>
+            <img src="https://via.placeholder.com/168x160" alt=""  />
+            </ImageHolder>
+            <div>
+                <Typography variant="body1">  </Typography>
+                {/* <br />   */}
+                <span>description</span>
+            </div>
+            <div><MoreChange  /></div>
+        </NameTag>
+        <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
+            <span></span>
+            <Typography variant="body1"> 
+            </Typography>
+            <br />
+        </Text>
+        <Text style={{display:"grid", gridTemplateColumns:"90px auto"}}>
+            {/* <div></div> */}
+            <span></span>
+            <Text style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
+            <Typography variant="overline">LIKE</Typography>
+            <Typography variant="overline">Comment</Typography>
+            </Text>
+        </Text>
+    </AnswerBoxStyle>
+)
+}
 }
 
 
@@ -249,8 +281,6 @@ const MoreChange = ({_id}:any) =>{
         onClose={handleClose}
       >
         <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        {/* <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem> */}
       </Menu>
     </div>
     )

@@ -1,5 +1,11 @@
-import { SetTeacher } from "../tsTypes";
-import { SET_ALL_CHAPTERS, SET_ALL_LECTURES_OF_COURSE, SET_COURSE, SET_NEW_CHAPTER, SET_TEACHER } from "./actionTypes";
+import { SetNewChapter, SetTeacher } from "../tsTypes";
+import {
+  SET_ALL_CHAPTERS,
+  SET_ALL_LECTURES_OF_COURSE,
+  SET_COURSE,
+  SET_NEW_CHAPTER,
+  SET_TEACHER,
+} from "./actionTypes";
 
 export interface ITeacher {
   DOB?: string;
@@ -22,7 +28,7 @@ export interface ICourse {
   description: string;
   image?: string;
   tags: Array<string>;
-  authorId: string
+  authorId: string;
 }
 
 export interface ILecture {
@@ -43,14 +49,12 @@ export interface IChapter {
 
 export interface TeacherState {
   teacher: ITeacher;
-  allCourses: Array<ICourse>
+  allCourses: Array<ICourse>;
   course: ICourse;
   newChapter: IChapter;
   allChapters: IChapter[];
   allLecturesOfCourse: ILecture[];
 }
-
-
 
 export const initTeacher: ITeacher = {
   DOB: "",
@@ -64,8 +68,8 @@ export const initTeacher: ITeacher = {
   uniqueId: "",
   updatedAt: "",
   image: "",
-  _id: "",
-}
+  _id: "60c4dfb43bf60a20d884a159  ",
+};
 
 export const initCourse: ICourse = {
   title: "",
@@ -73,25 +77,24 @@ export const initCourse: ICourse = {
   tags: [],
   image: "",
   _id: "",
-  authorId: ""
-}
+  authorId: "60c4dfb43bf60a20d884a159",
+};
 
 export const initChapter: IChapter = {
   _id: "",
   title: "",
   courseId: "",
-  authorId: ""
-}
+  authorId: "60c4dfb43bf60a20d884a159",
+};
 
 export const initLecture: ILecture = {
   title: "",
   url: "",
-  authorId: "",
+  authorId: "60c4dfb43bf60a20d884a159",
   courseId: "",
   chapterId: "",
-  _id: ''
-}
-
+  _id: "",
+};
 
 const initState: TeacherState = {
   teacher: initTeacher,
@@ -99,37 +102,42 @@ const initState: TeacherState = {
   course: initCourse,
   newChapter: initChapter,
   allChapters: [],
-  allLecturesOfCourse: []
-}
+  allLecturesOfCourse: [],
+};
 
-type MainAction = SetTeacher
+type MainAction = SetTeacher | SetNewChapter;
 
 function teacherReducer(state = initState, { type, payload }: MainAction) {
   switch (type) {
-    case SET_TEACHER:
-      {
-        return { ...state, teacher: payload }
-      }
+    case SET_TEACHER: {
+      return { ...state, teacher: payload };
+    }
 
     case SET_COURSE: {
-      return { ...state, course: payload }
+      return { ...state, course: payload };
     }
 
     case SET_ALL_CHAPTERS: {
-      return { ...state, allChapters: payload }
+      return { ...state, allChapters: payload };
     }
 
     case SET_ALL_LECTURES_OF_COURSE: {
-      return { ...state, allLecturesOfCourse: payload }
+      return { ...state, allLecturesOfCourse: payload };
     }
 
     case SET_NEW_CHAPTER: {
-      return { ...state, newChapter: payload }
+      console.log(payload);
+      return {
+        ...state,
+        //@ts-ignore
+        newChapter: payload.chapter,
+        //@ts-ignore
+        allChapters: payload.chapters,
+      };
     }
-
     default:
-      return state
+      return state;
   }
-};
+}
 
 export { teacherReducer };
