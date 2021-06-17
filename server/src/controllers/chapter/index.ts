@@ -147,3 +147,21 @@ export const getChapterByCourseId = async (
     res.end();
   }
 };
+
+export const getChapterNVideosWithCourseId = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const {
+      params: { id },
+    } = req;
+    const Course = await chapter
+      .find({ courseId: id })
+      .populate({ path: "videoIds", populate: "videoId" });
+    res.status(200).json({ message: "Course", course: Course });
+  } catch (error) {
+    console.log(error);
+    res.end();
+  }
+};

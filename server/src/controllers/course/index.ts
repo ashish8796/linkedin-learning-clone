@@ -9,7 +9,6 @@ interface MulterRequest extends Request {
   file: Express.MulterS3.File;
 }
 
-
 export const getCourse = async (req: Request, res: Response): Promise<void> => {
   try {
     const courses: ICourse[] = await course
@@ -41,22 +40,24 @@ export const getCourse = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const getCourseByTeacherId = async (req: Request, res: Response): Promise<void> => {
+export const getCourseByTeacherId = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { teacherId } = req.params;
 
     const courses = await course.find({ authorId: teacherId }).exec();
+  } catch (error) {}
+};
 
-  } catch (error) {
-
-  }
-}
-
-
-
-export const addCourse = async (req: MulterRequest, res: Response): Promise<void> => {
-
-  const uploadCourseThumbnails = uploadProfilePic(`linkden-learning/course-thumbnails/`).single("image")
+export const addCourse = async (
+  req: MulterRequest,
+  res: Response
+): Promise<void> => {
+  const uploadCourseThumbnails = uploadProfilePic(
+    `linkden-learning/course-thumbnails/`
+  ).single("image");
 
   uploadCourseThumbnails(req, res, async (err) => {
     try {
@@ -110,7 +111,7 @@ export const addCourse = async (req: MulterRequest, res: Response): Promise<void
       res.end();
       console.log(error);
     }
-  })
+  });
 };
 
 export const updateCourse = async (
@@ -178,7 +179,11 @@ export const getCourseId = async (
     } = req;
     const courses: ICourse | null = await course
       .findById({ _id: id })
-      .populate({ path: "questionBlog", populate: { path: "question" } });
+      .populate({ path: "questionBlog", populate: { path: "question" } })
+      .populate({
+        path: "authorId",
+        populate: { path: "authorId uniqueId", select: "firstName lastName" },
+      });
     // let CommentBox: any = [];
     // // allCourses.map((course) => {
     // //   let { _id } = course;

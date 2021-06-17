@@ -46,7 +46,7 @@ const Box=styled.div`
     }
 `
 
-export default function Test() {
+export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
     const [comments, setComments] = React.useState([])
     const [message,setMessage]=React.useState("")
     const [question,setQuestion]= React.useState("")
@@ -54,7 +54,7 @@ export default function Test() {
         const  payload= {
             "question":question,
             "userId":"60c4d0228a7b100f2840d795",
-            "courseId":"60c6e5a4bac4a7241c74f84f"
+            "courseId":id ||"60c6e5a4bac4a7241c74f84f"
         }
          let response= await axios.post('http://localhost:5000/add-question',payload);
          console.log(response)
@@ -63,7 +63,7 @@ export default function Test() {
     const calling = async()=>{
         try {
             
-            let data = await axios.get("http://localhost:5000/getQnAWithCourseId/60c6e5a4bac4a7241c74f84f")    
+            let data = await axios.get(`http://localhost:5000/getQnAWithCourseId/${id}`)    
    
             setComments(data.data.QNA)
         

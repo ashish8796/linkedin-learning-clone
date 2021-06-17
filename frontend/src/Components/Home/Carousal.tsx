@@ -79,7 +79,7 @@ export const Carousal = ({ data, trending }: carousalProps) => {
       </Box>
       <Box className={classes.content}>
         {newData.map((item) => (
-          <SingleCourse {...item} />
+          <SingleCourse  {...item} />
         ))}
       </Box>
     </Container>

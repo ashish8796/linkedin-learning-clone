@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from "styled-components";
 import Test from '../QuestionNAnswer/Test';
-export default function QuestionAnswer() {
+export default function QuestionAnswer({id}:any) {
     return (
         <Content>
             
-        <Test />
+        <Test id={id}/>
             
         <SideBar>
             something

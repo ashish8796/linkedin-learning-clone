@@ -31,7 +31,7 @@ export default function Routes() {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/learning" exact>
+        <Route path="/learning/:id" exact>
           <Learning />
         </Route>
         <Route path="/learning-login" exact>
