@@ -44,6 +44,7 @@ import {
   getUserId,
   updateUser,
   getUserEmailId,
+  getIndividualUser,
 } from "../controllers/user";
 import { deleteAnswer } from "../controllers/answer/index";
 import { checkMailId } from "../controllers/utils/Index";
@@ -69,6 +70,8 @@ route.get('/whole-data/:search', getAllData);
 // getting all the videos, Courses, student, teacher
 
 route.get("/users", getUser);
+
+route.get("/users/:id", getIndividualUser);
 
 route.get("/videos", getVideo);
 

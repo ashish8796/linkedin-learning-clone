@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from 'redux-thunk';
+import { appReducer } from "./app/appReducer";
 import { courseReducer } from "./course/courseReducer";
 import { currentVideoReducer } from "./currentVideo/currentVideoReducer";
 import { playerReducer } from "./player/playerReducer";
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   currentVideo: currentVideoReducer,
   course: courseReducer,
   user: userReducer,
-  teacher: teacherReducer
+  teacher: teacherReducer,
+  app: appReducer
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
