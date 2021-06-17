@@ -21,12 +21,12 @@ export default function ShowChapters({ chapter, index }: IShowChapterProps) {
 
   let allLecturesOfChapter: any = [];
 
-  if (chapter?._id) {
-    allLecturesOfChapter = allLecturesOfCourse.filter(
-      //@ts-ignore
-      (lecture) => lecture.chapterId?._id === chapter?._id
-    );
-  }
+  // if (chapter?._id) {
+  //   allLecturesOfChapter = allLecturesOfCourse.filter(
+  //     //@ts-ignore
+  //     (lecture) => lecture.chapterId?._id === chapter?._id
+  //   );
+  // }
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -77,9 +77,12 @@ export default function ShowChapters({ chapter, index }: IShowChapterProps) {
           </DeleteBtn>
         </div>
       </ChapterTitleBox>
-
-      {allLecturesOfChapter.length > 0 &&
-        allLecturesOfChapter.map((lecture: any) => (
+      
+      {
+        //@ts-ignore
+        chapter?.videoIds.length > 0 &&
+        //@ts-ignore
+        chapter?.videoIds.map((lecture: any) => (
           <ShowLecture key={lecture._id} lecture={lecture} />
         ))}
 

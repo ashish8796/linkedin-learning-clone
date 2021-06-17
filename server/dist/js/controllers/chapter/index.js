@@ -43,7 +43,9 @@ const addChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         console.log(chapter_1.default);
         const newChapter = yield new_chapter.save();
-        const allChapter = yield chapter_1.default.find();
+        const allChapter = yield chapter_1.default
+            .find({ courseId: body.courseId })
+            .populate({ path: "videoIds", populate: "videoId" });
         res.status(201).json({
             message: "new chapter as been added ",
             chapter: newChapter,

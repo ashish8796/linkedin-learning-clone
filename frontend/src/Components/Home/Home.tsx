@@ -12,6 +12,7 @@ import { CoursesList } from './CoursesList'
 import { Footer } from './Footer';
 import { State } from '../../store/tsTypes';
 import { AfterLoginImageSlider } from './AfterLoginImageSlider';
+import ProgressPoint from '../ProgressHomePage/ProgressPoint';
 
 const Container = styled.div`
     position: relative;
@@ -72,6 +73,7 @@ const data = [
 
 export default function Home () {
 
+   
    const isAuth = useSelector((state: State) => state.user.isAuth);
    
    React.useEffect(()=>{
@@ -86,6 +88,7 @@ export default function Home () {
             {
                !isAuth && <ExploreCourses />
             }
+            <ProgressPoint  value={40} size={80} />
             <Carousal data={data} trending="TRENDING COURSES" />
             <FindRightCourse />
             <Carousal data={data} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />

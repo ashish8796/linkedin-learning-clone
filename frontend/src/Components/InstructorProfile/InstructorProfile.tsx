@@ -32,7 +32,7 @@ export default function InstructorProfile() {
             <InstructorDetailsBox>
               <div>
                 <Name>{`${firstName} ${lastName}`} </Name>
-                <QualificationBox>{qualification.join(", ")}</QualificationBox>
+                <QualificationBox>{qualification.length>0 && qualification.join(", ")}</QualificationBox>
               </div>
 
               <div>

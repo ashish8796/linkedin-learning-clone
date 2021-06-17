@@ -109,8 +109,11 @@ const updateQuestionSessionWithAnswerId = (QId, AId) => __awaiter(void 0, void 0
 const deleteAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
-        yield removingIdFromQuestionArray(id);
-        // const deleted = await answerBox.findByIdAndDelete(id);
+        const deleted = yield answerBox_1.default.findByIdAndRemove(id);
+        console.log(deleted);
+        const { _id } = deleted;
+        // console.log(courseId)
+        yield removingIdFromQuestionArray(_id);
         res.status(200).json({ message: "the answer is deleted" });
     }
     catch (error) {
@@ -119,14 +122,22 @@ const deleteAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.deleteAnswer = deleteAnswer;
-const removingIdFromQuestionArray = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const removingIdFromQuestionArray = (AnswerId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(id);
-        let data = yield questionSession_1.default.aggregate([
-            { $unwind: "$answers" },
-            { $match: { "answers.answer": id } },
-        ]);
-        console.log(data);
+        console.log(AnswerId);
+        let data = yield questionSession_1.default
+            .findOneAndUpdate({
+            "answers.answer": AnswerId,
+        }, {
+            $pull: {
+                answers: {
+                    answer: AnswerId,
+                },
+            },
+        })
+            .exec();
+        // console.log(data, "result");
+        console.log(data, "line 135");
     }
     catch (error) {
         console.log(error);
