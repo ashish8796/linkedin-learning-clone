@@ -19,7 +19,7 @@ const CommentBox=styled.div`
     display: grid;
     grid-template-rows: 50px auto 20px;
     margin: auto;
-    width: 50%;
+    width: 90%;
     border: 1px solid black;
     padding:1%;
     img{
@@ -83,7 +83,7 @@ export default function Test() {
     }
     // calling()
     return (
-        <section  style={{height:"auto",marginTop:"100px"}}>
+        <section  style={{height:"auto"}}>
             {/* <div>
                 {message.length!==0 && <h1>{message}</h1>}
             </div> */}

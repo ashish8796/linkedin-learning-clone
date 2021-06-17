@@ -18,6 +18,7 @@ import BecomeInstructor from "./../Pages/BecomeInstructor";
 import PaymentPage from "../Pages/PaymentPage";
 import CourseDetails from "../Pages/CourseDetails";
 import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
+import CourseDescription from "../Components/CourseDescription/CourseDescription";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -62,7 +63,8 @@ export default function Routes() {
           <PaymentPage />
         </Route>
         <Route path="/testing">
-          <ProgressPoint />
+          {/* <ProgressPoint /> */}
+          < CourseDescription/>
         </Route>
         <Route>
           <PageNotFound />
