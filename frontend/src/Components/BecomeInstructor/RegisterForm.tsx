@@ -1,4 +1,4 @@
-import React, { useRef, useState, CSSProperties } from "react";
+import React, { useRef, useState, CSSProperties, useEffect } from "react";
 import styled from "styled-components";
 import RegisterFormLeftSection from "./RegisterFormLeftSection";
 import CreateInput from "./../Common/CreateInput/CrateInput";
@@ -32,7 +32,7 @@ const initState: RegisterTeacherFormState = {
 export default function RegisterForm({}: IRegisterFormProps) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { data } = useSelector((state: State) => state.user);
+  const { userDetails } = useSelector((state: State) => state.user);
   const [registerData, setRegisterData] =
     useState<RegisterTeacherFormState>(initState);
   const [qualificationText, setQualificationText] = useState<string>("");
@@ -65,13 +65,13 @@ export default function RegisterForm({}: IRegisterFormProps) {
     setQualificationText("");
   };
 
-  console.log(data);
+  console.log(userDetails);
 
   const handleSubmitForm: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
     const registerFormData: FormData = new FormData();
 
-    const payload = { ...registerData, uniqueId: data.user._id };
+    const payload = { ...registerData, uniqueId: userDetails._id };
 
     for (let key in payload) {
       if (key) {
@@ -85,8 +85,9 @@ export default function RegisterForm({}: IRegisterFormProps) {
       console.log(typeof data);
 
       // @ts-ignore
-      if (data) {
-        history.push("/instructor");
+      if (data.status) {
+        // @ts-ignore
+        history.push(`/instructor`);
       }
     } catch (error) {}
   };

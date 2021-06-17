@@ -19,7 +19,7 @@ export default function Learning() {
   },[])
   return (
     <section>
-      <ChapterPlayer videoUrl={videoUrl ||"https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4"} />
+      <ChapterPlayer  videoUrl={videoUrl ||"https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4"} />
       <CourseDescription id={id}/>
     </section>
   );

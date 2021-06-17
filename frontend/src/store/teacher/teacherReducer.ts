@@ -9,8 +9,6 @@ import {
 
 export interface ITeacher {
   DOB?: string;
-  firstName: string;
-  lastName: string;
   createdAt: string;
   description: string;
   linkedInProfile: string;
@@ -58,8 +56,6 @@ export interface TeacherState {
 
 export const initTeacher: ITeacher = {
   DOB: "",
-  firstName: "",
-  lastName: "",
   createdAt: "",
   description: "",
   linkedInProfile: "",
@@ -110,6 +106,7 @@ type MainAction = SetTeacher | SetNewChapter;
 function teacherReducer(state = initState, { type, payload }: MainAction) {
   switch (type) {
     case SET_TEACHER: {
+      //@ts-ignore
       return { ...state, teacher: payload };
     }
 

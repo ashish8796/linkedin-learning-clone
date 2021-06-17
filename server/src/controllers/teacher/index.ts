@@ -3,6 +3,7 @@ import ITeacher from "../../types/teacher";
 import teacher from "../../models/teacher";
 import user from "../../models/user";
 import { uploadProfilePic } from "../utils/storeDataInAws";
+import { changeUserToTeacher } from "../user";
 
 export const getTeacher = async (
   req: Request,
@@ -41,6 +42,8 @@ export const addTeacher = async (
         | "uniqueId"
       >;
 
+      console.log(req.file)
+
       const new_teacher: ITeacher = new teacher({
         qualification: body.qualification,
         DOB: body.DOB,
@@ -51,10 +54,18 @@ export const addTeacher = async (
         uniqueId: body.uniqueId,
       });
 
-      let newTeacher: ITeacher = await new_teacher.save();
+      let user;
+
+      if (body?.uniqueId) {
+        user = await changeUserToTeacher(body?.uniqueId)
+      }
+
       let allTeachers: ITeacher[] = await teacher.find();
+      let newTeacher: ITeacher = await new_teacher.save();
+
       res.status(202).json({
         message: "the teacher is added",
+        user,
         teacher: newTeacher,
         allTeachers: allTeachers,
       });
@@ -143,3 +154,20 @@ export const deleteTeacher = async (
     console.log(error);
   }
 };
+
+
+
+export const getTeacherByUniqueId= async(
+  req:Request,
+  res:Response,
+):Promise<void> =>{
+  try {
+    const {params :{id}}= req;
+
+    const teacherData = await teacher.findOne({uniqueId:id}).lean().exec();
+    res.status(200).json({message:"teacher by unique Id", teacher:teacherData})
+  } catch (error) {
+    res.end()
+    console.log(error)
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { setTeacher } from "../../store/teacher/actions";
@@ -9,10 +10,16 @@ import InstructorProfile from "../InstructorProfile/InstructorProfile";
 
 export default function Instructor() {
   const dispatch = useDispatch();
-  // const { _id } = useSelector((state: State) => state.teacher);
+
+  //@ts-ignore
+  const { id } = useParams();
+
+  const { teacher } = useSelector((state: State) => state.teacher);
 
   useEffect(() => {
-    dispatch(setTeacher("60b1e81cef6c6531106e8247"));
+    if (!teacher._id) {
+      dispatch(setTeacher(id));
+    }
   }, []);
 
   return (

@@ -10,11 +10,14 @@ import {
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAILURE,
   LOGOUT_USER,
+  SET_USER_BY_ID,
   GET_INDIVIDUAL_USER_REQUEST,
   GET_INDIVIDUAL_USER_SUCCESS,
   GET_INDIVIDUAL_USER_FAILURE,
 } from "./actionTypes";
-import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail, getIndividualUserAPI } from "../../api/api";
+
+import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail, getIndividualUserAPI, getUserById } from "../../api/api";
+
 import { ILogin } from "../../Components/SignIn/SignIn";
 import { IRegister } from "../../Components/Register/Register";
 import { Dispatch } from "redux";
@@ -24,6 +27,20 @@ import { setData } from "../temp/state";
 const registerUserRequest = () => {
   return {
     type: REGISTER_USER_REQUEST
+  }
+}
+
+export const setUserById = (id: string) => async (dispatch: Dispatch) => {
+
+  try {
+    const { data } = await getUserById(id)
+
+    dispatch({
+      type: SET_USER_BY_ID,
+      payload: data.user
+    })
+  } catch (error) {
+
   }
 }
 
@@ -73,50 +90,50 @@ const loginUserFailure = (err: any) => {
     payload: err,
   };
 };
-const getUserByEmailRequest = ()=>{
-    return {
-        type: GET_USER_BY_EMAIL_REQUEST
-    }
+const getUserByEmailRequest = () => {
+  return {
+    type: GET_USER_BY_EMAIL_REQUEST
+  }
 }
 
-const getUserByEmailSuccess = (payload: any)=>{
-    return {
-        type: GET_USER_BY_EMAIL_SUCCESS,
-        payload
-    }
+const getUserByEmailSuccess = (payload: any) => {
+  return {
+    type: GET_USER_BY_EMAIL_SUCCESS,
+    payload
+  }
 }
 
-const getUserByEmailFailure = (err: any)=>{
-    return {
-        type: GET_USER_BY_EMAIL_FAILURE,
-        payload: err
-    }
+const getUserByEmailFailure = (err: any) => {
+  return {
+    type: GET_USER_BY_EMAIL_FAILURE,
+    payload: err
+  }
 }
 
-export const logoutUser = ()=>{
-    return {
-        type: LOGOUT_USER
-    }
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  }
 }
 
-export const getIndividualUserRequest = ()=>{
-    return {
-          type: GET_INDIVIDUAL_USER_REQUEST
-    }
+export const getIndividualUserRequest = () => {
+  return {
+    type: GET_INDIVIDUAL_USER_REQUEST
+  }
 }
 
-export const getIndividualUserSuccess = (payload: any)=>{
-    return {
-          type: GET_INDIVIDUAL_USER_SUCCESS,
-          payload
-    }
+export const getIndividualUserSuccess = (payload: any) => {
+  return {
+    type: GET_INDIVIDUAL_USER_SUCCESS,
+    payload
+  }
 }
 
-export const getIndividualUserFailure = (err: any)=>{
-    return {
-          type: GET_INDIVIDUAL_USER_FAILURE,
-          payload: err
-    }
+export const getIndividualUserFailure = (err: any) => {
+  return {
+    type: GET_INDIVIDUAL_USER_FAILURE,
+    payload: err
+  }
 }
 
 export const registerUser = (payload: IRegister) => async (dispatch: any) => {
@@ -137,33 +154,33 @@ export const loginUser = (payload: ILogin) => async (dispatch: any) => {
 
   await loginUsers(payload)
     .then((res: any) => {
-        dispatch(loginUserSuccess(res.data));
+      dispatch(loginUserSuccess(res.data));
     })
     .catch((err: any) => {
-        dispatch(loginUserFailure(err));
+      dispatch(loginUserFailure(err));
     });
 };
 
 export const getUserByEmail = (payload: ILogin) => async (dispatch: any) => {
-    dispatch(getUserByEmailRequest());
+  dispatch(getUserByEmailRequest());
 
-    await getUserDetailsByEmail(payload.emailId)
-    .then((res: any)=>{
-        dispatch(getUserByEmailSuccess(res.data.user));
+  await getUserDetailsByEmail(payload.emailId)
+    .then((res: any) => {
+      dispatch(getUserByEmailSuccess(res.data.user));
     })
-    .catch((err: any)=>{
-        dispatch(getUserByEmailFailure(err));
+    .catch((err: any) => {
+      dispatch(getUserByEmailFailure(err));
     })
 }
 
 export const getIndividualUser = (id: string) => async (dispatch: any) => {
-    dispatch(getIndividualUserRequest());
+  dispatch(getIndividualUserRequest());
 
-    await getIndividualUserAPI(id)
+  await getIndividualUserAPI(id)
     .then((res: any) => {
-        return dispatch(getIndividualUserSuccess(res.data));
+      return dispatch(getIndividualUserSuccess(res.data));
     })
     .catch((err: any) => {
-        return dispatch(getIndividualUserFailure(err));
+      return dispatch(getIndividualUserFailure(err));
     })
 }

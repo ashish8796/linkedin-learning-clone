@@ -4,6 +4,8 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { State } from "../store/tsTypes";
 
 const Cont = styled.div`
   position: relative;
@@ -68,6 +70,10 @@ export const Footer = () => {
   const history = useHistory();
   const location = useLocation();
 
+  const { flag } = useSelector((state: State) => state.user.userDetails);
+
+  console.log(flag);
+
   const handleClickNewInstructor = (): void => {
     history.push("/instructor/new");
   };
@@ -81,7 +87,7 @@ export const Footer = () => {
           <p className={classes.copy}>© 2021</p>
         </Box>
         <Details>About</Details>
-        {location.pathname !== "/instructor/new" && (
+        {!flag && location.pathname !== "/instructor/new" && (
           <Details onClick={handleClickNewInstructor}>
             Become an Instructor
           </Details>

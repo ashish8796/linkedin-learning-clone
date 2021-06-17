@@ -25,24 +25,17 @@ export const addChapter = async (
     // const blog = await chapter.create(req.body)
     let body = req.body as Pick<
       IChapter,
-      | "title"
-      | "description"
-      | "createdAt"
-      | "authorId"
-      | "courseId"
-      | "content"
-      | "videosId"
+      "title" | "description" | "authorId" | "courseId" | "content" | "videoIds"
     >;
     console.log(body);
     const new_chapter: IChapter = new chapter({
       title: body.title,
       description: body.description,
-      createdAt: body.createdAt,
       authorId: body.authorId,
-      videosId: body.videosId,
       courseId: body.courseId,
       content: body.content,
     });
+
     console.log(chapter);
     const newChapter: IChapter = await new_chapter.save();
     const allChapter: IChapter[] = await chapter
@@ -148,6 +141,28 @@ export const getChapterByCourseId = async (
   }
 };
 
+export const removeIdFromChapterVideoArr = async (
+  videoId: string,
+  chapterId: String | undefined
+) => {
+  const currentChapter = await chapter
+    .findById({ _id: chapterId })
+    .lean()
+    .exec();
+
+  // console.log(currentChapter?.videoIds)
+
+  //@ts-ignore
+  const newChapter = {
+    ...currentChapter,
+    //@ts-ignore
+    videoIds: currentChapter?.videoIds?.filter((cv) => cv.videoId != videoId),
+  };
+
+  console.log({ newChapter, line: "Line 155", currentChapter, videoId });
+
+  const data = await chapter.findByIdAndUpdate({ _id: chapterId }, newChapter);
+};
 export const getChapterNVideosWithCourseId = async (
   req: Request,
   res: Response

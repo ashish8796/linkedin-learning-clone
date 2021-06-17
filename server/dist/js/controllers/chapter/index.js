@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getChapterNVideosWithCourseId = exports.getChapterByCourseId = exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
+exports.getChapterNVideosWithCourseId = exports.removeIdFromChapterVideoArr = exports.getChapterByCourseId = exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
 const chapter_1 = __importDefault(require("../../models/chapter"));
 const video_1 = __importDefault(require("../../models/video"));
 // import { isTryStatement } from 'typescript';
@@ -35,9 +35,7 @@ const addChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const new_chapter = new chapter_1.default({
             title: body.title,
             description: body.description,
-            createdAt: body.createdAt,
             authorId: body.authorId,
-            videosId: body.videosId,
             courseId: body.courseId,
             content: body.content,
         });
@@ -123,6 +121,21 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getChapterByCourseId = getChapterByCourseId;
+const removeIdFromChapterVideoArr = (videoId, chapterId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const currentChapter = yield chapter_1.default
+        .findById({ _id: chapterId })
+        .lean()
+        .exec();
+    // console.log(currentChapter?.videoIds)
+    //@ts-ignore
+    const newChapter = Object.assign(Object.assign({}, currentChapter), { 
+        //@ts-ignore
+        videoIds: (_a = currentChapter === null || currentChapter === void 0 ? void 0 : currentChapter.videoIds) === null || _a === void 0 ? void 0 : _a.filter((cv) => cv.videoId != videoId) });
+    console.log({ newChapter, line: "Line 155", currentChapter, videoId });
+    const data = yield chapter_1.default.findByIdAndUpdate({ _id: chapterId }, newChapter);
+});
+exports.removeIdFromChapterVideoArr = removeIdFromChapterVideoArr;
 const getChapterNVideosWithCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, } = req;
