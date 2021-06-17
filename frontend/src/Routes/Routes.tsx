@@ -32,15 +32,28 @@ export default function Routes() {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/learning/:id" exact>
+
+        <PrivateRoute
+          path="/learning/:id"
+          exact={true}
+          redirect="/"
+          isAuth={isAuth}
+        >
           <Learning />
-        </Route>
+        </PrivateRoute>
+
+        {/* <Route path="/learning/:id" exact>
+          <Learning />
+        </Route> */}
+
         <Route path="/learning-login" exact>
           <SignIn />
         </Route>
+
         <Route path="/uploading-video" exact>
           <VideoUploaded />
         </Route>
+
         <Route path="/add-video">
           <PageNotFound />
         </Route>
@@ -66,11 +79,6 @@ export default function Routes() {
           <BecomeInstructor />
         </PrivateRoute>
 
-        {/* 
-        <Route path="/instructor/new">
-          <BecomeInstructor />
-        </Route> */}
-
         <Route path="/instructor/courses/:id">
           <CourseDetails />
         </Route>
@@ -92,7 +100,7 @@ export default function Routes() {
           <PageNotFound />
         </Route>
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
