@@ -1,3 +1,7 @@
 export const SET_COURSE: string = "SET_COURSE";
 export const SET_TEACHER: string = "SET_TEACHER";
 export const ADD_TEACHER: string = "ADD_TEACHER";
+
+export const GET_COURSE_BY_ID_REQUEST = "GET_COURSE_BY_ID_REQUEST";
+export const GET_COURSE_BY_ID_SUCCESS = "GET_COURSE_BY_ID_SUCCESS";
+export const GET_COURSE_BY_ID_FAILURE = "GET_COURSE_BY_ID_FAILURE";

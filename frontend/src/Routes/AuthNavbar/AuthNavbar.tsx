@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
@@ -25,6 +25,7 @@ export const AuthNavbar = () => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ showMeOpt, setShowMeOpt ] = useState<boolean>(false);
     const [ searchInp, setSerchInp ] = useState<string>("");
@@ -41,6 +42,7 @@ export const AuthNavbar = () => {
     const handleSearch: React.KeyboardEventHandler<HTMLDivElement> = (e) =>{
         if(e.key === 'Enter'){
             dispatch(getAllData(searchInp));
+            history.push(`/learnings/${searchInp}`);
         }
     }
 
