@@ -26,6 +26,7 @@ export const getAllData = (payload: string) => (dispatch: any) => {
     
     getWholeData(payload)
     .then((res: any)=>{
+        console.log(res.data)
         dispatch(getAllDataSuccess(res.data));
     })
     .catch((err: any) => {

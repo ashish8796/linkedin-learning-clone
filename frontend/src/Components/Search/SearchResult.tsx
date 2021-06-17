@@ -33,7 +33,7 @@ const Container = styled.div`
 `;
 
 const Search = styled.div`
-    width: 75%;
+    width: 100%;
 `;
 
 const useStyles = makeStyles(theme=>({
