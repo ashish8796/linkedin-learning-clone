@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { getAllChaptersByCourseId, getCourse, getTeacher, postNewChapter, postNewCourse, postNewLecture } from "../../api/api"
+import { deleteChapterById, deleteLectureById, getAllChaptersByCourseId, getCourse, getTeacher, postNewChapter, postNewCourse, postNewLecture } from "../../api/api"
 import { SET_ALL_CHAPTERS, SET_ALL_LECTURES_OF_COURSE, SET_COURSE, SET_NEW_CHAPTER, SET_TEACHER } from "./actionTypes"
 
 export const setTeacher = (id: string) => async (dispatch: Dispatch) => {
@@ -57,8 +57,6 @@ export const setAllChapters = (id: string) => async (dispatch: Dispatch) => {
   }
 }
 
-
-
 export const startNewChapter = (payload: any) => async (dispatch: Dispatch) => {
   try {
     const { data: chapterData } = await postNewChapter(payload);
@@ -81,7 +79,6 @@ export const startNewChapter = (payload: any) => async (dispatch: Dispatch) => {
   }
 }
 
-
 export const uploadNewLecture = (payload: any) => async (dispatch: Dispatch) => {
   try {
     const { data } = await postNewLecture(payload);
@@ -94,6 +91,36 @@ export const uploadNewLecture = (payload: any) => async (dispatch: Dispatch) => 
     return true
   } catch (error) {
     return false
+  }
+}
+
+export const deleteChapter = (chapter: any) => async (dispatch: Dispatch) => {
+  try {
+    const { data } = await deleteChapterById(chapter._id);
+
+    console.log(data)
+
+    const { data: chapterData } = await getAllChaptersByCourseId(chapter.courseId);
+
+    dispatch({ type: SET_ALL_CHAPTERS, payload: chapterData.chapter ? chapterData.chapter : [] });
+    dispatch({ type: SET_ALL_LECTURES_OF_COURSE, payload: chapterData.videosWithCoursePopulate });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export const deleteLecture = (payload: any) => async (dispatch: Dispatch) => {
+  try {
+    const { data } = await deleteLectureById(payload._id);
+    console.log(data);
+
+    const { data: chapterData } = await getAllChaptersByCourseId(payload.courseId._id);
+
+    dispatch({ type: SET_ALL_CHAPTERS, payload: chapterData.chapter ? chapterData.chapter : [] });
+    dispatch({ type: SET_ALL_LECTURES_OF_COURSE, payload: chapterData.videosWithCoursePopulate });
+  } catch (error) {
+
   }
 }
 

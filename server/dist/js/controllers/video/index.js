@@ -121,7 +121,7 @@ const deleteVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const allVideos = yield video_1.default.find();
         res
             .status(200)
-            .json({ message: "Video Deleted", blog: delete_video, blogs: allVideos });
+            .json({ message: "Video Deleted", deleted_lecture: delete_video, allLectures: allVideos });
     }
     catch (error) {
         console.log(error);
