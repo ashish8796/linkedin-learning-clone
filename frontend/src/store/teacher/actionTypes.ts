@@ -5,3 +5,5 @@ export const SET_NEW_CHAPTER: string = "SET_NEW_CHAPTER";
 export const SET_ALL_CHAPTERS: string = "SET_ALL_CHAPTERS";
 export const SET_ALL_LECTURES_OF_COURSE: string = "SET_ALL_LECTURES_OF_COURSE"
 export const UPLOAD_NEW_LECTURE: string = "UPLOAD_NEW_LECTURE";
+export const DELETE_CHAPTER: string = "DELETE_CHAPTER";
+export const DELETE_LECTURE_BY_ID: string = "DELETE_LECTURE_BY_ID";
