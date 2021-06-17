@@ -6,7 +6,7 @@ import {
   updateCourse,
   deleteCourse,
   getCourseId,
-  getCourseByTeacherId
+  getCourseByTeacherId,
 } from "../controllers/course/index";
 import {
   getVideo,
@@ -36,6 +36,7 @@ import {
   deleteChapter,
   getChapterId,
   getChapterByCourseId,
+  getChapterNVideosWithCourseId,
 } from "../controllers/chapter/index";
 import {
   addUser,
@@ -62,9 +63,9 @@ const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route: Router = Router();
 
-function fn() { }
+function fn() {}
 
-route.get('/whole-data/:search', getAllData);
+route.get("/whole-data/:search", getAllData);
 
 // getting all the videos, Courses, student, teacher
 
@@ -96,7 +97,7 @@ route.post("/add-course", addCourse);
 
 route.post("/add-teacher", addTeacher);
 
-route.post("/add-teacher", addTeacher)
+route.post("/add-teacher", addTeacher);
 
 route.post("/add-chapter", addChapter);
 
@@ -110,13 +111,13 @@ route.post("/payment", paymentWithCard);
 
 route.get("/get-user/:id", getUserId);
 
-route.get('/get-user-detail/:emailId', getUserEmailId);
+route.get("/get-user-detail/:emailId", getUserEmailId);
 
 route.get("/get-video/:id", getVideoId);
 
 route.get("/get-course/:id", getCourseId);
 
-route.get("/get-course/:teacherId", getCourseByTeacherId)
+route.get("/get-course-teacherId/:teacherId", getCourseByTeacherId);
 
 route.get("/get-student/:id", getStudentId);
 
@@ -127,6 +128,8 @@ route.get("/getQnAWithCourseId/:id", getQnAWithCourseId);
 route.get("/getChapterNCourse/:id", getChapterByCourseId);
 
 route.get("/get-chapter/:id", getChapterId);
+
+route.get("/getFullCourseWithId/:id", getChapterNVideosWithCourseId);
 
 // update the details
 

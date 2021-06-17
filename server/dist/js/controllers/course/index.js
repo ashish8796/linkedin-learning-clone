@@ -53,8 +53,7 @@ const getCourseByTeacherId = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const { teacherId } = req.params;
         const courses = yield course_1.default.find({ authorId: teacherId }).exec();
     }
-    catch (error) {
-    }
+    catch (error) { }
 });
 exports.getCourseByTeacherId = getCourseByTeacherId;
 const addCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -148,7 +147,11 @@ const getCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const { params: { id }, } = req;
         const courses = yield course_1.default
             .findById({ _id: id })
-            .populate({ path: "questionBlog", populate: { path: "question" } });
+            .populate({ path: "questionBlog", populate: { path: "question" } })
+            .populate({
+            path: "authorId",
+            populate: { path: "authorId uniqueId", select: "firstName lastName" },
+        });
         // let CommentBox: any = [];
         // // allCourses.map((course) => {
         // //   let { _id } = course;

@@ -5,7 +5,39 @@ import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Icon from '@material-ui/core/Icon';
 import CallToActionIcon from '@material-ui/icons/CallToAction';
 import { Typography ,LinearProgress } from '@material-ui/core';
-export default function OverView() {
+import axios from 'axios';
+export default function OverView({id}:any) {
+
+    const [data,setData]=React.useState({})
+
+    const [aboutTeacher,setAboutTeacher] = React.useState({});
+    const [details,setDetails] = React.useState({});
+    //@ts-ignore
+    const {title,description,authorId,tags} =data;
+
+    //@ts-ignore
+    let {description:TeacherDescription } = aboutTeacher;
+
+    
+    // TeacherDescription= TeacherDescription.slice(0,95);
+    //@ts-ignore
+    let {firstName,lastName} = details
+    // let {description:TeacherDescription,uniqueId}=authorId;
+
+    //@ts-ignore
+
+    // const {firstName,lastName} = uniqueId;
+    React.useEffect(()=>{
+        (async()=>{
+            let data= await axios.get(`/get-course/${id}`).then(({data})=>{
+                return data
+            })
+            //@ts-ignore
+            setData(data.course)
+            setAboutTeacher(data.course.authorId)
+            setDetails(data.course.authorId.uniqueId)
+        })()
+    },[])
     return (
         <Content>
         {/* <div>
@@ -19,9 +51,9 @@ export default function OverView() {
             <AboutTeacher >
                 <img src="https://via.placeholder.com/168x160" alt="" />
                 <div>
-                    <span style={{fontWeight:500 , fontSize:"18px"}}>Teacher Name</span>
+                    <span style={{fontWeight:500 , fontSize:"18px"}}>{firstName + lastName}</span>
                     <br />
-                    <span>Teacher Details</span>
+                    <span >{TeacherDescription}</span>
                     <p>
                         <span>view on Linkedin</span>
                         <span>Follow on Linkedin</span>
@@ -60,7 +92,7 @@ export default function OverView() {
                 </div>
                 <span>Stars</span>
                 <Typography>
-                Excelling in an ever-changing software development world requires true "full stack" experience. Knowledge of nonrelational databases in particular adds exciting new capabilities and features that make everyday development easier, more streamlined, and vastly more scalable. This course provides an introduction to using MongoDB, one of the most popular nonrelational databases. Discover how to create documents to store data, organize documents in collections, and write queries to read, update, and delete documents. Instructor Justin Jenkins also shows how to properly index data to increase performance in MongoDB, and then shows how MongoDB can be integrated with applications written in Python, Node.js, and PHP. In the final chapter, he covers basic server administration, including replication, sharding, security, and backups. Make sure to practice your newfound MongoDB skills using the challenge and solution sets issued along the way.
+                {description}
                 </Typography>
         </CourseDetails>
         </div>
@@ -184,7 +216,7 @@ const CourseDetails = styled.div`
         div{
             display:grid;
             /* flex-basis: 20%; */
-            grid-template-columns: 42px 42px 42px;
+            grid-template-columns: 80px 102px 102px;
             grid-column-gap: 10px;
             span{
                 margin: 0%;
