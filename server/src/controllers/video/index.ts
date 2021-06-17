@@ -7,6 +7,7 @@ const path = require("path");
 import IVideo from "../../types/video";
 import Video from "../../models/video";
 import process from "process";
+import chapter from "../../models/chapter";
 require("dotenv").config();
 
 AWS.config.update({
@@ -88,6 +89,7 @@ export const addVideo = async (req: MulterRequest, res: Response): Promise<void>
             const newVideo: IVideo = await video.save();
             const allVideos: IVideo[] = await Video.find()
 
+            updateChapterWithVideoId(body.chapterId, newVideo._id)
 
             res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos })
         });
@@ -148,10 +150,36 @@ export const deleteVideo = async (
         const delete_video: IVideo | null = await Video.findByIdAndRemove(
             req.params.id
         );
+
         const allVideos: IVideo[] = await Video.find();
         res
             .status(200)
             .json({ message: "Video Deleted", deleted_lecture: delete_video, allLectures: allVideos });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+const updateChapterWithVideoId = async (
+    id: String | undefined,
+    VId: String
+) => {
+    try {
+        console.log(id, VId);
+        await chapter.updateOne(
+            { _id: id },
+            {
+                $push: {
+                    videoIds: {
+                        $each: [{ videoId: VId }],
+                        $sort: { updatedAt: -1 },
+                    },
+                },
+            }
+        );
+        console.log(await chapter.find({ _id: id }));
+        // console.log("course data updated", data);
     } catch (error) {
         console.log(error);
     }

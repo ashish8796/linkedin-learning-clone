@@ -20,6 +20,7 @@ const uuid_1 = require("uuid");
 const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
+const chapter_1 = __importDefault(require("../../models/chapter"));
 require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
@@ -76,6 +77,7 @@ const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             const newVideo = yield video.save();
             const allVideos = yield video_1.default.find();
+            updateChapterWithVideoId(body.chapterId, newVideo._id);
             res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos });
         }));
     }
@@ -128,3 +130,21 @@ const deleteVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.deleteVideo = deleteVideo;
+const updateChapterWithVideoId = (id, VId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log(id, VId);
+        yield chapter_1.default.updateOne({ _id: id }, {
+            $push: {
+                videoIds: {
+                    $each: [{ videoId: VId }],
+                    $sort: { updatedAt: -1 },
+                },
+            },
+        });
+        console.log(yield chapter_1.default.find({ _id: id }));
+        // console.log("course data updated", data);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
