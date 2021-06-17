@@ -67,7 +67,7 @@ export default function Routes() {
           {/* <ProgressPoint /> */}
           < CourseDescription/>
         </Route>
-        <Route path="/learning/:search">
+        <Route path="/learnings/:search">
           <SearchResult />
         </Route>
         <Route>
