@@ -19,9 +19,10 @@ const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
 function fn() { }
-route.get('/whole-data/:search', allData_1.getAllData);
+route.get("/whole-data/:search", allData_1.getAllData);
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
+route.get("/users/:id", user_1.getIndividualUser);
 route.get("/videos", index_2.getVideo);
 route.get("/courses", index_1.getCourse);
 route.get("/students", index_3.getStudent);
@@ -43,15 +44,16 @@ route.post("/add-question", question_1.addQuestion);
 route.post("/payment", stripes_1.paymentWithCard);
 // get them by Id
 route.get("/get-user/:id", user_1.getUserId);
-route.get('/get-user-detail/:emailId', user_1.getUserEmailId);
+route.get("/get-user-detail/:emailId", user_1.getUserEmailId);
 route.get("/get-video/:id", index_2.getVideoId);
 route.get("/get-course/:id", index_1.getCourseId);
-route.get("/get-course/:teacherId", index_1.getCourseByTeacherId);
+route.get("/get-course-teacherId/:teacherId", index_1.getCourseByTeacherId);
 route.get("/get-student/:id", index_3.getStudentId);
 route.get("/get-teacher/:id", teacher_1.getTeacherId);
 route.get("/getQnAWithCourseId/:id", question_1.getQnAWithCourseId);
 route.get("/getChapterNCourse/:id", index_4.getChapterByCourseId);
 route.get("/get-chapter/:id", index_4.getChapterId);
+route.get("/getFullCourseWithId/:id", index_4.getChapterNVideosWithCourseId);
 // update the details
 route.put("/update-user/:id", user_1.updateUser);
 route.put("/update-video/:id", index_2.updateVideo);

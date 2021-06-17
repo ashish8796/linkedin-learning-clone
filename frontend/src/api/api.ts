@@ -93,3 +93,7 @@ export const getUserDetailsByEmail = (payload: string) => {
 export const getWholeData = (payload: string) => {
   return axios.get(`/whole-data/${payload}`)
 }
+
+export const getIndividualUserAPI = (id: string) => {
+  return axios.get(`/users/${id}`)
+}

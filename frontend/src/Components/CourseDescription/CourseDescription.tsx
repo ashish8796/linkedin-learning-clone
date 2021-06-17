@@ -64,7 +64,7 @@ interface TabPanelProps {
           flexDirection:"column"
         }
   }));
-export default function CourseDescription() {
+export default function CourseDescription({id}:any) {
 
     const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -91,10 +91,10 @@ export default function CourseDescription() {
   </Tabs>
 </AppBar>
 <TabPanel value={value} index={0}>
-  <OverView />
+  <OverView  id={id}/>
 </TabPanel>
 <TabPanel value={value} index={1}>
-  <QuestionAnswer />
+  <QuestionAnswer id={id} />
 </TabPanel>
 <TabPanel value={value} index={2}>
   <NoteBook />

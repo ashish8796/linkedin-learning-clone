@@ -20,6 +20,7 @@ import CourseDetails from "../Pages/CourseDetails";
 import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
 import CourseDescription from "../Components/CourseDescription/CourseDescription";
 import PrivateRoute from "./PrivateRoute";
+import SearchResult from "../Pages/SearchResults";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -31,7 +32,7 @@ export default function Routes() {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/learning" exact>
+        <Route path="/learning/:id" exact>
           <Learning />
         </Route>
         <Route path="/learning-login" exact>
@@ -84,11 +85,14 @@ export default function Routes() {
           {/* <ProgressPoint /> */}
           <CourseDescription />
         </Route>
+        <Route path="/learning/:search">
+          <SearchResult />
+        </Route>
         <Route>
           <PageNotFound />
         </Route>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

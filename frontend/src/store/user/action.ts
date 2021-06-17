@@ -11,8 +11,13 @@ import {
   GET_USER_BY_EMAIL_FAILURE,
   LOGOUT_USER,
   SET_USER_BY_ID,
+  GET_INDIVIDUAL_USER_REQUEST,
+  GET_INDIVIDUAL_USER_SUCCESS,
+  GET_INDIVIDUAL_USER_FAILURE,
 } from "./actionTypes";
-import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail, getUserById } from "../../api/api";
+
+import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail, getIndividualUserAPI, getUserById } from "../../api/api";
+
 import { ILogin } from "../../Components/SignIn/SignIn";
 import { IRegister } from "../../Components/Register/Register";
 import { Dispatch } from "redux";
@@ -111,14 +116,32 @@ export const logoutUser = () => {
   }
 }
 
+export const getIndividualUserRequest = () => {
+  return {
+    type: GET_INDIVIDUAL_USER_REQUEST
+  }
+}
+
+export const getIndividualUserSuccess = (payload: any) => {
+  return {
+    type: GET_INDIVIDUAL_USER_SUCCESS,
+    payload
+  }
+}
+
+export const getIndividualUserFailure = (err: any) => {
+  return {
+    type: GET_INDIVIDUAL_USER_FAILURE,
+    payload: err
+  }
+}
+
 export const registerUser = (payload: IRegister) => async (dispatch: any) => {
   dispatch(registerUserRequest());
 
   console.log(payload);
   await registerUsers(payload)
     .then((res: any) => {
-      console.log(res.data);
-
       dispatch(registerUserSuccess(res.data));
     })
     .catch((err: any) => {
@@ -147,5 +170,17 @@ export const getUserByEmail = (payload: ILogin) => async (dispatch: any) => {
     })
     .catch((err: any) => {
       dispatch(getUserByEmailFailure(err));
+    })
+}
+
+export const getIndividualUser = (id: string) => async (dispatch: any) => {
+  dispatch(getIndividualUserRequest());
+
+  await getIndividualUserAPI(id)
+    .then((res: any) => {
+      return dispatch(getIndividualUserSuccess(res.data));
+    })
+    .catch((err: any) => {
+      return dispatch(getIndividualUserFailure(err));
     })
 }

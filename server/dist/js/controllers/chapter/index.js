@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeIdFromChapterVideoArr = exports.getChapterByCourseId = exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
+exports.getChapterNVideosWithCourseId = exports.removeIdFromChapterVideoArr = exports.getChapterByCourseId = exports.deleteChapter = exports.getChapterId = exports.updateChapter = exports.addChapter = exports.getChapter = void 0;
 const chapter_1 = __importDefault(require("../../models/chapter"));
 const video_1 = __importDefault(require("../../models/video"));
 // import { isTryStatement } from 'typescript';
@@ -132,3 +132,17 @@ const removeIdFromChapterVideoArr = (videoId, chapterId) => __awaiter(void 0, vo
     const data = yield chapter_1.default.findByIdAndUpdate({ _id: chapterId }, newChapter);
 });
 exports.removeIdFromChapterVideoArr = removeIdFromChapterVideoArr;
+const getChapterNVideosWithCourseId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { params: { id }, } = req;
+        const Course = yield chapter_1.default
+            .find({ courseId: id })
+            .populate({ path: "videoIds", populate: "videoId" });
+        res.status(200).json({ message: "Course", course: Course });
+    }
+    catch (error) {
+        console.log(error);
+        res.end();
+    }
+});
+exports.getChapterNVideosWithCourseId = getChapterNVideosWithCourseId;

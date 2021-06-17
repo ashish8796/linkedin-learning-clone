@@ -1,7 +1,7 @@
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
-
+import { useHistory } from 'react-router';
 const Container = styled.div`
     position: relative;
     min-width: 228px;
@@ -50,24 +50,31 @@ const useStyles = makeStyles(theme=> ({
 }));
 
 export interface singleCourseProps {
-    imgUrl: string;
+    image: string;
     type: string;
-    courseName: string;
+    title: string;
     viewers: string;
+    _id:string;
 }
 
-export const SingleCourse = ({imgUrl, type, courseName, viewers}: singleCourseProps) => {
+export const SingleCourse = ({image, type, title, viewers,_id}: singleCourseProps) => {
     
     const classes = useStyles();
     
+    const history = useHistory();
+
+    const routeHandle = () =>{
+        history.push(`/learning/${_id}`)
+    }
     return (
-        <Container>
+        
+        <Container onClick={routeHandle}>
             <Box className={classes.imageBox}>
-                <Image src={imgUrl} />
+                <Image src={image} />
             </Box>
             <Box className= {classes.contentBox}>
-                <Typography className={classes.course}>{type}</Typography>
-                <Typography className={classes.heading} variant='subtitle1' component="h3">{courseName}</Typography>
+                <Typography className={classes.course}>COURSE</Typography>
+                <Typography className={classes.heading} variant='subtitle1' component="h3">{title}</Typography>
                 <Typography className={classes.viewers}>{viewers} viewers</Typography>
             </Box>
         </Container>

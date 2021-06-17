@@ -73,11 +73,12 @@ const data = [
 
 export default function Home () {
 
+   const [newData, setNewData] = React.useState([])
    
    const isAuth = useSelector((state: State) => state.user.isAuth);
    
    React.useEffect(()=>{
-      axios.get('/videos').then(({data})=>console.log(data))
+      axios.get('/courses').then(({data})=>{console.log(data.courses); setNewData(data.courses)})
    },[])
 
    return (
@@ -89,14 +90,14 @@ export default function Home () {
                !isAuth && <ExploreCourses />
             }
             <ProgressPoint  value={40} size={80} />
-            <Carousal data={data} trending="TRENDING COURSES" />
+            <Carousal data={newData} trending="TRENDING COURSES" />
             <FindRightCourse />
-            <Carousal data={data} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />
-            <Carousal data={data} trending="TRENDING SPREADSHEET COURSES" />
+            <Carousal data={newData} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />
+            <Carousal data={newData} trending="TRENDING SPREADSHEET COURSES" />
             <SkillsTime />
-            <Carousal data={data} trending="TRENDING ILLUSTRATION COURSES" />
-            <Carousal data={data} trending="TRENDING SHORT VIDEO TUTORIALS" />
-            <Carousal data={data} trending="TRENDING PERSONAL BRANDING COURSES" />
+            <Carousal data={newData} trending="TRENDING ILLUSTRATION COURSES" />
+            <Carousal data={newData} trending="TRENDING SHORT VIDEO TUTORIALS" />
+            <Carousal data={newData} trending="TRENDING PERSONAL BRANDING COURSES" />
             <BottomImage />
             <CoursesList />
             <Footer />
