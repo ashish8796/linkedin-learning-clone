@@ -8,6 +8,7 @@ import IVideo from "../../types/video";
 import Video from "../../models/video";
 import process from "process";
 import chapter from "../../models/chapter";
+import { removeIdFromChapterVideoArr } from "../chapter";
 require("dotenv").config();
 
 AWS.config.update({
@@ -150,6 +151,8 @@ export const deleteVideo = async (
         const delete_video: IVideo | null = await Video.findByIdAndRemove(
             req.params.id
         );
+
+        removeIdFromChapterVideoArr(delete_video?._id, delete_video?.chapterId)
 
         const allVideos: IVideo[] = await Video.find();
         res

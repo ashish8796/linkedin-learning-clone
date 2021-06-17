@@ -21,6 +21,7 @@ const path = require("path");
 const video_1 = __importDefault(require("../../models/video"));
 const process_1 = __importDefault(require("process"));
 const chapter_1 = __importDefault(require("../../models/chapter"));
+const chapter_2 = require("../chapter");
 require("dotenv").config();
 aws_sdk_1.default.config.update({
     credentials: {
@@ -120,6 +121,7 @@ exports.getVideoId = getVideoId;
 const deleteVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const delete_video = yield video_1.default.findByIdAndRemove(req.params.id);
+        chapter_2.removeIdFromChapterVideoArr(delete_video === null || delete_video === void 0 ? void 0 : delete_video._id, delete_video === null || delete_video === void 0 ? void 0 : delete_video.chapterId);
         const allVideos = yield video_1.default.find();
         res
             .status(200)
