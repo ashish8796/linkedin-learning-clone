@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Typography } from '@material-ui/core';
+import { State } from '../../store/tsTypes';
+import { useSelector } from 'react-redux';
 const Card=styled.div`
     padding: 10px;
     display: grid;
@@ -104,15 +106,17 @@ interface IAnswers{
 export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",answers,question}:IQuestionAnswer){
     
     const VideoCommentPoint="point"
-    const {firstName , lastName}:IUserId = userId;
+    const {firstName , lastName ,_id:_userId}:IUserId = userId;
     // const {}= answers
+    const data =useSelector((state:State) => state.user.userDetails)
     
+    const {_id:LoggedId} = data
     const [reply,setReply] = React.useState("")
     const handleReply=async ()=>{
         const payload={
             "answer":reply,
             "questionId":_id,
-            "userId":"60c4d0228a7b100f2840d795",
+            "userId":LoggedId|| "60c4d0228a7b100f2840d795",
             "courseId":"60c6e5a4bac4a7241c74f84f"
         }
         console.log(payload);
@@ -172,8 +176,8 @@ const AnswerBoxStyle= styled.div`
     width: 100%;
     margin: 10px auto;
     display: grid;
-    grid-template-rows: 70px auto 20px;
-    border-bottom: 0.5px solid #aaaaaa;
+    grid-template-rows: 40px auto 20px;
+    /* border-bottom: 0.5px solid #aaaaaa; */
     NameTag{
         width: auto;
     }
@@ -194,14 +198,14 @@ const AnswerBox=({answer}:IAnswers)=>{
                 <ImageHolder>
                 <img src="https://via.placeholder.com/168x160" alt=""  />
                 </ImageHolder>
-                <div>
+                <div style={{margin:"0px" , padding:"0px"}}>
                     <Typography variant="body1"> {firstName} {lastName} </Typography>
                     {/* <br />   */}
-                    <span>description</span>
+                    {/* <span>description</span> */}
                 </div>
                 <div><MoreChange _id={_id} /></div>
             </NameTag>
-            <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
+            <Text style={{display:"grid", gridTemplateColumns:"100px auto" , marginTop:"0px"}}>
                 <span></span>
                 <Typography variant="body1"> 
                 {AnswerString}
@@ -212,8 +216,8 @@ const AnswerBox=({answer}:IAnswers)=>{
                 {/* <div></div> */}
                 <span></span>
                 <Text style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
-                <Typography variant="overline">LIKE</Typography>
-                <Typography variant="overline">Comment</Typography>
+                <Typography variant="body2">LIKE</Typography>
+                <Typography variant="body2">Comment</Typography>
                 </Text>
             </Text>
         </AnswerBoxStyle>
@@ -242,8 +246,8 @@ const AnswerBox=({answer}:IAnswers)=>{
             {/* <div></div> */}
             <span></span>
             <Text style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
-            <Typography variant="overline">LIKE</Typography>
-            <Typography variant="overline">Comment</Typography>
+            <Typography variant="body2">LIKE</Typography>
+            <Typography variant="body2">Comment</Typography>
             </Text>
         </Text>
     </AnswerBoxStyle>

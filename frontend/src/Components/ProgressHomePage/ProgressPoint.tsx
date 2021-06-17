@@ -47,6 +47,9 @@ const Course = styled.div`
     grid-template-columns: 30% 70%;
     padding-top: 2%;
     padding-bottom: 2%;
+    img{
+        width:6rem
+    }
 `
 
 const CourseDetails = styled.div`
@@ -86,7 +89,7 @@ export default function ProgressPoint(props:CircularProgressProps & {value:numbe
                 </Title>
                     <WeeklyGoal>
                         <div style={{padding:"2rem"}} >
-                        < CircularProgress variant="determinate"  {...props}/>
+                        {/* < CircularProgress variant="determinate"  {...props}/>
                         <Box
                                 top={0}
                                 left={0}
@@ -98,7 +101,8 @@ export default function ProgressPoint(props:CircularProgressProps & {value:numbe
                                 justifyContent="center"
                             >
                                 <Typography variant="caption" component="div" color="textSecondary">{`${props.value}%`}</Typography>
-                            </Box>
+                            </Box> */}
+                            <CircularProgressWithLabel value={40} />
                         </div>
                         <div>
                             <span style={{opacity:"0.8"}}>Jun 13 to Jun 19</span>
@@ -126,18 +130,18 @@ export default function ProgressPoint(props:CircularProgressProps & {value:numbe
                     <SavedCourse>
                         <div>
                             <Course>
-                                <img src="https://via.placeholder.com/120x75" alt="" />
+                                <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//1243db26-d136-4f54-bac9-c467c6ead24d_" alt="" />
                                 <CourseDetails>
-                                    <h5>TITLE</h5>
+                                    <h5>Figure Drawing</h5>
                                     <p>COURSE</p>
                                     {/* <span>Progress</span> */}
                                     <span><LinearProgress variant="determinate" color={"primary"} value={15} /></span>
                                 </CourseDetails>
                             </Course>
                             <Course>
-                                <img src="https://via.placeholder.com/120x75" alt="" />
+                                <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//f855d5f9-372f-4b13-9ce1-32684f2db4a0_" alt="" />
                                 <CourseDetails>
-                                    <h5>TITLE</h5>
+                                    <h5>Building Resilience as a Leader</h5>
                                     <p>COURSE</p>
                                     <span><LinearProgress variant="determinate" value={10} /></span>
                                 </CourseDetails>
@@ -151,4 +155,28 @@ export default function ProgressPoint(props:CircularProgressProps & {value:numbe
             </Container>
         </section>
     )
+}
+
+
+
+function CircularProgressWithLabel(props: CircularProgressProps & { value: number }) {
+  return (
+    <Box position="relative" display="inline-flex">
+      <CircularProgress size={90} thickness={2} variant="determinate" {...props} />
+      <Box
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="caption" component="div" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
 }
