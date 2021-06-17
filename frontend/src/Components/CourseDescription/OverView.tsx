@@ -4,7 +4,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Icon from '@material-ui/core/Icon';
 import CallToActionIcon from '@material-ui/icons/CallToAction';
-import { Typography } from '@material-ui/core';
+import { Typography ,LinearProgress } from '@material-ui/core';
 export default function OverView() {
     return (
         <Content>
@@ -66,7 +66,34 @@ export default function OverView() {
         </div>
 
         <SideBar>
-            something
+            <Typography variant="h6">
+                Related Course
+            </Typography>
+            {/* <div> */}
+                            <Course>
+                                <img src="https://via.placeholder.com/120x75" alt="" />
+                                <CourseDetails2>
+                                    <p>COURSE</p>
+                                    <Typography variant="h6">TITLE</Typography>
+                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
+                                    {/* <span>Progress</span> */}
+                                    {/* <span><LinearProgress variant="determinate" color={"primary"} value={15} /></span> */}
+                                </CourseDetails2>
+                            </Course>
+                            <Course>
+                                <img src="https://via.placeholder.com/120x75" alt="" />
+                                <CourseDetails2>
+                                    <p style={{margin:"0px"}}>COURSE</p>
+                                    <Typography variant="h6">TITLE</Typography>
+                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
+
+                                    {/* <span><LinearProgress variant="determinate" value={10} /></span> */}
+                                </CourseDetails2>
+                            </Course>
+                        {/* </div> */}
+                        <div>
+                            <span  style={{color:"#0073b1" , fontWeight:500}}>Show all</span>
+                        </div>
         </SideBar>
     </Content>
     )
@@ -83,6 +110,7 @@ const Content = styled.section`
 
 const SideBar = styled.aside`
     border-left:0.2px solid black;
+    padding:15px;
 `
 
 const InstructorNRelatedToCourse = styled.div`
@@ -164,4 +192,33 @@ const CourseDetails = styled.div`
             }
         }
 
+`
+
+const Course = styled.div`
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+`
+
+const CourseDetails2 = styled.div`
+    display: grid;
+    grid-template-rows: 1fr 2fr 2rem;
+    height: 50px;
+    line-height: 0.5em;
+    font-size: small;
+    /* padding: ; */
+    h5{
+        font-size: small;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    p{
+        padding: 0%;
+        margin: 0%;
+    }
+    span{
+        padding:0%;
+    }
+    
 `

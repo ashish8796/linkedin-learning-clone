@@ -3,7 +3,7 @@ import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SubjectIcon from '@material-ui/icons/Subject';
 import BallotIcon from '@material-ui/icons/Ballot';
-import { BottomNavigation, BottomNavigationAction ,AppBar, Tabs, Tab , Box, Typography, makeStyles, Theme } from '@material-ui/core';
+import { AppBar, Tabs, Tab , Box, Typography, makeStyles, Theme } from '@material-ui/core';
 import  styled from "styled-components";
 import OverView from "./OverView";
 import QuestionAnswer from "./QuestionAnswer";
@@ -51,15 +51,13 @@ interface TabPanelProps {
         },
         app:{
           boxShadow: "0px 0px 0px 0px",
-          // height: "1.7rem"  
+          // height: "2.5rem"  
         }
         ,
         tabs:{
             background: "#ffffff",
-            // border: "0px",
-            display: "flex",
             boxShadow:"none",
-            // height:"1.5rem"
+            height:"4rem"
         },
         tab:{
           display: "flex",
@@ -75,7 +73,7 @@ export default function CourseDescription() {
         setValue(newValue);
       };
     return (
-        <Section className={classes.root} style={{marginTop:"100px"}}>
+        <Section className={classes.root} >
             <TopBar>
 
             <AppBar className={classes.app} position="static">

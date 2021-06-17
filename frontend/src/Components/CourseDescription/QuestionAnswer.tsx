@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
+import Test from '../QuestionNAnswer/Test';
 export default function QuestionAnswer() {
     return (
         <Content>
-        <div>
-            something
-        </div>
+            
+        <Test />
+            
         <SideBar>
             something
         </SideBar>
@@ -15,7 +16,7 @@ export default function QuestionAnswer() {
 
 const Content = styled.section`
     display: grid;
-    grid-template-columns: 65% 35%;
+    grid-template-columns: 70% 30%;
     margin-top: 5px;
     height:70rem;
 `
