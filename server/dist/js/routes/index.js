@@ -14,10 +14,12 @@ const login_1 = require("../controllers/login");
 const question_1 = require("../controllers/question");
 const answer_1 = require("../controllers/answer");
 const stripes_1 = require("../Components/stripes");
+const allData_1 = require("../controllers/allData");
 const path = require("path");
 // import {seedTeachers} from "../utils/seeder" ;
 const route = express_1.Router();
 function fn() { }
+route.get('/whole-data/:search', allData_1.getAllData);
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
 route.get("/videos", index_2.getVideo);

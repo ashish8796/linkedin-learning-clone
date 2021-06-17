@@ -7,10 +7,12 @@ const courseSchema = new mongoose_1.Schema({
     title: {
         type: String,
         required: [true, "Please Enter title"],
+        text: true
     },
     description: {
         type: String,
         required: [true, "enter description"],
+        text: true
     },
     tags: {
         type: Array,
