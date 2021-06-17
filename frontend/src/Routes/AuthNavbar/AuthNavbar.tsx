@@ -17,71 +17,85 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import Dropdown from './Dropdown';
+import { useDispatch } from 'react-redux';
+import { getAllData } from "../../store/app/action";
 
 export const AuthNavbar = () => {
     
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [ showMeOpt, setShowMeOpt ] = useState<boolean>(false);
+    const [ searchInp, setSerchInp ] = useState<string>("");
 
     const handleShowMeOpt = ()=>{
         setShowMeOpt(prev => !prev);
     }
 
-  return (
-    <div className={classes.root}>
-        <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar variant="dense" className={classes.toolBar}>
-                <Box className={classes.logo}>
-                    <LinkedInIcon className={classes.icon} />
-                    <Typography className={classes.learnTxt}>
-                        L E A R N I N G
-                    </Typography>
-                </Box>
-                <Box className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        placeholder="Search skills, subjects or software"
-                        fullWidth
-                    />
-                </Box>
-                <Box className= {classes.TSBtns}>
-                    <Box className={classes.afterLoginIcons} style={{marginLeft:'1rem'}}>
-                        <LanguageOutlinedIcon />
-                        <Box className={classes.title}>
-                            EN
-                            <ArrowDropDownIcon />
-                        </Box>
+    const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) =>{
+        const value = e.target.value;
+        setSerchInp(value);
+    }
+        
+    const handleSearch: React.MouseEventHandler<HTMLDivElement> = () =>{
+        dispatch(getAllData(searchInp));
+    }
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar variant="dense" className={classes.toolBar}>
+                    <Box className={classes.logo}>
+                        <LinkedInIcon className={classes.icon} />
+                        <Typography className={classes.learnTxt}>
+                            L E A R N I N G
+                        </Typography>
                     </Box>
-                    <Box className={classes.afterLoginIcons} onClick={handleShowMeOpt} style={{marginLeft:'1rem'}}>
-                        <Box className={classes.userImgBox}>
-                            <Image src="https://via.placeholder.com/25" />
-                        </Box>
-                        <Box className={classes.title}>
-                            Me
-                            <ArrowDropDownIcon />
-                        </Box>
+                    <Box className={classes.search}>
+                        <div className={classes.searchIcon} onClick={handleSearch}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search skills, subjects or software"
+                            fullWidth
+                            onChange={handleChange}
+                        />
                     </Box>
-                    <Box className={classes.afterLoginIcons}>
-                        <ImportContactsOutlinedIcon />
-                        My Learning
-                    </Box>
-                    <NavLink exact activeClassName={classes.active} className={classes.navContents} to="/">
+                    <Box className= {classes.TSBtns}>
+                        <Box className={classes.afterLoginIcons} style={{marginLeft:'1rem'}}>
+                            <LanguageOutlinedIcon />
+                            <Box className={classes.title}>
+                                EN
+                                <ArrowDropDownIcon />
+                            </Box>
+                        </Box>
+                        <Box className={classes.afterLoginIcons} onClick={handleShowMeOpt} style={{marginLeft:'1rem'}}>
+                            <Box className={classes.userImgBox}>
+                                <Image src="https://via.placeholder.com/25" />
+                            </Box>
+                            <Box className={classes.title}>
+                                Me
+                                <ArrowDropDownIcon />
+                            </Box>
+                        </Box>
                         <Box className={classes.afterLoginIcons}>
-                            <HomeOutlinedIcon />
-                            Home
+                            <ImportContactsOutlinedIcon />
+                            My Learning
                         </Box>
-                    </NavLink>
-                </Box>
-            </Toolbar>
-        </AppBar>
-        {
-            showMeOpt && <Dropdown setShowMeOpt={setShowMeOpt} />
-        }
-    </div>
-  );
+                        <NavLink exact activeClassName={classes.active} className={classes.navContents} to="/">
+                            <Box className={classes.afterLoginIcons}>
+                                <HomeOutlinedIcon />
+                                Home
+                            </Box>
+                        </NavLink>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            {
+                showMeOpt && <Dropdown setShowMeOpt={setShowMeOpt} />
+            }
+        </div>
+    );
 }
 
 const Image = styled.img`

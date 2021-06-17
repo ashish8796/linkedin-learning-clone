@@ -60,8 +60,6 @@ export const registerUsers = (payload: IRegister) => {
   return axios.post("/register", payload);
 };
 
-
-
 export const loginUsers = (payload: ILogin) => {
   return axios.post("/login", payload);
 };
@@ -73,3 +71,7 @@ export const putSubscribeUser = (userId: string, payload: any) => {
 export const getUserDetailsByEmail = (payload: string) =>{
   return axios.get(`/get-user-detail/${payload}`)
 };
+
+export const getWholeData = (payload: string) =>{
+  return axios.get(`/whole-data/${payload}`)
+}
