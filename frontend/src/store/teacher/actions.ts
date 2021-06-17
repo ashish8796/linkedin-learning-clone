@@ -51,6 +51,7 @@ export const setAllChapters = (id: string) => async (dispatch: Dispatch) => {
     console.log(data);
 
     dispatch({ type: SET_ALL_CHAPTERS, payload: data.chapter });
+    dispatch({ type: SET_ALL_LECTURES_OF_COURSE, payload: data.videosWithCoursePopulate })
   } catch (error) {
 
   }
@@ -87,7 +88,7 @@ export const uploadNewLecture = (payload: any) => async (dispatch: Dispatch) => 
 
     const { data: videoData } = await getAllChaptersByCourseId(data.newLecture.courseId);
 
-    dispatch({ type: SET_ALL_CHAPTERS, payload: videoData.chapter ? videoData.chapter : [] })
+    dispatch({ type: SET_ALL_CHAPTERS, payload: videoData.chapter ? videoData.chapter : [] });
     dispatch({ type: SET_ALL_LECTURES_OF_COURSE, payload: videoData.videosWithCoursePopulate })
 
     return true

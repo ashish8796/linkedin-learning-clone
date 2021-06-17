@@ -102,17 +102,18 @@ export default function UploadLecture({
           labelStyles={lectureTitleLabelStyles}
         />
 
-        <Cancel
-          onClick={() => {
-            setIsModalVisible(false);
-          }}
-        >
-          Cancel
-        </Cancel>
-
-        <UploadLectureButton onClick={handleUploadChapter}>
-          Upload Lecture
-        </UploadLectureButton>
+        <ButtonBox>
+          <Cancel
+            onClick={() => {
+              setIsModalVisible(false);
+            }}
+          >
+            Cancel
+          </Cancel>
+          <UploadLectureButton onClick={handleUploadChapter}>
+            Upload Lecture
+          </UploadLectureButton>
+        </ButtonBox>
       </UploadLectureBox>
     </Modal>
   );
@@ -125,15 +126,27 @@ const lectureTitleLabelStyles: CSSProperties = {
 
 const UploadLectureBox = styled.div``;
 
-const UploadLectureButton = styled.div`
+const UploadLectureButton = styled.button`
   padding: 8px 2rem;
-  width: fit-content;
   background-color: #0073b1;
   color: #fff;
   border-radius: 2px;
   margin: 10px 0;
-  margin-left: auto;
-  cursor: pointer;
 `;
 
-const Cancel = styled.button``;
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+const Cancel = styled.button`
+  color: #0073b1;
+  box-shadow: inset 0 0 0 1px #0073b1;
+  font-weight: 500;
+  background-color: #fff;
+  margin-right: 20px;
+  padding: 8px 2rem;
+  border-radius: 2px;
+`;

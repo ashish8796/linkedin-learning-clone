@@ -158,15 +158,17 @@ export default function CourseModal({
             required={false}
           />
 
-          <Cancel
-            onClick={() => {
-              setIsCourseModalVisible(false);
-            }}
-          >
-            Cancel
-          </Cancel>
+          <ButtonBox>
+            <Cancel
+              onClick={() => {
+                setIsCourseModalVisible(false);
+              }}
+            >
+              Cancel
+            </Cancel>
 
-          <SubmitButton type="submit">Save Details</SubmitButton>
+            <SubmitButton type="submit">Save Details</SubmitButton>
+          </ButtonBox>
         </ModalForm>
       </CourseDetailsWrapper>
     </Modal>
@@ -175,7 +177,7 @@ export default function CourseModal({
 
 const addTagStyles: CSSProperties = {
   color: "#0073b1",
-  boxShadow: " inset 0 0 0 1px #0073b1",
+  boxShadow: "inset 0 0 0 1px #0073b1",
   padding: "5px",
   borderRadius: "1px",
   fontWeight: 500,
@@ -187,7 +189,22 @@ const CourseDetailsWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Cancel = styled.button``;
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+const Cancel = styled.button`
+  color: #0073b1;
+  box-shadow: inset 0 0 0 1px #0073b1;
+  font-weight: 500;
+  background-color: #fff;
+  margin-right: 20px;
+  padding: 8px 2rem;
+  border-radius: 2px;
+`;
 
 const Heading = styled.h4``;
 const Title = styled.div``;
