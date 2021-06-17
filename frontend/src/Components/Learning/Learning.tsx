@@ -30,7 +30,7 @@ export default function Learning() {
         <ChapterPlayer  videoUrl={videoUrl} />
       }
       {
-          id!==null &&
+          id !==0 &&
       <CourseDescription id={id}/>
       }
     </section>
