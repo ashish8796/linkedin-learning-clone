@@ -8,7 +8,6 @@ import { SignInFooter } from './SignInFooter';
 import { getUserByEmail, loginUser } from '../../store/user/action';
 import { State } from '../../store/tsTypes';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const Container = styled.div`
     position: absolute;
