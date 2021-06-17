@@ -11,16 +11,28 @@ export default function Learning() {
   console.log(id);
 
   const [videoUrl,setVideoUrl]= React.useState("")
+  console.log(videoUrl)
   React.useEffect(()=>{
-    axios.get(`/getFullCourseWithId/${id}`).then(({data})=>{
-      console.log(data.course);
-      setVideoUrl(data.course[0].videoIds[0].videoId.url)
-    })
+    (async()=>{
+      let data = await axios.get(`/getFullCourseWithId/${id}`).then(({data})=>{
+        return data.course;
+        setVideoUrl(data.course[0].videoIds[0].videoId.url)
+      })
+      //@ts-ignore
+      setVideoUrl(await data[0].videoIds[0].videoId.url)
+    })()
   },[])
+  // ||"https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4"
   return (
     <section>
-      <ChapterPlayer  videoUrl={videoUrl ||"https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4"} />
+      {
+          videoUrl!=="" &&
+        <ChapterPlayer  videoUrl={videoUrl} />
+      }
+      {
+          id !==0 &&
       <CourseDescription id={id}/>
+      }
     </section>
   );
 }
