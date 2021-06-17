@@ -19,6 +19,7 @@ import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import Dropdown from './Dropdown';
 import { useDispatch } from 'react-redux';
 import { getAllData } from "../../store/app/action";
+import { SearchDropdown } from '../../Components/Search/SearchDropdown';
 
 export const AuthNavbar = () => {
     
@@ -37,8 +38,10 @@ export const AuthNavbar = () => {
         setSerchInp(value);
     }
         
-    const handleSearch: React.MouseEventHandler<HTMLDivElement> = () =>{
-        dispatch(getAllData(searchInp));
+    const handleSearch: React.KeyboardEventHandler<HTMLDivElement> = (e) =>{
+        if(e.key === 'Enter'){
+            dispatch(getAllData(searchInp));
+        }
     }
 
     return (
@@ -52,14 +55,10 @@ export const AuthNavbar = () => {
                         </Typography>
                     </Box>
                     <Box className={classes.search}>
-                        <div className={classes.searchIcon} onClick={handleSearch}>
+                        <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
-                        <InputBase
-                            placeholder="Search skills, subjects or software"
-                            fullWidth
-                            onChange={handleChange}
-                        />
+                        <SearchDropdown handleChange={handleChange} handleSearch={handleSearch} />
                     </Box>
                     <Box className= {classes.TSBtns}>
                         <Box className={classes.afterLoginIcons} style={{marginLeft:'1rem'}}>
