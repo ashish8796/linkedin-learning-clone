@@ -32,7 +32,7 @@ const initState: RegisterTeacherFormState = {
 export default function RegisterForm({}: IRegisterFormProps) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { data } = useSelector((state: State) => state.user);
+  const { userDetails } = useSelector((state: State) => state.user);
   const [registerData, setRegisterData] =
     useState<RegisterTeacherFormState>(initState);
   const [qualificationText, setQualificationText] = useState<string>("");
@@ -65,13 +65,13 @@ export default function RegisterForm({}: IRegisterFormProps) {
     setQualificationText("");
   };
 
-  console.log(data);
+  console.log(userDetails);
 
   const handleSubmitForm: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
     const registerFormData: FormData = new FormData();
 
-    const payload = { ...registerData, uniqueId: data.user._id };
+    const payload = { ...registerData, uniqueId: userDetails._id };
 
     for (let key in payload) {
       if (key) {

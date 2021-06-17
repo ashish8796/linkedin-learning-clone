@@ -19,6 +19,7 @@ import PaymentPage from "../Pages/PaymentPage";
 import CourseDetails from "../Pages/CourseDetails";
 import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
 import CourseDescription from "../Components/CourseDescription/CourseDescription";
+import PrivateRoute from "./PrivateRoute";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -45,12 +46,33 @@ export default function Routes() {
         <Route path="/signup" exact>
           <Register />
         </Route>
-        <Route path="/instructor" exact>
+
+        <PrivateRoute
+          path="/instructor"
+          redirect="/"
+          isAuth={isAuth}
+          exact={true}
+        >
           <Instructor />
-        </Route>
+        </PrivateRoute>
+
+        {/* <Route path="/instructor" exact>
+          <Instructor />
+        </Route> */}
+
+        <PrivateRoute
+          path="/instructor/new"
+          redirect="/"
+          isAuth={isAuth}
+          exact={true}
+        >
+          <BecomeInstructor />
+        </PrivateRoute>
+
+        {/* 
         <Route path="/instructor/new">
           <BecomeInstructor />
-        </Route>
+        </Route> */}
 
         <Route path="/instructor/courses/:id">
           <CourseDetails />
@@ -64,7 +86,7 @@ export default function Routes() {
         </Route>
         <Route path="/testing">
           {/* <ProgressPoint /> */}
-          < CourseDescription/>
+          <CourseDescription />
         </Route>
         <Route>
           <PageNotFound />

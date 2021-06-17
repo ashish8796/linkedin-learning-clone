@@ -10,6 +10,7 @@ import {
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAILURE,
   LOGOUT_USER,
+  SET_USER_BY_ID,
 } from "./actionTypes";
 
 import { loadData, saveData } from "../utils/localStorage";
@@ -17,7 +18,6 @@ import { loadData, saveData } from "../utils/localStorage";
 export interface UserState {
   isLoading: boolean;
   isError: boolean;
-  userId: string;
   isAuth: boolean;
   data: any;
   token: string;
@@ -30,7 +30,6 @@ const userDetails: any = loadData("userDetails") || {};
 const initState: UserState = {
   isLoading: false,
   isError: false,
-  userId: "60c45968eb2a7920e493e238",
   isAuth: isAuth,
   data: {},
   token: "",
@@ -138,6 +137,11 @@ export const userReducer = (state = initState, action: any) => {
         token: "",
       };
     }
+
+    case SET_USER_BY_ID: {
+      return { ...state, userDetails: payload }
+    }
+
     default:
       return state;
   }

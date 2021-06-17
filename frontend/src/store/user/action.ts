@@ -10,8 +10,9 @@ import {
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAILURE,
   LOGOUT_USER,
+  SET_USER_BY_ID,
 } from "./actionTypes";
-import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail } from "../../api/api";
+import { loginUsers, putSubscribeUser, registerUsers, getUserDetailsByEmail, getUserById } from "../../api/api";
 import { ILogin } from "../../Components/SignIn/SignIn";
 import { IRegister } from "../../Components/Register/Register";
 import { Dispatch } from "redux";
@@ -21,6 +22,20 @@ import { setData } from "../temp/state";
 const registerUserRequest = () => {
   return {
     type: REGISTER_USER_REQUEST
+  }
+}
+
+export const setUserById = (id: string) => async (dispatch: Dispatch) => {
+
+  try {
+    const { data } = await getUserById(id)
+
+    dispatch({
+      type: SET_USER_BY_ID,
+      payload: data.user
+    })
+  } catch (error) {
+
   }
 }
 
@@ -70,30 +85,30 @@ const loginUserFailure = (err: any) => {
     payload: err,
   };
 };
-const getUserByEmailRequest = ()=>{
-    return {
-        type: GET_USER_BY_EMAIL_REQUEST
-    }
+const getUserByEmailRequest = () => {
+  return {
+    type: GET_USER_BY_EMAIL_REQUEST
+  }
 }
 
-const getUserByEmailSuccess = (payload: any)=>{
-    return {
-        type: GET_USER_BY_EMAIL_SUCCESS,
-        payload
-    }
+const getUserByEmailSuccess = (payload: any) => {
+  return {
+    type: GET_USER_BY_EMAIL_SUCCESS,
+    payload
+  }
 }
 
-const getUserByEmailFailure = (err: any)=>{
-    return {
-        type: GET_USER_BY_EMAIL_FAILURE,
-        payload: err
-    }
+const getUserByEmailFailure = (err: any) => {
+  return {
+    type: GET_USER_BY_EMAIL_FAILURE,
+    payload: err
+  }
 }
 
-export const logoutUser = ()=>{
-    return {
-        type: LOGOUT_USER
-    }
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  }
 }
 
 export const registerUser = (payload: IRegister) => async (dispatch: any) => {
@@ -124,13 +139,13 @@ export const loginUser = (payload: ILogin) => async (dispatch: any) => {
 };
 
 export const getUserByEmail = (payload: ILogin) => async (dispatch: any) => {
-    dispatch(getUserByEmailRequest());
+  dispatch(getUserByEmailRequest());
 
-    await getUserDetailsByEmail(payload.emailId)
-    .then((res: any)=>{
-        dispatch(getUserByEmailSuccess(res.data.user));
+  await getUserDetailsByEmail(payload.emailId)
+    .then((res: any) => {
+      dispatch(getUserByEmailSuccess(res.data.user));
     })
-    .catch((err: any)=>{
-        dispatch(getUserByEmailFailure(err));
+    .catch((err: any) => {
+      dispatch(getUserByEmailFailure(err));
     })
 }

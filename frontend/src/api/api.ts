@@ -12,6 +12,8 @@ const axios = Axios.create({
   },
 });
 
+
+//Teacher related requests
 export const postTeacher = (payload: any) => {
   return axios.post("/add-teacher", payload, {
     headers: {
@@ -71,10 +73,14 @@ export const registerUsers = (payload: IRegister) => {
 };
 
 
-
+//User related requests
 export const loginUsers = (payload: ILogin) => {
   return axios.post("/login", payload);
 };
+
+export const getUserById = (id: string) => {
+  return axios.get(`/get-user/${id}`);
+}
 
 export const putSubscribeUser = (userId: string, payload: any) => {
   return axios.put(`/update-user/${userId}`, payload);

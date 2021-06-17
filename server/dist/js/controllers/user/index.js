@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.getUserEmailId = exports.getUserId = exports.updateUser = exports.addUser = exports.getUser = void 0;
+exports.changeUserToTeacher = exports.deleteUser = exports.getUserEmailId = exports.getUserId = exports.updateUser = exports.addUser = exports.getUser = void 0;
 const user_1 = __importDefault(require("../../models/user"));
 const Index_1 = require("../utils/Index");
 require("dotenv").config();
@@ -121,3 +121,8 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.deleteUser = deleteUser;
+const changeUserToTeacher = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield user_1.default.findByIdAndUpdate({ _id: userId }, { flag: true });
+    return data;
+});
+exports.changeUserToTeacher = changeUserToTeacher;

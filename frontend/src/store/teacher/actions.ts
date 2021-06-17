@@ -37,7 +37,10 @@ export const setCourse = (id: string) => async (dispatch: Dispatch) => {
 export const createNewCourse = (payload: any) => async (dispatch: Dispatch) => {
   try {
     const { data } = await postNewCourse(payload);
+
+
     dispatch({ type: SET_COURSE, payload: data.course })
+
 
     return true;
   } catch (error) {
