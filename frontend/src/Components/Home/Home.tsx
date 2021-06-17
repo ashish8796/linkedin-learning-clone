@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { BottomImage } from './BottomImage';
 import { Carousal } from './Carousal';
 import { ExploreCourses } from './ExploreCourses';
@@ -9,6 +10,8 @@ import { Headline } from './Headline';
 import { SkillsTime } from './SkillsTime';
 import { CoursesList } from './CoursesList'
 import { Footer } from './Footer';
+import { State } from '../../store/tsTypes';
+import { AfterLoginImageSlider } from './AfterLoginImageSlider';
 
 const Container = styled.div`
     position: relative;
@@ -68,13 +71,21 @@ const data = [
 ]
 
 export default function Home () {
+
+   const isAuth = useSelector((state: State) => state.user.isAuth);
+   
    React.useEffect(()=>{
       axios.get('/videos').then(({data})=>console.log(data))
    },[])
+
    return (
         <Container>
-            <Headline />
-            <ExploreCourses />
+            {
+               !isAuth? <Headline /> : <AfterLoginImageSlider />
+            }
+            {
+               !isAuth && <ExploreCourses />
+            }
             <Carousal data={data} trending="TRENDING COURSES" />
             <FindRightCourse />
             <Carousal data={data} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />

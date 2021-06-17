@@ -34,7 +34,7 @@ const initState: UserState = {
   isLoading: false,
   isError: false,
   userId: "60c45968eb2a7920e493e238",
-  isAuth: false,
+  isAuth: isAuth,
   data: {},
   token: "",
   userDetails: userDetails
