@@ -106,7 +106,6 @@ type MainAction = SetTeacher | SetNewChapter;
 function teacherReducer(state = initState, { type, payload }: MainAction) {
   switch (type) {
     case SET_TEACHER: {
-
       //@ts-ignore
       return { ...state, teacher: payload };
     }

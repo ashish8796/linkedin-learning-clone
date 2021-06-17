@@ -37,7 +37,7 @@ export const Navbar = () => {
   const handleSearch: React.KeyboardEventHandler<HTMLDivElement> = (e) =>{
     if(e.key === 'Enter'){
       dispatch(getAllData(searchInp));
-      history.push(`/learning/${searchInp}`)
+      history.push(`/learnings/${searchInp}`)
     }
   }
 

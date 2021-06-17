@@ -54,6 +54,7 @@ route.get("/getQnAWithCourseId/:id", question_1.getQnAWithCourseId);
 route.get("/getChapterNCourse/:id", index_4.getChapterByCourseId);
 route.get("/get-chapter/:id", index_4.getChapterId);
 route.get("/getFullCourseWithId/:id", index_4.getChapterNVideosWithCourseId);
+route.get("/getTeacherUnique/:id", teacher_1.getTeacherByUniqueId);
 // update the details
 route.put("/update-user/:id", user_1.updateUser);
 route.put("/update-video/:id", index_2.updateVideo);
