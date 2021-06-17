@@ -39,6 +39,7 @@ const Container = styled.div`
     height: 260px;
     width: 100%;
     padding: 25px 0;
+    overflow: hidden;
 `;
 
 const ImageBox = styled.div`

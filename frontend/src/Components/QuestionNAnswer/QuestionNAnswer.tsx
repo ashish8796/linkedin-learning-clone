@@ -8,9 +8,9 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Typography } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 const Card=styled.div`
-    padding: 10px;
+    padding: 1rem;
     display: grid;
     grid-template-rows: 70px 1fr 1fr 5px 40px auto;
     margin: auto;
@@ -42,7 +42,8 @@ const Text=styled.div`
 
 const ImageHolder=styled.div`
     border-radius: 50%;
-    height:50px;
+    height:30px;
+    width: 30px;
 `
 const Reply = styled.div`
     display: grid;
@@ -66,6 +67,69 @@ const AnswerPlace = styled.div`
     /* background-color: ; */
     background-color: #eeeeee;
 `
+
+const useStyles = makeStyles(theme => ({
+    userImg: {
+        width: '50px !important',
+        height: '50px !important',
+        borderRadius: '15px'
+    },
+    userName: {
+        fontSize: '14px',
+        fontWeight: 600,
+        lineHeight: '.3rem',
+        marginTop: '8px',
+        position: 'relative',
+        left: '-15px'
+    },
+    description: {
+        fontSize: '12px',
+        color: '#95a1bc',
+        position: 'relative',
+        left: '-15px'
+    },
+    textAreaImg: {
+        position: 'relative',
+        top: '26px',
+        left: '12px'
+    },
+    postBtn: {
+        background: '#0073b1',
+        height: '25px',
+        marginLeft: '10px',
+        marginTop: '-25px',
+        color: '#fff',
+
+        '&:hover': {
+            background: '#006097'
+        }
+    },
+    replyImg: {
+        width: '40px !important',
+        height: '40px !important',
+        borderRadius: '15px',
+        position: 'relative',
+        left: '.5rem'
+    },
+    replyInp: {
+        paddingTop: '1rem'
+    },
+    answerBox: {
+        marginLeft: theme.spacing(-10),
+        marginTop: '-25px',
+        width: '110%'
+    },
+    likCom: {
+        width: 'auto',
+        margin: '-20px 10px 0 -20px',
+        fontSize: '11px',
+        fontWeight: 600,
+        color: '#686b6c'
+    },
+    likComBox: {
+        width: 'auto'
+    }
+}));
 
 interface IQuestionAnswer extends IComments{
     
@@ -103,6 +167,8 @@ interface IAnswers{
 
 export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",answers,question}:IQuestionAnswer){
     
+    const classes = useStyles();
+    
     const VideoCommentPoint="point"
     const {firstName , lastName}:IUserId = userId;
     // const {}= answers
@@ -122,47 +188,47 @@ export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",a
     }
     return (
         <>
-        <Card>
-            <NameTag>
-                <ImageHolder>
-                <img src="https://via.placeholder.com/168x160" alt="" />
-                </ImageHolder>
-                <div>
-                    <span> <Typography variant="h5"> {firstName} {lastName}</Typography></span>
-                    {/* <br />   */}
-                    <span>description</span>
-                </div>
-                <div>
-                <SvgIcon component={MoreHorizIcon}></SvgIcon>
-                </div>
-            </NameTag>
-            <Text>
-                {question}
-            </Text>
-            <Text>From the video:{VideoCommentPoint} </Text>
-            <hr />
-            <Text style={{display:"flex" , justifyContent:"right"}}>
-                <h6>LIKE</h6>
-                <h6>Comment</h6>
-            </Text>
-        <AnswerPlace>
-            <Reply>
+            <Card>
+                <NameTag>
+                    <ImageHolder>
+                        <img className={classes.userImg} src="https://via.placeholder.com/168x160" alt="" />
+                    </ImageHolder>
+                    <div>
+                        <span> <Typography className={classes.userName} > {firstName} {lastName}</Typography></span>
+                        {/* <br />   */}
+                        <span className={classes.description}>description</span>
+                    </div>
+                    <div>
+                    <SvgIcon component={MoreHorizIcon}></SvgIcon>
+                    </div>
+                </NameTag>
+                <Text>
+                    {question}
+                </Text>
+                <Text>From the video:{VideoCommentPoint} </Text>
+                <hr />
+                <Text style={{display:"flex" , justifyContent:"right"}}>
+                    <h6>LIKE</h6>
+                    <h6>Comment</h6>
+                </Text>
+                <AnswerPlace>
+                    <Reply>
 
-            <ImageHolder>
-                <img src="https://via.placeholder.com/90x90" alt="" />
-            </ImageHolder>
-            <div>
-                <textarea placeholder="Add your answer here" value={reply} onChange={(e)=>setReply(e.target.value)} />
-                <div>
-                    {reply.length!==0?<Button onClick={handleReply}>Post</Button>:<></>}
-                </div>
-            </div>
-        </Reply>
-        {
-            answers.length!==0 && answers.map((item:IAnswers)=><AnswerBox key={item._id} {...item}/>)
-        }
-            </AnswerPlace>
-        </Card>
+                        <ImageHolder>
+                            <img className={classes.textAreaImg} src="https://via.placeholder.com/90x90" alt="" />
+                        </ImageHolder>
+                        <div className={classes.replyInp}>
+                            <textarea placeholder="Add your answer here" value={reply} onChange={(e)=>setReply(e.target.value)} />
+                            <div>
+                                {reply.length!==0?<Button className={classes.postBtn} onClick={handleReply}>Post</Button>:<></>}
+                            </div>
+                        </div>
+                    </Reply>
+                    {
+                        answers.length!==0 && answers.map((item:IAnswers)=><AnswerBox key={item._id} {...item}/>)
+                    }
+                </AnswerPlace>
+            </Card>
         </>
     )
 }
@@ -183,8 +249,11 @@ const AnswerBoxStyle= styled.div`
     }
 `
 const AnswerBox=({answer}:IAnswers)=>{
-    if(answer!=undefined){
+    
+    const classes = useStyles();
 
+    if(answer!=undefined){
+        
         const {_id,answer:AnswerString, userId}:IAnswerComment = answer
         const {firstName,lastName}:IUser= userId
         
@@ -192,18 +261,18 @@ const AnswerBox=({answer}:IAnswers)=>{
             <AnswerBoxStyle >
             <NameTag>
                 <ImageHolder>
-                <img src="https://via.placeholder.com/168x160" alt=""  />
+                <img className={classes.replyImg} src="https://via.placeholder.com/168x160" alt=""  />
                 </ImageHolder>
                 <div>
-                    <Typography variant="body1"> {firstName} {lastName} </Typography>
+                    <Typography className={classes.userName} style={{marginLeft:'10px'}}> {firstName} {lastName} </Typography>
                     {/* <br />   */}
-                    <span>description</span>
+                    <span className={classes.description} style={{marginLeft:'10px'}}>description</span>
                 </div>
                 <div><MoreChange _id={_id} /></div>
             </NameTag>
             <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
                 <span></span>
-                <Typography variant="body1"> 
+                <Typography className={classes.answerBox} variant="body1"> 
                 {AnswerString}
                 </Typography>
                 <br />
@@ -211,9 +280,9 @@ const AnswerBox=({answer}:IAnswers)=>{
             <Text style={{display:"grid", gridTemplateColumns:"90px auto"}}>
                 {/* <div></div> */}
                 <span></span>
-                <Text style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
-                <Typography variant="overline">LIKE</Typography>
-                <Typography variant="overline">Comment</Typography>
+                <Text className={classes.likComBox} style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
+                    <Typography className={classes.likCom} variant="overline">Like</Typography>
+                    <Typography className={classes.likCom} variant="overline">Comment</Typography>
                 </Text>
             </Text>
         </AnswerBoxStyle>
