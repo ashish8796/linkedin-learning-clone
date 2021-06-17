@@ -89,7 +89,7 @@ export default function Home () {
             {
                !isAuth && <ExploreCourses />
             }
-            <ProgressPoint  value={40} size={80} />
+            {/* <ProgressPoint  value={40} size={80} /> */}
             <Carousal data={newData} trending="TRENDING COURSES" />
             <FindRightCourse />
             <Carousal data={newData} trending="TRENDING PERSONAL EFFECTIVENESS COURSES" />
