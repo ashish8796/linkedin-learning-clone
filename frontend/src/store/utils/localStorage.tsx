@@ -1,7 +1,7 @@
 export function loadData(key: string){
     try {
         let data: any = localStorage.getItem(key);
-        let parsedata = JSON.parse(data);
+        data = JSON.parse(data);
         return data;
     }
     catch (err) {
