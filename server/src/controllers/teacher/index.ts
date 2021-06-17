@@ -154,3 +154,20 @@ export const deleteTeacher = async (
     console.log(error);
   }
 };
+
+
+
+export const getTeacherByUniqueId= async(
+  req:Request,
+  res:Response,
+):Promise<void> =>{
+  try {
+    const {params :{id}}= req;
+
+    const teacherData = await teacher.findOne({uniqueId:id}).lean().exec();
+    res.status(200).json({message:"teacher by unique Id", teacher:teacherData})
+  } catch (error) {
+    res.end()
+    console.log(error)
+  }
+}
