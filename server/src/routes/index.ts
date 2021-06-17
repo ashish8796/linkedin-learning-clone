@@ -21,6 +21,7 @@ import {
   deleteTeacher,
   getTeacherId,
   addTeacher,
+  getTeacherByUniqueId,
 } from "../controllers/teacher";
 import {
   getStudent,
@@ -133,6 +134,8 @@ route.get("/getChapterNCourse/:id", getChapterByCourseId);
 route.get("/get-chapter/:id", getChapterId);
 
 route.get("/getFullCourseWithId/:id", getChapterNVideosWithCourseId);
+
+route.get("/getTeacherUnique/:id", getTeacherByUniqueId);
 
 // update the details
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.addTeacher = exports.getTeacher = void 0;
+exports.getTeacherByUniqueId = exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.addTeacher = exports.getTeacher = void 0;
 const teacher_1 = __importDefault(require("../../models/teacher"));
 const user_1 = __importDefault(require("../../models/user"));
 const storeDataInAws_1 = require("../utils/storeDataInAws");
@@ -123,3 +123,15 @@ const deleteTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteTeacher = deleteTeacher;
+const getTeacherByUniqueId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { params: { id } } = req;
+        const teacherData = yield teacher_1.default.findOne({ uniqueId: id }).lean().exec();
+        res.status(200).json({ message: "teacher by unique Id", teacher: teacherData });
+    }
+    catch (error) {
+        res.end();
+        console.log(error);
+    }
+});
+exports.getTeacherByUniqueId = getTeacherByUniqueId;

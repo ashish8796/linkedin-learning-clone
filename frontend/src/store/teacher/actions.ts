@@ -27,13 +27,13 @@ export const setTeacher = (id: string) => async (dispatch: Dispatch) => {
       type: SET_TEACHER,
       payload: data.teacher[0],
     });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const setAllCourses = (id: string) => async (dispatch: Dispatch) => {
   try {
     // const { data } =
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const setCourse = (id: string) => async (dispatch: Dispatch) => {
@@ -41,7 +41,7 @@ export const setCourse = (id: string) => async (dispatch: Dispatch) => {
     const { data } = await getCourse(id);
     // console.log(data);
     dispatch({ type: SET_COURSE, payload: data.course });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const createNewCourse = (payload: any) => async (dispatch: Dispatch) => {
@@ -49,7 +49,6 @@ export const createNewCourse = (payload: any) => async (dispatch: Dispatch) => {
     const { data } = await postNewCourse(payload);
     console.log(data);
     dispatch({ type: SET_COURSE, payload: data.course });
-
 
     return true;
   } catch (error) {
@@ -67,7 +66,7 @@ export const setAllChapters = (id: string) => async (dispatch: Dispatch) => {
       type: SET_ALL_LECTURES_OF_COURSE,
       payload: data.videosWithCoursePopulate,
     });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const startNewChapter = (payload: any) => async (dispatch: Dispatch) => {
@@ -163,5 +162,5 @@ export const deleteLecture = (payload: any) => async (dispatch: Dispatch) => {
       type: SET_ALL_LECTURES_OF_COURSE,
       payload: chapterData.videosWithCoursePopulate,
     });
-  } catch (error) { }
+  } catch (error) {}
 };

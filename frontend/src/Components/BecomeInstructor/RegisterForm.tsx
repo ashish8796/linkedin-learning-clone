@@ -87,7 +87,7 @@ export default function RegisterForm({}: IRegisterFormProps) {
       // @ts-ignore
       if (data.status) {
         // @ts-ignore
-        history.push(`/instructor/${data.id}`);
+        history.push(`/instructor`);
       }
     } catch (error) {}
   };

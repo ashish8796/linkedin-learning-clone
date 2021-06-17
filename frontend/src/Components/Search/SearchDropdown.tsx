@@ -12,38 +12,38 @@ interface ISearchDropdownProps {
 
 export const SearchDropdown = ({ handleChange, handleSearch }: ISearchDropdownProps) => {
 
-    const dispatch = useDispatch();
-    const data = useSelector((state: any)=> state.app.searchData);
+    // const dispatch = useDispatch();
+    // const data = useSelector((state: any)=> state.app.searchData);
 
-    const [ searchInp, setSearchInp ] = useState<string>("");
+    // const [ searchInp, setSearchInp ] = useState<string>("");
 
-    const courseArr = new Array(5).fill(data.course);
-    console.log(courseArr)
-    const userArr = new Array(5).fill(data.users);
-    console.log(userArr)
+    // const courseArr = new Array(5).fill(data.course);
+    // console.log(courseArr)
+    // const userArr = new Array(5).fill(data.users);
+    // console.log(userArr)
 
-    const allData = courseArr.concat(userArr);
+    // const allData = courseArr.concat(userArr);
 
-    useEffect(()=>{
-        dispatch(getAllData(searchInp))
-    }, [])
+    // useEffect(()=>{
+    //     dispatch(getAllData(searchInp))
+    // }, [])
     
     return (
         <Container>
-            <Autocomplete
+            {/* <Autocomplete
                 id="free-solo-demo"
                 freeSolo
-                options={allData.map((option) => option.title)}
-                renderInput={(params) => (
+                options={allData?.map((option) => option.title)}
+                renderInput={(params) => ( */}
                     <InputBase
                             placeholder="Search skills, subjects or software"
                             onChange={handleChange}
                             onKeyPress={handleSearch}
-                            {...params}
+                            // {...params}
                         />
-                // <TextField {...params} label="freeSolo" margin="normal" variant="outlined" />
-                )}
-            />
+                {/* // <TextField {...params} label="freeSolo" margin="normal" variant="outlined" />
+                )} */}
+            {/* /> */}
         </Container>
     )
 }

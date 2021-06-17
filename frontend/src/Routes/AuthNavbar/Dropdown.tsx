@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/user/action';
 import { State } from '../../store/tsTypes';
+import { useHistory } from 'react-router-dom';
+import { getTeacherByUniqueId } from '../../api/api';
+import { SET_TEACHER } from '../../store/teacher/actionTypes';
 
 interface IDropdownProps {
     setShowMeOpt: any;
@@ -14,15 +17,27 @@ export default function Dropdown({ setShowMeOpt }: IDropdownProps) {
     
     const classes = useStyles();
     const dispatch = useDispatch();
+    const data =useSelector((state:State)=>state.user.userDetails)
 
     const userDetails: any = useSelector((state: State)=> state.user.userDetails)
     
+    const history = useHistory()
     const handleLogout = ()=>{
         dispatch(logoutUser());
     }
 
     const handleShowMeOpt = ()=>{
         setShowMeOpt(false);
+    }
+
+    const handleTeacherProfile = async ()=>{
+        const {data} = await getTeacherByUniqueId(userDetails._id)
+        console.log(data)
+        dispatch({
+            type:SET_TEACHER,
+            payload:data.teacher
+        })
+            history.push("/instructor")
     }
 
     return (
@@ -33,7 +48,7 @@ export default function Dropdown({ setShowMeOpt }: IDropdownProps) {
                         <Box className={classes.imageBox}>
                             
                         </Box>
-                        <Box className={classes.user}>
+                        <Box className={classes.user} onClick={handleTeacherProfile} >
                             <Typography>{`${userDetails.firstName} ${userDetails.lastName}`}</Typography>
                             <Typography style={{fontSize:'0.9rem'}}>Personal Account</Typography>
                         </Box>

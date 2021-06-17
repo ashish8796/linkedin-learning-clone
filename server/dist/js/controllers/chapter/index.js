@@ -35,7 +35,6 @@ const addChapter = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const new_chapter = new chapter_1.default({
             title: body.title,
             description: body.description,
-            createdAt: body.createdAt,
             authorId: body.authorId,
             courseId: body.courseId,
             content: body.content,
@@ -124,10 +123,15 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
 exports.getChapterByCourseId = getChapterByCourseId;
 const removeIdFromChapterVideoArr = (videoId, chapterId) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const currentChapter = yield chapter_1.default.findById({ _id: chapterId }).lean().exec();
-    console.log(currentChapter === null || currentChapter === void 0 ? void 0 : currentChapter.videoIds);
+    const currentChapter = yield chapter_1.default
+        .findById({ _id: chapterId })
+        .lean()
+        .exec();
+    // console.log(currentChapter?.videoIds)
     //@ts-ignore
-    const newChapter = Object.assign(Object.assign({}, currentChapter), { videoIds: (_a = currentChapter === null || currentChapter === void 0 ? void 0 : currentChapter.videoIds) === null || _a === void 0 ? void 0 : _a.filter(cv => cv.videoId != videoId) });
+    const newChapter = Object.assign(Object.assign({}, currentChapter), { 
+        //@ts-ignore
+        videoIds: (_a = currentChapter === null || currentChapter === void 0 ? void 0 : currentChapter.videoIds) === null || _a === void 0 ? void 0 : _a.filter((cv) => cv.videoId != videoId) });
     console.log({ newChapter, line: "Line 155", currentChapter, videoId });
     const data = yield chapter_1.default.findByIdAndUpdate({ _id: chapterId }, newChapter);
 });
