@@ -37,13 +37,13 @@ export default function CrateInput({
           placeholder={placeholder}
           required={required}
         />
-        {label && <span>{label}</span>}
+        {label && <span style={labelStyles ? labelStyles : {}}>{label}</span>}
       </Label>
     );
   } else {
     return (
       <Label type={type} style={label ? inputStyles : {}}>
-        {label && <span>{label}</span>}
+        {label && <span style={labelStyles ? labelStyles : {}}>{label}</span>}
 
         {type !== "textarea" && (
           <Input

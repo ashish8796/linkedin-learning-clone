@@ -3,6 +3,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import path from "path";
 import { v4 as uuid } from "uuid";
+require("dotenv").config();
 
 AWS.config.update({
   credentials: {
@@ -18,10 +19,10 @@ const s3 = new AWS.S3({
 });
 
 
-console.log({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-})
+// console.log({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// })
 
 export const uploadProfilePic = (bucketName: string) => {
   return multer({

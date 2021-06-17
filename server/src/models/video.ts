@@ -7,33 +7,43 @@ const videoSchema: Schema = new Schema(
       type: String,
       required: true,
     },
+
     description: {
       type: String,
-      required: true,
     },
+
     content: {
       type: String,
-      required: true,
     },
-    userId: {
+
+    authorId: {
       type: String,
     },
+
     chapterId: {
       type: Schema.Types.ObjectId,
       ref: "chapter",
       required: [true, "Chapter ID is required"],
     },
+
     courseId: {
       type: Schema.Types.ObjectId,
       ref: "course",
       required: [true, "Course ID id Required"],
     },
+
+    url: {
+      type: String,
+      required: [true, "Lecture link is required"]
+    },
+
     tags: [
       {
         type: String,
       },
     ],
   },
+
   {
     timestamps: true,
   }

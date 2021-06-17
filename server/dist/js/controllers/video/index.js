@@ -57,30 +57,26 @@ const getVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getVideo = getVideo;
 const addVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { course, chapter } = req.body;
-        let body = req.body;
-        console.log(body);
-        // console.log(req.files);
-        const uploadVideo = upload(`linkden-learning/newVideos`).array("video");
+        const uploadVideo = upload(`linkden-learning/newVideos`).single("video");
         uploadVideo(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+            const { course, chapter } = req.body;
+            let body = req.body;
             if (err) {
                 return res.status(400).json({ success: false, message: err.message });
             }
-            console.log(req.files, body);
-            // const video:IVideo =new Video({
-            //     title:body.title,
-            //     description:body.description,
-            //     content:req.files.location,
-            //     authorId:body.authorId,
-            //     chapterId:body.chapterId,
-            //     courseId:body.courseId,
-            //     tags:body.tags
-            // })
-            // console.log(video)
-            // const newVideo : IVideo =await video.save();
-            // const allVideos:IVideo[]= await Video.find()
-            // res.status(203).json({message: "new Vide o as been added ", blog: newVideo ,blogs:allVideos})
-            res.status(200).json({ message: "done" });
+            const video = new video_1.default({
+                title: body.title,
+                description: body.description,
+                url: req.file.location,
+                authorId: body.authorId,
+                chapterId: body.chapterId,
+                courseId: body.courseId,
+                tags: body.tags,
+                content: body.content
+            });
+            const newVideo = yield video.save();
+            const allVideos = yield video_1.default.find();
+            res.status(203).json({ message: "new Vide o as been added ", newLecture: newVideo, allLectures: allVideos });
         }));
     }
     catch (error) {
