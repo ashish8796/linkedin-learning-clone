@@ -76,6 +76,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 res.status(200).json({ message: "user updated", result: result });
             }
         });
+        console.log(updatedStudent);
+        // res.status(200)
     }
     catch (error) {
         console.log(error);

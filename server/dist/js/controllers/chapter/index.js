@@ -109,9 +109,7 @@ const getChapterByCourseId = (req, res) => __awaiter(void 0, void 0, void 0, fun
             .find({ courseId: id })
             .populate("chapterId")
             .populate("courseId");
-        res
-            .status(200)
-            .json({
+        res.status(200).json({
             message: "the data of the course",
             chapter: chapterWithId,
             videosWithCoursePopulate: courseWithId,

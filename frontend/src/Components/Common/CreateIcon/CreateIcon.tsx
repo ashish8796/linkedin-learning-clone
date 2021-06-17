@@ -1,13 +1,28 @@
-import React, { ReactHTMLElement } from "react";
+import React, { CSSProperties, ReactHTMLElement } from "react";
 import styled from "styled-components";
 
 interface ICreateIconProps {
   path: string;
   iconName?: string;
+  iconStyles?: CSSProperties;
+  title?: string;
 }
 
-export default function CreateIcon({ path, iconName }: ICreateIconProps) {
-  return <Span path={path} id={`${iconName}`}></Span>;
+export default function CreateIcon({
+  path,
+  iconName,
+  iconStyles,
+  title,
+}: ICreateIconProps) {
+  return (
+    <Span
+      path={path}
+      id={`${iconName}`}
+      style={iconStyles!}
+      title={title ? title : ""}
+      onClick={() => {}}
+    ></Span>
+  );
 }
 
 interface SpanProps {

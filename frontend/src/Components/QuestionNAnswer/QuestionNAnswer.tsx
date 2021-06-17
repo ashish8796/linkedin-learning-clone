@@ -8,13 +8,14 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Typography } from '@material-ui/core';
 const Card=styled.div`
     padding: 10px;
     display: grid;
     grid-template-rows: 70px 1fr 1fr 5px 40px auto;
     margin: auto;
     margin-top: 10px;
-    width:800px;
+    width:90%;
     grid-gap: 10px;
     border:1px solid black;
     height: auto;
@@ -127,8 +128,8 @@ export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",a
                 <img src="https://via.placeholder.com/168x160" alt="" />
                 </ImageHolder>
                 <div>
-                    <span>{firstName} {lastName}</span>
-                    <br />  
+                    <span> <Typography variant="h5"> {firstName} {lastName}</Typography></span>
+                    {/* <br />   */}
                     <span>description</span>
                 </div>
                 <div>
@@ -193,23 +194,25 @@ const AnswerBox=({answer}:IAnswers)=>{
                 <img src="https://via.placeholder.com/168x160" alt=""  />
                 </ImageHolder>
                 <div>
-                    <span>{firstName} {lastName}</span>
-                    <br />  
+                    <Typography variant="body1"> {firstName} {lastName} </Typography>
+                    {/* <br />   */}
                     <span>description</span>
                 </div>
                 <div><MoreChange _id={_id} /></div>
             </NameTag>
             <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
-                <div></div>
-                <div>
+                <span></span>
+                <Typography variant="body1"> 
                 {AnswerString}
-                </div>
+                </Typography>
+                <br />
             </Text>
             <Text style={{display:"grid", gridTemplateColumns:"90px auto"}}>
-                <div></div>
-                <Text style={{display:"flex" , justifyContent:"flex-start"}}>
-                <h6>LIKE</h6>
-                <h6>Comment</h6>
+                {/* <div></div> */}
+                <span></span>
+                <Text style={{display:"grid" , gridTemplateColumns:"40px  40px" ,placeContent:"flex-start"}}>
+                <Typography variant="overline">LIKE</Typography>
+                <Typography variant="overline">Comment</Typography>
                 </Text>
             </Text>
         </AnswerBoxStyle>

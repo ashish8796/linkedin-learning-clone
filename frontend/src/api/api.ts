@@ -3,6 +3,7 @@ import { PostTeacher } from "./apiTypes";
 import { IRegister } from "../Components/Register/Register";
 import { ILogin } from "../Components/SignIn/SignIn";
 
+
 const axios = Axios.create({
   baseURL: "http://localhost:5000",
 
@@ -47,6 +48,10 @@ export const postNewChapter = (payload: any) => {
   return axios.post("/add-chapter", payload)
 }
 
+export const deleteChapterById = (id: string) => {
+  return axios.delete(`/delete-chapter/${id}`)
+}
+
 //Video related requests
 export const getVideosByChapterId = (id: string) => {
   return axios.get("/");
@@ -55,6 +60,11 @@ export const getVideosByChapterId = (id: string) => {
 export const postNewLecture = (payload: any) => {
   return axios.post("/add-video", payload)
 }
+
+export const deleteLectureById = (id: any) => {
+  return axios.delete(`/delete-video/${id}`)
+}
+
 
 export const registerUsers = (payload: IRegister) => {
   return axios.post("/register", payload);
@@ -68,7 +78,7 @@ export const putSubscribeUser = (userId: string, payload: any) => {
   return axios.put(`/update-user/${userId}`, payload);
 };
 
-export const getUserDetailsByEmail = (payload: string) =>{
+export const getUserDetailsByEmail = (payload: string) => {
   return axios.get(`/get-user-detail/${payload}`)
 };
 
