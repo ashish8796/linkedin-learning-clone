@@ -10,6 +10,9 @@ import {
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAILURE,
   LOGOUT_USER,
+  GET_INDIVIDUAL_USER_REQUEST,
+  GET_INDIVIDUAL_USER_SUCCESS,
+  GET_INDIVIDUAL_USER_FAILURE,
 } from "./actionTypes";
 
 import { loadData, saveData } from "../utils/localStorage";
@@ -22,6 +25,7 @@ export interface UserState {
   data: any;
   token: string;
   userDetails: any;
+  individualUser: any;
 }
 
 const isAuth: boolean = loadData("isAuth") || false;
@@ -35,6 +39,7 @@ const initState: UserState = {
   data: {},
   token: "",
   userDetails: userDetails,
+  individualUser: {}
 };
 
 export const userReducer = (state = initState, action: any) => {
@@ -139,6 +144,26 @@ export const userReducer = (state = initState, action: any) => {
         userId: "",
         token: "",
       };
+    }
+    case GET_INDIVIDUAL_USER_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false
+      }
+    }
+    case GET_INDIVIDUAL_USER_SUCCESS: {
+      return {
+        isLoading: false,
+        isError: false,
+        individualUser: payload
+      }
+    }
+    case GET_INDIVIDUAL_USER_FAILURE: {
+      return {
+        isLoading: false,
+        isError: true
+      }
     }
     default:
       return state;

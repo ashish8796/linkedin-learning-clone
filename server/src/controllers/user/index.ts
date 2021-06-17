@@ -18,6 +18,17 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const getIndividualUser = async(req:Request, res: Response): Promise<void> =>{
+  const id = req.params.id;
+  try {
+    const userDetail: any = await user.findOne({_id: id});
+    res.status(200).json(userDetail);
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
 export const addUser = async (req: Request, res: Response): Promise<void> => {
   try {
     let body = req.body as Pick<

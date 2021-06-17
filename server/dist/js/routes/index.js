@@ -22,6 +22,7 @@ function fn() { }
 route.get("/whole-data/:search", allData_1.getAllData);
 // getting all the videos, Courses, student, teacher
 route.get("/users", user_1.getUser);
+route.get("/users/:id", user_1.getIndividualUser);
 route.get("/videos", index_2.getVideo);
 route.get("/courses", index_1.getCourse);
 route.get("/students", index_3.getStudent);

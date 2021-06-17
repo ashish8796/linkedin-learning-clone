@@ -19,6 +19,7 @@ import PaymentPage from "../Pages/PaymentPage";
 import CourseDetails from "../Pages/CourseDetails";
 import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
 import CourseDescription from "../Components/CourseDescription/CourseDescription";
+import SearchResult from "../Pages/SearchResults"
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -66,11 +67,14 @@ export default function Routes() {
           {/* <ProgressPoint /> */}
           < CourseDescription/>
         </Route>
+        <Route path="/learning/:search">
+          <SearchResult />
+        </Route>
         <Route>
           <PageNotFound />
         </Route>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
