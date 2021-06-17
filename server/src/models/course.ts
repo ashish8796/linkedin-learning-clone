@@ -21,7 +21,7 @@ const courseSchema: Schema = new Schema(
     authorId: {
       type: Schema.Types.ObjectId,
       ref: "teacher",
-      // required: [true, "enter Teacher/ Author Id"],
+      required: [true, "enter Teacher/ Author Id"],
     },
     image: {
       type: String,

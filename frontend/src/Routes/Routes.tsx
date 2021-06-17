@@ -9,7 +9,6 @@ import Learning from "../Pages/LearningPage";
 import SignIn from "../Pages/SignInPage";
 import VideoUploaded from "../Components/temp/VideoUploaded";
 import Register from "../Pages/RegisterPage";
-import InstructorRegister from "./../Pages/BecomeInstructor";
 import { State } from "../store/tsTypes";
 import { AuthNavbar } from "./AuthNavbar/AuthNavbar";
 import Instructor from "../Pages/Instructor";
@@ -17,6 +16,8 @@ import Test from "../Components/QuestionNAnswer/Test";
 import BecomeInstructor from "./../Pages/BecomeInstructor";
 // import PaymentPage from "../Components/StripesPayment/PaymentPag";
 import PaymentPage from "../Pages/PaymentPage";
+import CourseDetails from "../Pages/CourseDetails";
+import ProgressPoint from "../Components/ProgressHomePage/ProgressPoint";
 
 export default function Routes() {
   const isAuth = useSelector((state: State) => state.user.isAuth);
@@ -43,20 +44,25 @@ export default function Routes() {
         <Route path="/signup" exact>
           <Register />
         </Route>
-        <Route path="/become-instructor" exact>
-          <InstructorRegister />
-        </Route>
         <Route path="/instructor" exact>
           <Instructor />
         </Route>
         <Route path="/instructor/new">
           <BecomeInstructor />
         </Route>
+
+        <Route path="/instructor/courses/:id">
+          <CourseDetails />
+        </Route>
+
         <Route path="/commentsPage">
           <Test />
         </Route>
         <Route path="/payment-page">
           <PaymentPage />
+        </Route>
+        <Route path="/testing">
+          <ProgressPoint />
         </Route>
         <Route>
           <PageNotFound />
