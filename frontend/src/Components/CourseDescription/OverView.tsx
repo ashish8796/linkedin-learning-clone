@@ -54,13 +54,13 @@ export default function OverView() {
         <CourseDetails>
                 <h3>Course Details</h3>           
                 <div>
-                    <span>Time</span>
-                    <span>Level</span>
-                    <span>Date</span>
+                    <span>4hr 32min</span>
+                    <span>Intermediate</span>
+                    <span>12/02/2021</span>
                 </div>
                 <span>Stars</span>
                 <Typography>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur dolorum, error unde, id laudantium beatae voluptate nam, aspernatur ipsam quibusdam accusamus illum deserunt necessitatibus quidem sint repellendus ut odio quis.
+                Excelling in an ever-changing software development world requires true "full stack" experience. Knowledge of nonrelational databases in particular adds exciting new capabilities and features that make everyday development easier, more streamlined, and vastly more scalable. This course provides an introduction to using MongoDB, one of the most popular nonrelational databases. Discover how to create documents to store data, organize documents in collections, and write queries to read, update, and delete documents. Instructor Justin Jenkins also shows how to properly index data to increase performance in MongoDB, and then shows how MongoDB can be integrated with applications written in Python, Node.js, and PHP. In the final chapter, he covers basic server administration, including replication, sharding, security, and backups. Make sure to practice your newfound MongoDB skills using the challenge and solution sets issued along the way.
                 </Typography>
         </CourseDetails>
         </div>
