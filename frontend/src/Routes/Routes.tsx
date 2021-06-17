@@ -56,10 +56,6 @@ export default function Routes() {
           <Instructor />
         </PrivateRoute>
 
-        {/* <Route path="/instructor" exact>
-          <Instructor />
-        </Route> */}
-
         <PrivateRoute
           path="/instructor/new"
           redirect="/"

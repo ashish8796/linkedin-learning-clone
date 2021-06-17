@@ -122,7 +122,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.deleteUser = deleteUser;
 const changeUserToTeacher = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield user_1.default.findByIdAndUpdate({ _id: userId }, { flag: true });
+    const data = yield user_1.default.findByIdAndUpdate({ _id: userId }, { flag: true }, { returnOriginal: false });
     return data;
 });
 exports.changeUserToTeacher = changeUserToTeacher;

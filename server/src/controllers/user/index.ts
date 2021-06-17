@@ -137,7 +137,7 @@ export const deleteUser = async (
 };
 
 export const changeUserToTeacher = async (userId: string) => {
-  const data = await user.findByIdAndUpdate({ _id: userId }, { flag: true })
+  const data = await user.findByIdAndUpdate({ _id: userId }, { flag: true }, { returnOriginal: false })
 
   return data;
 }

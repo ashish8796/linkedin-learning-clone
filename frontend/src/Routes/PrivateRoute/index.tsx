@@ -1,5 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
+import { State } from "../../store/tsTypes";
 
 interface IPrivateRouteProps {
   path: string;
@@ -18,6 +20,8 @@ export default function PrivateRoute({
   exact,
   push,
 }: IPrivateRouteProps) {
+  const { flag } = useSelector((state: State) => state.user.userDetails);
+
   if (isAuth) {
     return (
       <Route path={path} exact={exact ? exact : false}>

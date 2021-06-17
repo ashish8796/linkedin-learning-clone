@@ -1,4 +1,4 @@
-import React, { useRef, useState, CSSProperties } from "react";
+import React, { useRef, useState, CSSProperties, useEffect } from "react";
 import styled from "styled-components";
 import RegisterFormLeftSection from "./RegisterFormLeftSection";
 import CreateInput from "./../Common/CreateInput/CrateInput";
@@ -85,8 +85,9 @@ export default function RegisterForm({}: IRegisterFormProps) {
       console.log(typeof data);
 
       // @ts-ignore
-      if (data) {
-        history.push("/instructor");
+      if (data.status) {
+        // @ts-ignore
+        history.push(`/instructor/${data.id}`);
       }
     } catch (error) {}
   };
