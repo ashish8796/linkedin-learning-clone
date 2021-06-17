@@ -114,8 +114,11 @@ export const deleteAnswer = async (
     const {
       params: { id },
     } = req;
-    await removingIdFromQuestionArray(id);
-    // const deleted = await answerBox.findByIdAndDelete(id);
+    const deleted: any = await answerBox.findByIdAndRemove(id);
+    console.log(deleted);
+    const { _id } = deleted;
+    // console.log(courseId)
+    await removingIdFromQuestionArray(_id);
     res.status(200).json({ message: "the answer is deleted" });
   } catch (error) {
     console.log(error);
@@ -123,14 +126,25 @@ export const deleteAnswer = async (
   }
 };
 
-const removingIdFromQuestionArray = async (id: string) => {
+const removingIdFromQuestionArray = async (AnswerId: string) => {
   try {
-    console.log(id);
-    let data = await questionSession.aggregate([
-      { $unwind: "$answers" },
-      { $match: { "answers.answer": id } },
-    ]);
-    console.log(data);
+    console.log(AnswerId);
+    let data: any = await questionSession
+      .findOneAndUpdate(
+        {
+          "answers.answer": AnswerId,
+        },
+        {
+          $pull: {
+            answers: {
+              answer: AnswerId,
+            },
+          },
+        }
+      )
+      .exec();
+    // console.log(data, "result");
+    console.log(data, "line 135");
   } catch (error) {
     console.log(error);
   }
