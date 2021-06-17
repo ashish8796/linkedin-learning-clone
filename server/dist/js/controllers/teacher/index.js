@@ -16,6 +16,7 @@ exports.deleteTeacher = exports.getTeacherId = exports.updateTeacher = exports.a
 const teacher_1 = __importDefault(require("../../models/teacher"));
 const user_1 = __importDefault(require("../../models/user"));
 const storeDataInAws_1 = require("../utils/storeDataInAws");
+const user_2 = require("../user");
 const getTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const teachers = yield user_1.default.find({ flag: true });
@@ -31,6 +32,7 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     upload(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             let body = req.body;
+            console.log(req.file);
             const new_teacher = new teacher_1.default({
                 qualification: body.qualification,
                 DOB: body.DOB,
@@ -40,10 +42,15 @@ const addTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 linkedInProfile: body.linkedInProfile,
                 uniqueId: body.uniqueId,
             });
-            let newTeacher = yield new_teacher.save();
+            let user;
+            if (body === null || body === void 0 ? void 0 : body.uniqueId) {
+                user = yield user_2.changeUserToTeacher(body === null || body === void 0 ? void 0 : body.uniqueId);
+            }
             let allTeachers = yield teacher_1.default.find();
+            let newTeacher = yield new_teacher.save();
             res.status(202).json({
                 message: "the teacher is added",
+                user,
                 teacher: newTeacher,
                 allTeachers: allTeachers,
             });

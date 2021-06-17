@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../store/tsTypes";
 
 export default function InstructorProfile() {
+  const { teacher } = useSelector((state: State) => state.teacher);
+  const { userDetails } = useSelector((state: State) => state.user);
+
+  const { firstName, lastName } = userDetails;
   const {
-    firstName,
-    lastName,
     qualification,
     specializations,
     description,
     linkedInProfile,
-  } = useSelector((state: State) => state.teacher.teacher);
+    image,
+  } = teacher;
+
+  useEffect(() => {}, []);
 
   return (
     <ProfileContainer>
@@ -26,13 +31,18 @@ export default function InstructorProfile() {
         <LowerBox>
           <div>
             <ProfilePicBox>
-              <img src="https://via.placeholder.com/130" alt="Profile pic" />
+              <img
+                src={image || "https://via.placeholder.com/130"}
+                alt={firstName}
+              />
             </ProfilePicBox>
 
             <InstructorDetailsBox>
               <div>
                 <Name>{`${firstName} ${lastName}`} </Name>
-                <QualificationBox>{qualification.length>0 && qualification.join(", ")}</QualificationBox>
+                <QualificationBox>
+                  {qualification.length > 0 && qualification.join(", ")}
+                </QualificationBox>
               </div>
 
               <div>
@@ -85,15 +95,19 @@ const LowerBox = styled.div`
 `;
 
 const ProfilePicBox = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  width: fit-content;
+  align-items: center; */
+  border-radius: 50%;
+  border: 2px solid #fff;
+  width: 130px;
+  height: 130px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 2px 3px rgb(0 0 0 / 20%);
+  overflow: hidden;
 
   img {
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 2px 3px rgb(0 0 0 / 20%);
+    object-fit: cover;
+    width: 100%;
   }
 `;
 
