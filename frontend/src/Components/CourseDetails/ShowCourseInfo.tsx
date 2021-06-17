@@ -6,10 +6,13 @@ import { State } from "../../store/tsTypes";
 interface IShowCourseInfoProps {}
 
 export default function ShowCourseInfo({}: IShowCourseInfoProps) {
-  const { title, description, tags, image } = useSelector(
-    (state: State) => state.teacher.course
+  const {course} = useSelector(
+    (state: State) => state.teacher
   );
+  console.log(course);
+  const {title, description, tags ,image } = course
 
+  
   return (
     <CourseInfoBox>
       <div>

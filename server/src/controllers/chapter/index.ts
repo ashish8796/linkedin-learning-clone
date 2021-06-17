@@ -45,7 +45,9 @@ export const addChapter = async (
     });
     console.log(chapter);
     const newChapter: IChapter = await new_chapter.save();
-    const allChapter: IChapter[] = await chapter.find();
+    const allChapter: IChapter[] = await chapter
+      .find({ courseId: body.courseId })
+      .populate({ path: "videoIds", populate: "videoId" });
 
     res.status(201).json({
       message: "new chapter as been added ",

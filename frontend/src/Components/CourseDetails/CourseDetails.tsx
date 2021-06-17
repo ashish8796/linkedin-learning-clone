@@ -41,9 +41,8 @@ export default function CourseDetails() {
       const payload = {
         title: chapterTitle,
         courseId: course._id,
-        authorId: course.authorId,
+        authorId: "60c4dfb43bf60a20d884a159"|| course.authorId,
       };
-
       dispatch(startNewChapter(payload));
       setChapterTitle("");
       setIsNewChapterVisible(false);
@@ -51,7 +50,7 @@ export default function CourseDetails() {
   };
 
   useEffect(() => {
-    dispatch(setCourse(id));
+    dispatch(setCourse("60cb486b22bb2f37206c896c"||id));
     dispatch(setAllChapters(id));
   }, []);
 
@@ -60,7 +59,7 @@ export default function CourseDetails() {
       <ShowCourseInfo />
 
       <UpdateCourseBox>
-        {allChapters.length > 0 &&
+        {allChapters?.length > 0 &&
           allChapters.map((chapter, index) => (
             <ShowChapters
               key={chapter._id}

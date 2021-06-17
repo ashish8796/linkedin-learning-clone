@@ -34,7 +34,7 @@ const videoSchema: Schema = new Schema(
 
     url: {
       type: String,
-      required: [true, "Lecture link is required"]
+      required: [true, "Lecture link is required"],
     },
 
     tags: [

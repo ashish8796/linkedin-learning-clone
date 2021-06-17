@@ -67,7 +67,7 @@ export default function CourseModal({
     e.preventDefault();
 
     console.log(courseData);
-    const payload = { ...courseData, authorId: ""|| teacher._id };
+    const payload = { ...courseData, authorId: "60c4dfb43bf60a20d884a159"|| teacher._id };
     const CourseFormData = new FormData();
 
     for (let key in payload) {
