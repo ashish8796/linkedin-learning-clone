@@ -59,31 +59,37 @@ export default function CourseDetails() {
     <CourseDetailsBox>
       <ShowCourseInfo />
 
-      {allChapters.length > 0 &&
-        allChapters.map((chapter) => (
-          <ShowChapters key={chapter._id} chapter={chapter} />
-        ))}
+      <UpdateCourseBox>
+        {allChapters.length > 0 &&
+          allChapters.map((chapter, index) => (
+            <ShowChapters
+              key={chapter._id}
+              chapter={chapter}
+              index={index + 1}
+            />
+          ))}
 
-      {isNewChapterVisible && (
-        <NewChapterBox>
-          <CreateInput
-            label="Chapter Title"
-            value={chapterTitle}
-            placeholder="Write title for the chapter*"
-            name="title"
-            required={true}
-            handleChange={(e) => {
-              setChapterTitle(e.target.value);
-            }}
-            type="text"
-            labelStyles={chapterTitleLabelStyles}
-          />
+        {isNewChapterVisible && (
+          <NewChapterBox>
+            <CreateInput
+              label="Chapter Title"
+              value={chapterTitle}
+              placeholder="Write title for the chapter*"
+              name="title"
+              required={true}
+              handleChange={(e) => {
+                setChapterTitle(e.target.value);
+              }}
+              type="text"
+              labelStyles={chapterTitleLabelStyles}
+            />
 
-          <button onClick={handleStartNewChapter}>Start New Chapter</button>
-        </NewChapterBox>
-      )}
+            <button onClick={handleStartNewChapter}>Start New Chapter</button>
+          </NewChapterBox>
+        )}
 
-      <CreateButton label="Add Chapter" handleClick={handleChapterClick} />
+        <CreateButton label="Add Chapter" handleClick={handleChapterClick} />
+      </UpdateCourseBox>
     </CourseDetailsBox>
   );
 }
@@ -95,6 +101,19 @@ const chapterTitleLabelStyles: CSSProperties = {
 
 const CourseDetailsBox = styled.div`
   padding: 3rem 0;
+  background-color: #f2f3f3;
+  /* background-color: #fff; */
+`;
+
+const UpdateCourseBox = styled.div`
+  background-color: #fff;
+  /* background-color: #f2f3f3; */
+
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 3px lightgrey;
 `;
 
 const NewChapterBox = styled.div`

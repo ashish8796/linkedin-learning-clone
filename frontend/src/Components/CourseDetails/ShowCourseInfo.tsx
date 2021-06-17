@@ -24,4 +24,16 @@ const CourseInfoBox = styled.div`
   width: 80%;
   margin: auto;
   padding: 2rem 0;
+
+  & > div {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 3px;
+    /* box-shadow: 0 0px 3px #cbcccc; */
+    box-shadow: 0 0 10px 3px lightgrey;
+  }
+
+  h3 {
+    /* color: teal; */
+  }
 `;

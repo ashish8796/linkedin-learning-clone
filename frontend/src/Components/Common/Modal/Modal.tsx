@@ -14,16 +14,20 @@ export default function Modal({ children }: IModalProps) {
 }
 
 const ModalBox = styled.div`
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 40px;
   left: 0;
-  right: 0;
+  /* right: 0; */
+  width: 100%;
   top: 0;
+  height: 100%;
   z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #80808028;
+  backdrop-filter: blur(5px);
+  /* transition: 1s backdrop-filter linear; */
 `;
 
 const ContentBox = styled.div`
@@ -31,6 +35,7 @@ const ContentBox = styled.div`
   flex-direction: column;
   background-color: #fff;
   width: 60%;
+  /* margin-top: 40vh; */
   min-height: 50vh;
   height: fit-content;
   padding: 30px;
