@@ -18,30 +18,22 @@ export default function OverView({id}:any) {
     const {title,description,authorId,tags} =data;
 
     //@ts-ignore
-    let {description:TeacherDescription } ="" || aboutTeacher;
+    let {description:TeacherDescription, image } ="" || aboutTeacher;
 
-    // {
-    //     aboutTeacher!=={} &&
-    //     {description:TeacherDescription }=aboutTeacher;
-    // }
-    // {
-    //     TeacherDescription.length!=0 &&
-    //     //@ts-ignore
-    //     TeacherDescription = TeacherDescription.slice(0,40);
-    // }
-    // TeacherDescription= TeacherDescription.slice(0,95);
+    
     //@ts-ignore
     let {firstName,lastName} = details
-    // let {description:TeacherDescription,uniqueId}=authorId;
+    
 
     //@ts-ignore
 
-    // const {firstName,lastName} = uniqueId;
+    
     React.useEffect(()=>{
         (async()=>{
             let data= await axios.get(`/get-course/${id}`).then(({data})=>{
                 return data
             })
+            console.log(data.course)
             //@ts-ignore
             setData(data.course)
             setAboutTeacher(data.course.authorId)
@@ -59,7 +51,7 @@ export default function OverView({id}:any) {
             < SubInstructorNRelatedToCourse style={{borderRight:"0.8px solid black"}}>
             <h6>INSTRUCTOR</h6>
             <AboutTeacher >
-                <img src="https://via.placeholder.com/168x160" alt="" />
+                <img src={image} alt="" />
                 <div>
                     <span style={{fontWeight:500 , fontSize:"18px"}}>{firstName + lastName}</span>
                     <br />

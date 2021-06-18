@@ -20,6 +20,8 @@ import Dropdown from './Dropdown';
 import { useDispatch } from 'react-redux';
 import { getAllData } from "../../store/app/action";
 import { SearchDropdown } from '../../Components/Search/SearchDropdown';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 export const AuthNavbar = () => {
     
@@ -72,7 +74,8 @@ export const AuthNavbar = () => {
                         </Box>
                         <Box className={classes.afterLoginIcons} onClick={handleShowMeOpt} style={{marginLeft:'1rem'}}>
                             <Box className={classes.userImgBox}>
-                                <Image src="https://via.placeholder.com/25" />
+                                {/* <Image src="https://via.placeholder.com/25" /> */}
+                                <AccountCircleIcon style={{}} />
                             </Box>
                             <Box className={classes.title}>
                                 Me

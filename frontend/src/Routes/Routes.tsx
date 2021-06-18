@@ -31,6 +31,7 @@ export default function Routes() {
       <Switch>
         <Route path="/" exact>
           <Home />
+          <Footer />
         </Route>
         <Route path="/learning/:id" exact>
           <Learning />
@@ -92,7 +93,7 @@ export default function Routes() {
           <PageNotFound />
         </Route>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

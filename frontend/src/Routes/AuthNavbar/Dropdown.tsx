@@ -8,7 +8,8 @@ import { State } from '../../store/tsTypes';
 import { useHistory } from 'react-router-dom';
 import { getTeacherByUniqueId } from '../../api/api';
 import { SET_TEACHER } from '../../store/teacher/actionTypes';
-
+import { AnyARecord } from 'dns';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 interface IDropdownProps {
     setShowMeOpt: any;
 }
@@ -19,8 +20,9 @@ export default function Dropdown({ setShowMeOpt }: IDropdownProps) {
     const dispatch = useDispatch();
     const data =useSelector((state:State)=>state.user.userDetails)
 
-    const userDetails: any = useSelector((state: State)=> state.user.userDetails)
-    
+    const userDetails:any = useSelector((state: State)=> state.user.userDetails)
+    const { flag } = useSelector((state: State) => state.user.userDetails);
+
     const history = useHistory()
     const handleLogout = ()=>{
         dispatch(logoutUser());
@@ -46,7 +48,7 @@ export default function Dropdown({ setShowMeOpt }: IDropdownProps) {
                 <CardContent className={classes.cardContent} onMouseLeave={handleShowMeOpt}>
                     <Box className={classes.contentBox && classes.userDetails}>
                         <Box className={classes.imageBox}>
-                            
+                            <AccountCircleIcon  style={{fontSize:"2.5em"}} />
                         </Box>
                         <Box className={classes.user} onClick={handleTeacherProfile} >
                             <Typography>{`${userDetails.firstName} ${userDetails.lastName}`}</Typography>
@@ -64,6 +66,7 @@ export default function Dropdown({ setShowMeOpt }: IDropdownProps) {
                     </Box>
                     <Divider />
                     <Box>
+                        {!flag && <Typography className={classes.content} onClick={()=>history.push("/instructor/new")} >Become an Instructor</Typography>}
                         <Typography className={classes.content} >Language</Typography>
                         <Typography className={classes.content} >Settings</Typography>
                         <Typography className={classes.content} >Go to LinkedIn Profile</Typography>
@@ -119,6 +122,7 @@ const useStyles = makeStyles(theme => ({
     },
     imageBox: {
         width: theme.spacing(6),
-        height: theme.spacing(6)
+        height: theme.spacing(6),
+        // fontSize:"2rem"
     }
 }));
