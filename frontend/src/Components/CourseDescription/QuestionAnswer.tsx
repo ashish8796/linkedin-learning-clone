@@ -44,7 +44,8 @@ export default function QuestionAnswer({id}:any) {
 
 const Content = styled.section`
     display: grid;
-    grid-template-columns: 70% 30%;
+    width: 50rem;
+    margin: auto;
     margin-top: 5px;
     height:70rem;
 `

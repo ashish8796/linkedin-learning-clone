@@ -23,7 +23,7 @@ const CommentBox=styled.div`
     margin: auto;
     width: 90%;
     border: 1px solid black;
-    padding:1%;
+    padding:1rem;
     img{
         height:40px;
         border-radius: 50%;
@@ -44,7 +44,7 @@ const Box=styled.div`
     textarea{
         width:100%;
         height: auto;
-        min-height: 150px;
+        min-height: 100px;
     }
 `
 
@@ -96,7 +96,7 @@ export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
             
         <NameTag>
                 <ImageHolder>
-                <img src="https://via.placeholder.com/168x160" alt="" />
+                    <img src="https://via.placeholder.com/168x160" alt="" />
                 </ImageHolder>
                 <div>
                     <span>{firstName+" "+lastName}</span>
