@@ -13,7 +13,7 @@
 Now run npm start command in `frontend` and `server` folder to start the application.
 
 Likedin Learning Teammates are:-
-1. Ashish Kumar Saini ()
+1. Ashish Kumar Saini (https://github.com/ashish8796)
 2. Kartik Yadav (https://github.com/rao-kartik)
 3. Kota Sai Krishna Reddy (https://github.com/kotakrishna)
 
