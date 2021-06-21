@@ -1,6 +1,7 @@
 import React, { Dispatch } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { setCurrentVideoIndex } from "../../store/currentVideo/actions";
 import { setPlayerStatus } from "../../store/player/actions";
 import { State } from "../../store/tsTypes";
 import CreateButton from "../Common/CreateButton";
@@ -15,7 +16,7 @@ export default function LeftControlButton({
   handleMoveVideo,
 }: ILeftControlButtonProps) {
   const { isPlayed } = useSelector((state: State) => state.player.playerStatus);
-  const { currentTime, videoElem, duration } = useSelector(
+  const { currentTime, videoElem, duration, index } = useSelector(
     (state: State) => state.currentVideo
   );
   const dispatch = useDispatch<Dispatch<any>>();
@@ -28,6 +29,18 @@ export default function LeftControlButton({
     if (videoElem?.current && currentTime === duration) {
       videoElem.current.currentTime = 0;
       playPauseVideo({ videoRef: videoElem, dispatch });
+    }
+  };
+
+  const handelChangeVideoBtn: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ) => {
+    const { name } = e.target as HTMLButtonElement;
+
+    if (name === "next") {
+      dispatch(setCurrentVideoIndex(index + 1));
+    } else {
+      dispatch(setCurrentVideoIndex(index - 1));
     }
   };
 
@@ -67,13 +80,17 @@ export default function LeftControlButton({
         />
       </CreateButton>
 
-      <CreateButton label="str" handleClick={() => {}}>
+      <CreateButton label="s" name="next" handleClick={handelChangeVideoBtn}>
         <CreateIcon
           path={require("./../../assets/svgs/learning/backIcon.svg").default}
         />
       </CreateButton>
 
-      <CreateButton label="str" handleClick={() => {}}>
+      <CreateButton
+        label="str"
+        handleClick={handelChangeVideoBtn}
+        name="previous"
+      >
         <CreateIcon
           path={require("./../../assets/svgs/learning/nextIcon.svg").default}
         />

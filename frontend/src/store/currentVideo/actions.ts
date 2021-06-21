@@ -1,6 +1,6 @@
 import React from "react";
 import { SetCurrentTime, SetDuration, SetVideoElem, SetVideoScreenSize, SetVideoUrl } from "../tsTypes";
-import { SET_CURRENT_TIME, SET_DURATION, SET_VIDEO_ELEM, SET_VIDEO_SCREEN_SIZE, SET_VIDEO_URL } from "./actionTypes";
+import { SET_CURRENT_LECTURE_INDEX, SET_CURRENT_TIME, SET_DURATION, SET_VIDEO_ELEM, SET_VIDEO_SCREEN_SIZE, SET_VIDEO_URL } from "./actionTypes";
 
 export const setDuration = (duration: number): SetDuration => {
   return {
@@ -34,5 +34,12 @@ export const setVideoUrl = (url: string): SetVideoUrl => {
   return {
     type: SET_VIDEO_URL,
     payload: url
+  }
+
+}
+
+export const setCurrentVideoIndex = (index: number) => {
+  return {
+    type: SET_CURRENT_LECTURE_INDEX, payload: index
   }
 }
