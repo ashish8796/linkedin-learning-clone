@@ -33,9 +33,14 @@ export default function Routes() {
           <Home />
           <Footer />
         </Route>
-        <Route path="/learning/:id" exact>
+        <PrivateRoute
+          // path="/instructor"
+          redirect="/"
+          isAuth={isAuth}
+          exact={true}
+         path="/learning/:id" >
           <Learning />
-        </Route>
+        </PrivateRoute>
         <Route path="/learning-login" exact>
           <SignIn />
         </Route>

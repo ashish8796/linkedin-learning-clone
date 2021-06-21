@@ -26,4 +26,11 @@ export default function InstructorFeatures() {
 
 const buttonStyles: CSSProperties = {
   border: "1px solid blue",
+  marginLeft:"12rem" ,
+  marginTop:"3rem",
+  padding: "8px 2rem",
+  width: "fit-content",
+  backgroundColor:" #0073b1",
+  color: "#fff",
+  borderRadius: "2px",
 };

@@ -22,7 +22,7 @@ export default function PrivateRoute({
 }: IPrivateRouteProps) {
   const { flag } = useSelector((state: State) => state.user.userDetails);
 
-  if (isAuth) {
+  if (isAuth || flag) {
     return (
       <Route path={path} exact={exact ? exact : false}>
         {children}

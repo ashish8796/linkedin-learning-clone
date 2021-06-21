@@ -119,8 +119,9 @@ const useStyles = makeStyles(theme => ({
         paddingTop: '1rem'
     },
     answerBox: {
-        marginLeft: theme.spacing(-10),
-        marginTop: '-25px',
+        marginLeft:"-20px",
+        // marginTop: '-25px',
+
         width: '110%'
     },
     likCom: {
@@ -313,7 +314,7 @@ const AnswerBox=({answer}:IAnswers)=>{
         </NameTag>
         <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
             <span></span>
-            <Typography variant="body1"> 
+            <Typography  variant="body1"> 
             </Typography>
             <br />
         </Text>
