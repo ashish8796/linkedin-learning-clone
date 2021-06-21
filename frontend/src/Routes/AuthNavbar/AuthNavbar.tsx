@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import styled from 'styled-components';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
@@ -20,11 +20,14 @@ import Dropdown from './Dropdown';
 import { useDispatch } from 'react-redux';
 import { getAllData } from "../../store/app/action";
 import { SearchDropdown } from '../../Components/Search/SearchDropdown';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 export const AuthNavbar = () => {
     
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ showMeOpt, setShowMeOpt ] = useState<boolean>(false);
     const [ searchInp, setSerchInp ] = useState<string>("");
@@ -41,6 +44,7 @@ export const AuthNavbar = () => {
     const handleSearch: React.KeyboardEventHandler<HTMLDivElement> = (e) =>{
         if(e.key === 'Enter'){
             dispatch(getAllData(searchInp));
+            history.push(`/learnings/${searchInp}`);
         }
     }
 
@@ -70,7 +74,8 @@ export const AuthNavbar = () => {
                         </Box>
                         <Box className={classes.afterLoginIcons} onClick={handleShowMeOpt} style={{marginLeft:'1rem'}}>
                             <Box className={classes.userImgBox}>
-                                <Image src="https://via.placeholder.com/25" />
+                                {/* <Image src="https://via.placeholder.com/25" /> */}
+                                <AccountCircleIcon style={{}} />
                             </Box>
                             <Box className={classes.title}>
                                 Me

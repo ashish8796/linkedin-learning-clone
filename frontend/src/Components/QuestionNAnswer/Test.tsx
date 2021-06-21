@@ -2,6 +2,10 @@ import React from 'react'
 import QuestionNAnswer from './QuestionNAnswer'
 import axios from "axios";
 import styled from "styled-components";
+import { useSelector } from 'react-redux';
+import { State } from '../../store/tsTypes';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 export interface IComments{
     courseId?: string;
@@ -21,7 +25,7 @@ const CommentBox=styled.div`
     margin: auto;
     width: 90%;
     border: 1px solid black;
-    padding:1%;
+    padding:1rem;
     img{
         height:40px;
         border-radius: 50%;
@@ -42,7 +46,7 @@ const Box=styled.div`
     textarea{
         width:100%;
         height: auto;
-        min-height: 150px;
+        min-height: 100px;
     }
 `
 
@@ -50,14 +54,17 @@ export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
     const [comments, setComments] = React.useState([])
     const [message,setMessage]=React.useState("")
     const [question,setQuestion]= React.useState("")
+    const userDetails = useSelector((state:State) => state.user.userDetails)
+    const {firstName , lastName,emailId} =userDetails
     const handlePostQuestion = async ( )=>{
         const  payload= {
             "question":question,
-            "userId":"60c4d0228a7b100f2840d795",
+            "userId":userDetails._id,
             "courseId":id ||"60c6e5a4bac4a7241c74f84f"
         }
          let response= await axios.post('http://localhost:5000/add-question',payload);
          console.log(response)
+         setQuestion("")
         // setMessage(response?.data.message) 
     }
     const calling = async()=>{
@@ -91,12 +98,13 @@ export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
             
         <NameTag>
                 <ImageHolder>
-                <img src="https://via.placeholder.com/168x160" alt="" />
+                    {/* <img src="https://via.placeholder.com/168x160" alt="" /> */}
+                    <AccountCircleIcon  style={{fontSize:"3em",color:"grey"}}/>
                 </ImageHolder>
                 <div>
-                    <span>NAme</span>
+                    <span>{firstName+" "+lastName}</span>
                     <br />  
-                    <span>description</span>
+                    <span>{emailId}</span>
                 </div>
             </NameTag>
             <Box>

@@ -1,10 +1,9 @@
 import { Dispatch } from "redux";
-import { getUserById, postTeacher } from "../../api/api";
+import { postTeacher, getCourse } from "../../api/api";
 import { PostTeacher } from "../../api/apiTypes";
 import { SetCourse } from "../tsTypes";
-import { setUserById } from "../user/action";
 import { SET_USER_BY_ID } from "../user/actionTypes";
-import { SET_COURSE, SET_TEACHER } from "./actionTypes";
+import { SET_COURSE, SET_TEACHER, GET_COURSE_BY_ID_FAILURE, GET_COURSE_BY_ID_REQUEST, GET_COURSE_BY_ID_SUCCESS } from "./actionTypes";
 
 export const setCourse = (id: string): SetCourse => {
   return {
@@ -19,8 +18,27 @@ export const setCourse = (id: string): SetCourse => {
 //   }
 // }
 
-export const addTeacher = (payload: any) => async (dispatch: Dispatch<any>) => {
-  console.log(payload);
+const getCourseByIdRequest = ()=>{
+  return {
+    type: GET_COURSE_BY_ID_REQUEST
+  }
+}
+
+const getCourseByIdSuccess = (payload: any)=>{
+  return {
+    type: GET_COURSE_BY_ID_SUCCESS,
+    payload
+  }
+}
+
+const getCourseByIdFailure = (err: any)=>{
+  return {
+    type: GET_COURSE_BY_ID_FAILURE,
+    payload: err
+  }
+}
+
+export const addTeacher = (payload: any) => async (dispatch: Dispatch) => {
   try {
     const { data: teacherData } = await postTeacher(payload);
     console.log(teacherData);
@@ -34,4 +52,21 @@ export const addTeacher = (payload: any) => async (dispatch: Dispatch<any>) => {
   } catch (error) {
     return false;
   }
-};
+}
+
+export const getCourseById = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(getCourseByIdRequest());
+
+    await getCourse(id)
+    .then((res: any) => {
+      dispatch(getCourseByIdSuccess(res.data));
+    })
+    .catch((err: any)=>{
+      dispatch(getCourseByIdFailure(err));
+    })
+  }
+  catch (err) {
+    console.log(err);
+  }
+}

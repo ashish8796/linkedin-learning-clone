@@ -31,21 +31,17 @@ export default function Routes() {
       <Switch>
         <Route path="/" exact>
           <Home />
+          <Footer />
         </Route>
-
         <PrivateRoute
-          path="/learning/:id"
-          exact={true}
+          // path="/instructor"
           redirect="/"
           isAuth={isAuth}
+          exact={true}
+          path="/learning/:id"
         >
           <Learning />
         </PrivateRoute>
-
-        {/* <Route path="/learning/:id" exact>
-          <Learning />
-        </Route> */}
-
         <Route path="/learning-login" exact>
           <SignIn />
         </Route>
@@ -100,7 +96,7 @@ export default function Routes() {
           <PageNotFound />
         </Route>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

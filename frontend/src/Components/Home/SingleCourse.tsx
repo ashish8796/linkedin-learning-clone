@@ -57,10 +57,10 @@ export interface singleCourseProps {
     _id:string;
 }
 
-export const SingleCourse = ({image, type, title, viewers,_id}: singleCourseProps) => {
+export const SingleCourse = ({image, type, title,_id}: singleCourseProps) => {
     
     const classes = useStyles();
-    
+    const viewers = Math.floor(Math.random() * 10000)
     const history = useHistory();
 
     const routeHandle = () =>{
