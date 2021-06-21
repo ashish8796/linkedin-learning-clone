@@ -38,7 +38,7 @@ const initState: UserState = {
   data: {},
   token: "",
   userDetails: userDetails,
-  individualUser: {}
+  individualUser: {},
 };
 
 export const userReducer = (state = initState, action: any) => {
@@ -136,6 +136,7 @@ export const userReducer = (state = initState, action: any) => {
     case LOGOUT_USER: {
       saveData("isAuth", false);
       saveData("userDetails", {});
+      localStorage.clear();
       return {
         ...state,
         isAuth: false,
@@ -147,28 +148,28 @@ export const userReducer = (state = initState, action: any) => {
     }
 
     case SET_USER_BY_ID: {
-      return { ...state, userDetails: payload }
+      return { ...state, userDetails: payload };
     }
 
     case GET_INDIVIDUAL_USER_REQUEST: {
       return {
         ...state,
         isLoading: true,
-        isError: false
-      }
+        isError: false,
+      };
     }
     case GET_INDIVIDUAL_USER_SUCCESS: {
       return {
         isLoading: false,
         isError: false,
-        individualUser: payload
-      }
+        individualUser: payload,
+      };
     }
     case GET_INDIVIDUAL_USER_FAILURE: {
       return {
         isLoading: false,
-        isError: true
-      }
+        isError: true,
+      };
     }
     default:
       return state;

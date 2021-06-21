@@ -11,6 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Typography, makeStyles } from '@material-ui/core';
 import { State } from '../../store/tsTypes';
 import { useSelector } from 'react-redux';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 const Card=styled.div`
     padding: 1rem;
     display: grid;
@@ -117,8 +119,9 @@ const useStyles = makeStyles(theme => ({
         paddingTop: '1rem'
     },
     answerBox: {
-        marginLeft: theme.spacing(-10),
-        marginTop: '-25px',
+        marginLeft:"-20px",
+        // marginTop: '-25px',
+
         width: '110%'
     },
     likCom: {
@@ -195,7 +198,9 @@ export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",a
             <Card>
                 <NameTag>
                     <ImageHolder>
-                        <img className={classes.userImg} src="https://via.placeholder.com/168x160" alt="" />
+                        {/* <img  src="https://via.placeholder.com/168x160" alt="" /> */}
+                        <AccountCircleIcon className={classes.userImg}  style={{fontSize:"3em" ,color:"grey"}}/>
+
                     </ImageHolder>
                     <div>
                         <span> <Typography className={classes.userName} > {firstName} {lastName}</Typography></span>
@@ -209,7 +214,7 @@ export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",a
                 <Text>
                     {question}
                 </Text>
-                <Text>From the video:{VideoCommentPoint} </Text>
+                <Text>From the video </Text>
                 <hr />
                 <Text style={{display:"flex" , justifyContent:"right"}}>
                     <h6>LIKE</h6>
@@ -219,7 +224,9 @@ export default function QuestionNAnswer({userId,_id="60c731dd159e6e496cd6a164",a
                     <Reply>
 
                         <ImageHolder>
-                            <img className={classes.textAreaImg} src="https://via.placeholder.com/90x90" alt="" />
+                            {/* <img className={classes.textAreaImg} src="https://via.placeholder.com/90x90" alt="" /> */}
+                            <AccountCircleIcon className={classes.textAreaImg}  style={{fontSize:"3em",color:"grey"}}/>
+
                         </ImageHolder>
                         <div className={classes.replyInp}>
                             <textarea placeholder="Add your answer here" value={reply} onChange={(e)=>setReply(e.target.value)} />
@@ -307,7 +314,7 @@ const AnswerBox=({answer}:IAnswers)=>{
         </NameTag>
         <Text style={{display:"grid", gridTemplateColumns:"100px auto"}}>
             <span></span>
-            <Typography variant="body1"> 
+            <Typography  variant="body1"> 
             </Typography>
             <br />
         </Text>

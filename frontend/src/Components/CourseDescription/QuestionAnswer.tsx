@@ -8,36 +8,36 @@ export default function QuestionAnswer({id}:any) {
             
         <Test id={id}/>
             
-        <SideBar>
+        {/* <SideBar>
         <Typography variant="h6">
                 Related Course
-            </Typography>
+            </Typography> */}
             {/* <div> */}
-                            <Course>
+                            {/* <Course>
                                 <img  src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//1243db26-d136-4f54-bac9-c467c6ead24d_" alt="" />
                                 <CourseDetails2>
                                     <p>COURSE</p>
                                     <Typography variant="h6">Figure Drawing</Typography>
-                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
+                                    <Typography variant="h5"> {"10,000"} Learns</Typography> */}
                                     {/* <span>Progress</span> */}
                                     {/* <span><LinearProgress variant="determinate" color={"primary"} value={15} /></span> */}
-                                </CourseDetails2>
+                                {/* </CourseDetails2>
                             </Course>
                             <Course>
                                 <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//f855d5f9-372f-4b13-9ce1-32684f2db4a0_" alt="" />
                                 <CourseDetails2>
                                     <p style={{margin:"0px"}}>COURSE</p>
                                     <Typography variant="h6">TITLE</Typography>
-                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
+                                    <Typography variant="h5"> {"10,000"} Learns</Typography> */}
 
                                     {/* <span><LinearProgress variant="determinate" value={10} /></span> */}
-                                </CourseDetails2>
-                            </Course>
+                                {/* </CourseDetails2>
+                            </Course> */}
                         {/* </div> */}
-                        <div>
+                        {/* <div>
                             <span  style={{color:"#0073b1" , fontWeight:500}}>Show all</span>
-                        </div>
-        </SideBar>
+                        </div> */}
+        {/* </SideBar> */}
     </Content>
     )
 }
@@ -48,6 +48,7 @@ const Content = styled.section`
     margin: auto;
     margin-top: 5px;
     height:70rem;
+    /* grid-template-columns: 80% 20%; */
 `
 
 const SideBar = styled.aside`

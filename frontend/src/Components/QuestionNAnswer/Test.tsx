@@ -4,6 +4,8 @@ import axios from "axios";
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 import { State } from '../../store/tsTypes';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 export interface IComments{
     courseId?: string;
@@ -96,7 +98,8 @@ export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
             
         <NameTag>
                 <ImageHolder>
-                    <img src="https://via.placeholder.com/168x160" alt="" />
+                    {/* <img src="https://via.placeholder.com/168x160" alt="" /> */}
+                    <AccountCircleIcon  style={{fontSize:"3em",color:"grey"}}/>
                 </ImageHolder>
                 <div>
                     <span>{firstName+" "+lastName}</span>

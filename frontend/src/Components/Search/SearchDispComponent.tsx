@@ -22,15 +22,15 @@ export const SearchDispComponent = ({ _id, title, image }: ISearchDisp) => {
 
     const courseData = useSelector((state: State)=> state.course.course);
 
-    const updated = courseData.course.updatedAt;
+    // const updated = courseData.course.updatedAt;
 
-    const date = new Date(updated);
-    const month = date.getMonth()+1;
-    const year = date.getFullYear();
+    // const date = new Date(updated);
+    // const month = date.getMonth()+1;
+    // const year = date.getFullYear();
 
-    const mon = convertToString(month);
+    // const mon = convertToString(month);
 
-    const author = `${courseData.course.authorId.uniqueId.firstName} ${courseData.course.authorId.uniqueId.lastName}`
+    // const author = `${courseData.course.authorId.uniqueId.firstName} ${courseData.course.authorId.uniqueId.lastName}`
 
     useEffect(()=>{
         dispatch(getCourseById(_id));
@@ -45,7 +45,7 @@ export const SearchDispComponent = ({ _id, title, image }: ISearchDisp) => {
                 <div>
                     <Typography className={classes.type}>COURSE</Typography>
                     <Typography variant="h6" className={classes.title}>{title}</Typography>
-                    <Typography className={classes.authorName}>By: {author} . {mon} {year}</Typography>
+                    {/* <Typography className={classes.authorName}>By: {author} . {mon} {year}</Typography> */}
                 </div>
                 <ViewersBox>
                     <Typography className={classes.viewers}>40,496 viewers</Typography>
