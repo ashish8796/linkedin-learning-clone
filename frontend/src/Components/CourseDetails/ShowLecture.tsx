@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled, { CSSProperties } from "styled-components";
@@ -15,7 +15,7 @@ export default function ShowLecture({ lecture }: IShowLectureProps) {
   const dispatch = useDispatch();
   // console.log(lecture);
 
-  const [lectureData,setLectureData] = React.useState({}) 
+  const [lectureData, setLectureData] = React.useState({})
   //@ts-ignore
   const { title, url, _id } = lectureData;
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,12 +40,22 @@ export default function ShowLecture({ lecture }: IShowLectureProps) {
       setIsLoading(false);
     }
   };
+  const axios = Axios.create({
+    baseURL: "https://serene-glacier-19642.herokuapp.com/",
+
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+  });
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
   useEffect(() => {
-     (async ()=>{
+    (async () => {
       //@ts-ignore
-        let {data} = await axios.get(`http://localhost:5000/get-video/${lecture.videoId}`)
-        setLectureData(data.lecture)
+      let { data } = await axios.get(`https://serene-glacier-19642.herokuapp.com/get-video/${lecture.videoId}`)
+      setLectureData(data.lecture)
     })()
     return () => {
       setIsError(false);

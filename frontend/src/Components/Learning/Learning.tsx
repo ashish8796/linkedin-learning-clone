@@ -2,36 +2,46 @@ import React from "react";
 import CourseDescription from "../CourseDescription/CourseDescription";
 import ChapterPlayer from "../Player/ChapterPlayer";
 import Test from "../QuestionNAnswer/Test";
-import { useHistory , useParams } from "react-router";
-import axios from "axios";
+import { useHistory, useParams } from "react-router";
+import Axios from "axios";
 
 export default function Learning() {
 
-  const {id}:any =useParams()
+  const axios = Axios.create({
+    baseURL: "https://serene-glacier-19642.herokuapp.com/",
+
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+  });
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+  const { id }: any = useParams()
   console.log(id);
 
-  const [videoUrl,setVideoUrl]= React.useState("")
+  const [videoUrl, setVideoUrl] = React.useState("")
   console.log(videoUrl)
-  React.useEffect(()=>{
-    (async()=>{
-      let data = await axios.get(`/getFullCourseWithId/${id}`).then(({data})=>{
+  React.useEffect(() => {
+    (async () => {
+      let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/getFullCourseWithId/${id}`).then(({ data }) => {
         return data.course;
         setVideoUrl(data.course[0].videoIds[0].videoId.url)
       })
       //@ts-ignore
       setVideoUrl(await data[0].videoIds[0].videoId.url)
     })()
-  },[])
+  }, [])
   // ||"https://linkden-learning.s3.ap-south-1.amazonaws.com/newVideos/2315274c-36d7-4db2-8b4d-a5f71ae03875-.mp4"
   return (
     <section>
       {
-          videoUrl!=="" &&
-        <ChapterPlayer  videoUrl={videoUrl} />
+        videoUrl !== "" &&
+        <ChapterPlayer videoUrl={videoUrl} />
       }
       {
-          id !==0 &&
-      <CourseDescription id={id}/>
+        id !== 0 &&
+        <CourseDescription id={id} />
       }
     </section>
   );

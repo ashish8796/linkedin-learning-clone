@@ -1,25 +1,25 @@
 import React from 'react'
 import QuestionNAnswer from './QuestionNAnswer'
-import axios from "axios";
+import Axios from "axios";
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 import { State } from '../../store/tsTypes';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
-export interface IComments{
+export interface IComments {
     courseId?: string;
-  question: string;
-  userId: any;
-  answers?: any;
-  _id:string
+    question: string;
+    userId: any;
+    answers?: any;
+    _id: string
 }
-const Button= styled.button`
+const Button = styled.button`
     color: white;
     background-color: #0073b1;
     padding: 0.5% 15px;
 `
-const CommentBox=styled.div`
+const CommentBox = styled.div`
     display: grid;
     grid-template-rows: 50px auto 20px;
     margin: auto;
@@ -32,17 +32,17 @@ const CommentBox=styled.div`
     }
 
 `
-const ImageHolder=styled.div`
+const ImageHolder = styled.div`
     border-radius: 50%;
     height:50px;
 `
-const NameTag=styled.div`
+const NameTag = styled.div`
     display: grid;
     grid-template-columns: 8% 79%;
     
 `
 
-const Box=styled.div`
+const Box = styled.div`
     textarea{
         width:100%;
         height: auto;
@@ -50,84 +50,94 @@ const Box=styled.div`
     }
 `
 
-export default function Test({id="60c6e5a4bac4a7241c74f84f"}:any) {
+export default function Test({ id = "60c6e5a4bac4a7241c74f84f" }: any) {
     const [comments, setComments] = React.useState([])
-    const [message,setMessage]=React.useState("")
-    const [question,setQuestion]= React.useState("")
-    const userDetails = useSelector((state:State) => state.user.userDetails)
-    const {firstName , lastName,emailId} =userDetails
-    const handlePostQuestion = async ( )=>{
-        const  payload= {
-            "question":question,
-            "userId":userDetails._id,
-            "courseId":id ||"60c6e5a4bac4a7241c74f84f"
+    const [message, setMessage] = React.useState("")
+    const [question, setQuestion] = React.useState("")
+    const userDetails = useSelector((state: State) => state.user.userDetails)
+    const { firstName, lastName, emailId } = userDetails
+    const handlePostQuestion = async () => {
+        const payload = {
+            "question": question,
+            "userId": userDetails._id,
+            "courseId": id || "60c6e5a4bac4a7241c74f84f"
         }
-         let response= await axios.post('http://localhost:5000/add-question',payload);
-         console.log(response)
-         setQuestion("")
+        let response = await axios.post('https://serene-glacier-19642.herokuapp.com/add-question', payload);
+        console.log(response)
+        setQuestion("")
         // setMessage(response?.data.message) 
     }
-    const calling = async()=>{
+    const axios = Axios.create({
+        baseURL: "https://serene-glacier-19642.herokuapp.com/",
+
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        },
+    });
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    const calling = async () => {
         try {
-            
-            let data = await axios.get(`http://localhost:5000/getQnAWithCourseId/${id}`)    
-   
+
+            let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/getQnAWithCourseId/${id}`)
+
             setComments(data.data.QNA)
-        
+
         } catch (error) {
             console.log(error)
         }
 
     }
-    React.useEffect(()=>{
+    React.useEffect(() => {
         calling()
         // handlePostQuestion()
-    },[comments])
+    }, [comments])
 
     const userData = {
-        name:"name",
-        clg:"collage"
+        name: "name",
+        clg: "collage"
     }
     // calling()
     return (
-        <section  style={{height:"auto"}}>
+        <section style={{ height: "auto" }}>
             {/* <div>
                 {message.length!==0 && <h1>{message}</h1>}
             </div> */}
-        <CommentBox>
-            
-        <NameTag>
-                <ImageHolder>
-                    {/* <img src="https://via.placeholder.com/168x160" alt="" /> */}
-                    <AccountCircleIcon  style={{fontSize:"3em",color:"grey"}}/>
-                </ImageHolder>
-                <div>
-                    <span>{firstName+" "+lastName}</span>
-                    <br />  
-                    <span>{emailId}</span>
+            <CommentBox>
+
+                <NameTag>
+                    <ImageHolder>
+                        {/* <img src="https://via.placeholder.com/168x160" alt="" /> */}
+                        <AccountCircleIcon style={{ fontSize: "3em", color: "grey" }} />
+                    </ImageHolder>
+                    <div>
+                        <span>{firstName + " " + lastName}</span>
+                        <br />
+                        <span>{emailId}</span>
+                    </div>
+                </NameTag>
+                <Box>
+                    <textarea
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                    />
+                </Box>
+                <div style={{ display: 'flex', justifyContent: "space-between" }}>
+                    <span>
+                        <span><input type="checkbox" /></span>
+                        <span>Also post on my LinkedIn feed</span>
+                    </span>
+                    <span><Button onClick={handlePostQuestion}>Post</Button></span>
                 </div>
-            </NameTag>
-            <Box>
-                <textarea
-                 value={question}
-                 onChange={(e)=>setQuestion(e.target.value)}
-                 />
-            </Box>
-            <div style={{display:'flex' , justifyContent:"space-between"}}>
-                <span>
-                <span><input type="checkbox" /></span>
-                <span>Also post on my LinkedIn feed</span>
-                </span>
-                <span><Button onClick={handlePostQuestion}>Post</Button></span>
+            </CommentBox>
+            <div>
+                {
+                    comments.length && comments.map((item: IComments) => <QuestionNAnswer key={item?._id} {...item} />
+                    )
+                }
             </div>
-        </CommentBox>
-        <div>
-            {
-                comments.length && comments.map((item:IComments)=> <QuestionNAnswer key={item?._id} {...item}/>
-                )
-            }
-        </div>
-    </section>
+        </section>
     )
 }
 

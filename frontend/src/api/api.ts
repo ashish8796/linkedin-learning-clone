@@ -4,12 +4,15 @@ import { IRegister } from "../Components/Register/Register";
 import { ILogin } from "../Components/SignIn/SignIn";
 
 const axios = Axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://serene-glacier-19642.herokuapp.com/",
 
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
   },
 });
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 //Teacher related requests
 export const postTeacher = (payload: any) => {

@@ -4,33 +4,42 @@ import PeopleIcon from '@material-ui/icons/People';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Icon from '@material-ui/core/Icon';
 import CallToActionIcon from '@material-ui/icons/CallToAction';
-import { Typography ,LinearProgress } from '@material-ui/core';
+import { Typography, LinearProgress } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
-import axios from 'axios';
-export default function OverView({id}:any) {
+import Axios from 'axios';
+export default function OverView({ id }: any) {
 
-    const [data,setData]=React.useState({})
+    const [data, setData] = React.useState({})
 
-    const [aboutTeacher,setAboutTeacher] = React.useState({});
-    const [details,setDetails] = React.useState({});
+    const [aboutTeacher, setAboutTeacher] = React.useState({});
+    const [details, setDetails] = React.useState({});
     //@ts-ignore
-    const {title,description,authorId,tags} =data;
-
-    //@ts-ignore
-    let {description:TeacherDescription, image } ="" || aboutTeacher;
-
-    
-    //@ts-ignore
-    let {firstName,lastName} = details
-    
+    const { title, description, authorId, tags } = data;
 
     //@ts-ignore
+    let { description: TeacherDescription, image } = "" || aboutTeacher;
 
-    
-    React.useEffect(()=>{
-        (async()=>{
-            let data= await axios.get(`/get-course/${id}`).then(({data})=>{
+
+    //@ts-ignore
+    let { firstName, lastName } = details
+
+
+    //@ts-ignore
+
+    const axios = Axios.create({
+        baseURL: "https://serene-glacier-19642.herokuapp.com/",
+
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        },
+    });
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    React.useEffect(() => {
+        (async () => {
+            let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/get-course/${id}`).then(({ data }) => {
                 return data
             })
             console.log(data.course)
@@ -39,99 +48,99 @@ export default function OverView({id}:any) {
             setAboutTeacher(data.course.authorId)
             setDetails(data.course.authorId.uniqueId)
         })()
-    },[])
+    }, [])
     return (
         <Content>
-        {/* <div>
+            {/* <div>
             something
         </div> */}
-        <div>
+            <div>
 
-        <InstructorNRelatedToCourse >
-            < SubInstructorNRelatedToCourse style={{borderRight:"0.8px solid black"}}>
-            <h6>INSTRUCTOR</h6>
-            <AboutTeacher >
-                <img src={image} alt="" />
-                <div>
-                    <span style={{fontWeight:500 , fontSize:"18px"}}>{firstName + lastName}</span>
+                <InstructorNRelatedToCourse >
+                    < SubInstructorNRelatedToCourse style={{ borderRight: "0.8px solid black" }}>
+                        <h6>INSTRUCTOR</h6>
+                        <AboutTeacher >
+                            <img src={image} alt="" />
+                            <div>
+                                <span style={{ fontWeight: 500, fontSize: "18px" }}>{firstName + lastName}</span>
+                                <br />
+                                <span >{TeacherDescription !== undefined && TeacherDescription.slice(0, 50)}</span>
+                                <p>
+                                    <span>view on Linkedin</span>
+                                    <span>Follow on Linkedin</span>
+                                </p>
+                            </div>
+                        </AboutTeacher>
+                    </SubInstructorNRelatedToCourse>
+                    < SubInstructorNRelatedToCourse style={{ marginLeft: "10px" }}>
+                        <h6>RELATED TO THIS COURSE</h6>
+                        <MainList>
+                            <ListItem>
+                                <Icon style={{ marginTop: "-7px", height: "1.2em" }}><PeopleIcon /></Icon>
+                                <p style={{ fontWeight: 500 }}>Learning Group</p>
+                                <p style={{ color: "#0073b1", fontWeight: 500 }}>Show all</p>
+                            </ListItem>
+                            <ListItem>
+                                <Icon style={{ marginTop: "-7px", height: "1.2em" }}><FolderOpenIcon /></Icon>
+                                <p style={{ fontWeight: 500 }}>Exercise Files</p>
+                                <p style={{ color: "#0073b1", fontWeight: 500 }}>Show all</p>
+                            </ListItem>
+                            <ListItem>
+                                <Icon style={{ marginTop: "-7px", height: "1.2em" }}><CallToActionIcon /></Icon>
+                                <p style={{ fontWeight: 500 }}>Certificates</p>
+                                <p style={{ color: "#0073b1", fontWeight: 500 }}>Show all</p>
+
+                            </ListItem>
+                        </MainList>
+                    </SubInstructorNRelatedToCourse>
+                </InstructorNRelatedToCourse>
+                <CourseDetails>
+                    <h3>Course Details</h3>
+                    <div>
+                        <span>4hr 32min</span>
+                        <span>Intermediate</span>
+                        <span>12/02/2021</span>
+                    </div>
+                    <span>{
+                        [1, 2, 3, 4].map((item) => <Icon style={{ marginTop: "-7px", height: "1.2em" }} > <StarIcon /></Icon>)} <Icon > <   StarHalfIcon /></Icon></span>
                     <br />
-                    <span >{TeacherDescription!==undefined && TeacherDescription.slice(0,50)}</span>
-                    <p>
-                        <span>view on Linkedin</span>
-                        <span>Follow on Linkedin</span>
-                    </p>
-                </div>
-            </AboutTeacher>
-            </SubInstructorNRelatedToCourse>
-            < SubInstructorNRelatedToCourse style={{marginLeft:"10px"}}>
-            <h6>RELATED TO THIS COURSE</h6>
-            <MainList>
-                    <ListItem>
-                        <Icon style={{marginTop:"-7px" , height:"1.2em"}}><PeopleIcon/></Icon>
-                        <p style={{fontWeight:500}}>Learning Group</p>
-                        <p style={{color:"#0073b1", fontWeight:500}}>Show all</p>
-                    </ListItem>
-                    <ListItem>
-                            <Icon style={{marginTop:"-7px" , height:"1.2em"}}><FolderOpenIcon /></Icon>
-                            <p style={{fontWeight:500}}>Exercise Files</p>
-                            <p style={{color:"#0073b1", fontWeight:500}}>Show all</p>
-                    </ListItem>
-                    <ListItem>
-                            <Icon style={{marginTop:"-7px" , height:"1.2em"}}><CallToActionIcon /></Icon>
-                            <p style={{fontWeight:500}}>Certificates</p>
-                            <p style={{color:"#0073b1", fontWeight:500}}>Show all</p>
-                    
-                    </ListItem>
-            </MainList>
-            </SubInstructorNRelatedToCourse>
-        </InstructorNRelatedToCourse>
-        <CourseDetails>
-                <h3>Course Details</h3>           
-                <div>
-                    <span>4hr 32min</span>
-                    <span>Intermediate</span>
-                    <span>12/02/2021</span>
-                </div>
-                <span>{
-                    [1,2,3,4].map((item)=><Icon style={{marginTop:"-7px" , height:"1.2em"}} > <StarIcon /></Icon>)} <Icon > <   StarHalfIcon /></Icon></span>
-                <br />
-                <Typography variant="body1">
-                {description}
+                    <Typography variant="body1">
+                        {description}
+                    </Typography>
+                </CourseDetails>
+            </div>
+
+            <SideBar>
+                <Typography variant="h6">
+                    Related Course
                 </Typography>
-        </CourseDetails>
-        </div>
+                {/* <div> */}
+                <Course>
+                    <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//1243db26-d136-4f54-bac9-c467c6ead24d_" alt="" />
+                    <CourseDetails2>
+                        <p>COURSE</p>
+                        <Typography variant="h6">Figure Drawing</Typography>
+                        <Typography variant="h5"> {"10,000"} Learns</Typography>
+                        {/* <span>Progress</span> */}
+                        {/* <span><LinearProgress variant="determinate" color={"primary"} value={15} /></span> */}
+                    </CourseDetails2>
+                </Course>
+                <Course>
+                    <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//f855d5f9-372f-4b13-9ce1-32684f2db4a0_" alt="" />
+                    <CourseDetails2>
+                        <p style={{ margin: "0px" }}>COURSE</p>
+                        <Typography variant="h6">TITLE</Typography>
+                        <Typography variant="h5"> {"10,000"} Learns</Typography>
 
-        <SideBar>
-            <Typography variant="h6">
-                Related Course
-            </Typography>
-            {/* <div> */}
-                            <Course>
-                                <img  src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//1243db26-d136-4f54-bac9-c467c6ead24d_" alt="" />
-                                <CourseDetails2>
-                                    <p>COURSE</p>
-                                    <Typography variant="h6">Figure Drawing</Typography>
-                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
-                                    {/* <span>Progress</span> */}
-                                    {/* <span><LinearProgress variant="determinate" color={"primary"} value={15} /></span> */}
-                                </CourseDetails2>
-                            </Course>
-                            <Course>
-                                <img src="https://linkden-learning.s3.ap-south-1.amazonaws.com/course-thumbnails//f855d5f9-372f-4b13-9ce1-32684f2db4a0_" alt="" />
-                                <CourseDetails2>
-                                    <p style={{margin:"0px"}}>COURSE</p>
-                                    <Typography variant="h6">TITLE</Typography>
-                                    <Typography variant="h5"> {"10,000"} Learns</Typography>
-
-                                    {/* <span><LinearProgress variant="determinate" value={10} /></span> */}
-                                </CourseDetails2>
-                            </Course>
-                        {/* </div> */}
-                        <div>
-                            <span  style={{color:"#0073b1" , fontWeight:500}}>Show all</span>
-                        </div>
-        </SideBar>
-    </Content>
+                        {/* <span><LinearProgress variant="determinate" value={10} /></span> */}
+                    </CourseDetails2>
+                </Course>
+                {/* </div> */}
+                <div>
+                    <span style={{ color: "#0073b1", fontWeight: 500 }}>Show all</span>
+                </div>
+            </SideBar>
+        </Content>
     )
 }
 
@@ -159,7 +168,7 @@ const InstructorNRelatedToCourse = styled.div`
 `
 
 
-const SubInstructorNRelatedToCourse =styled.div`
+const SubInstructorNRelatedToCourse = styled.div`
     display: grid;
     grid-template-rows: 20px auto;
     height:10em;
