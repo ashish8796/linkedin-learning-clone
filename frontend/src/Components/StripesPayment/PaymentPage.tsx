@@ -8,13 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser, subscribeUser } from "../../store/user/action";
 import { getData, setData } from "../../store/temp/state";
 import { State } from "../../store/tsTypes";
-import axios from "axios";
 import { SUBSCRIBE_USER } from "../../store/user/actionTypes";
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLIC_KEY ||
-    "pk_test_51J2X8bSGjIO6Ns88xrooTIVI2IY4dc0CgVBUONJkjyGKyqTvqGsRIvhPmERXYS5BG3pw0vVfbZJETehaCAFVoxpi00aGOIFL0A"
+  "pk_test_51J2X8bSGjIO6Ns88xrooTIVI2IY4dc0CgVBUONJkjyGKyqTvqGsRIvhPmERXYS5BG3pw0vVfbZJETehaCAFVoxpi00aGOIFL0A"
 );
 
 const Product = styled.div`
