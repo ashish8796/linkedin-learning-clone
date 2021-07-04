@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-# Deployed at `https://linkedinlearningclone-kotakrishna.vercel.app/`
+# Deployed at (https://linkedinlearningclone-kotakrishna.vercel.app/)
 
 ## To clone the project run: `git clone https://github.com/ashish8796/linkedin-learning-clone.git`
 
