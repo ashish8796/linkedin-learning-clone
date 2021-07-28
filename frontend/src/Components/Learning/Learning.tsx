@@ -3,20 +3,12 @@ import CourseDescription from "../CourseDescription/CourseDescription";
 import ChapterPlayer from "../Player/ChapterPlayer";
 import Test from "../QuestionNAnswer/Test";
 import { useHistory, useParams } from "react-router";
-import Axios from "axios";
+import { axios } from '../../api/api';
 
 export default function Learning() {
 
-  const axios = Axios.create({
-    baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-    },
-  });
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+  
   const { id }: any = useParams()
   console.log(id);
 
@@ -24,7 +16,7 @@ export default function Learning() {
   console.log(videoUrl)
   React.useEffect(() => {
     (async () => {
-      let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/getFullCourseWithId/${id}`).then(({ data }) => {
+      let data = await axios.get(`/getFullCourseWithId/${id}`).then(({ data }) => {
         return data.course;
         setVideoUrl(data.course[0].videoIds[0].videoId.url)
       })

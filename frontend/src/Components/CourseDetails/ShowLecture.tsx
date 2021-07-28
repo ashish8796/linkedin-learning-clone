@@ -6,6 +6,7 @@ import { deleteLecture } from "../../store/teacher/actions";
 import { ILecture } from "../../store/teacher/teacherReducer";
 import CreateButton from "../Common/CreateButton";
 import CreateIcon from "../Common/CreateIcon/CreateIcon";
+import { axios } from '../../api/api';
 
 interface IShowLectureProps {
   lecture: ILecture;
@@ -40,21 +41,13 @@ export default function ShowLecture({ lecture }: IShowLectureProps) {
       setIsLoading(false);
     }
   };
-  const axios = Axios.create({
-    baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-    },
-  });
+  
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
   useEffect(() => {
     (async () => {
       //@ts-ignore
-      let { data } = await axios.get(`https://serene-glacier-19642.herokuapp.com/get-video/${lecture.videoId}`)
+      let { data } = await axios.get(`/get-video/${lecture.videoId}`)
       setLectureData(data.lecture)
     })()
     return () => {

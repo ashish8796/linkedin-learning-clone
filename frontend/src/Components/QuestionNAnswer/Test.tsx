@@ -1,11 +1,10 @@
 import React from 'react'
-import QuestionNAnswer from './QuestionNAnswer'
-import Axios from "axios";
+import QuestionNAnswer from './QuestionNAnswer';
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 import { State } from '../../store/tsTypes';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
+import { axios } from '../../api/api';
 
 export interface IComments {
     courseId?: string;
@@ -62,25 +61,17 @@ export default function Test({ id = "60c6e5a4bac4a7241c74f84f" }: any) {
             "userId": userDetails._id,
             "courseId": id || "60c6e5a4bac4a7241c74f84f"
         }
-        let response = await axios.post('https://serene-glacier-19642.herokuapp.com/add-question', payload);
+        let response = await axios.post('/add-question', payload);
         console.log(response)
         setQuestion("")
         // setMessage(response?.data.message) 
     }
-    const axios = Axios.create({
-        baseURL: "https://serene-glacier-19642.herokuapp.com/",
 
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-        },
-    });
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const calling = async () => {
         try {
 
-            let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/getQnAWithCourseId/${id}`)
+            let data = await axios.get(`/getQnAWithCourseId/${id}`)
 
             setComments(data.data.QNA)
 

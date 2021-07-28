@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import CreateIcon from "../Common/CreateIcon/CreateIcon";
+// import CreateIcon from "../Common/CreateIcon/CreateIcon";
 import RegisterForm from "./RegisterForm";
 
 export default function InstructorRegister() {
@@ -31,8 +30,8 @@ const InstructorRegisterBox = styled.div`
   margin: 0 auto 3rem;
 `;
 
-const Header = styled.header``;
-const Nav = styled.nav``;
-const Logo = styled.div``;
-const Icon = styled.div``;
+// const Header = styled.header``;
+// const Nav = styled.nav``;
+// const Logo = styled.div``;
+// const Icon = styled.div``;
 const FormSection = styled.section``;

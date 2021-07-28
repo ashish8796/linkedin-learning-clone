@@ -7,7 +7,8 @@ import CallToActionIcon from '@material-ui/icons/CallToAction';
 import { Typography, LinearProgress } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
-import Axios from 'axios';
+import { axios } from '../../api/api';
+
 export default function OverView({ id }: any) {
 
     const [data, setData] = React.useState({})
@@ -27,19 +28,11 @@ export default function OverView({ id }: any) {
 
     //@ts-ignore
 
-    const axios = Axios.create({
-        baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-        },
-    });
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    
     React.useEffect(() => {
         (async () => {
-            let data = await axios.get(`https://serene-glacier-19642.herokuapp.com/get-course/${id}`).then(({ data }) => {
+            let data = await axios.get(`/${id}`).then(({ data }) => {
                 return data
             })
             console.log(data.course)

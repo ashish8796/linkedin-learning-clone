@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React from 'react'
 import styled from 'styled-components';
 import { IComments } from './Test';
@@ -12,6 +11,7 @@ import { Typography, makeStyles } from '@material-ui/core';
 import { State } from '../../store/tsTypes';
 import { useSelector } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { axios } from '../../api/api';
 
 const Card = styled.div`
     padding: 1rem;
@@ -172,16 +172,8 @@ interface IAnswers {
 
 export default function QuestionNAnswer({ userId, _id = "60c731dd159e6e496cd6a164", answers, question }: IQuestionAnswer) {
 
-    const axios = Axios.create({
-        baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-        },
-    });
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
     const classes = useStyles();
 
     const VideoCommentPoint = "point"
@@ -199,7 +191,7 @@ export default function QuestionNAnswer({ userId, _id = "60c731dd159e6e496cd6a16
             "courseId": "60c6e5a4bac4a7241c74f84f"
         }
         console.log(payload);
-        let response = await axios.post("https://serene-glacier-19642.herokuapp.com/add-answer", payload)
+        let response = await axios.post("/add-answer", payload)
         console.log(response);
         setReply("")
     }
@@ -343,15 +335,7 @@ const AnswerBox = ({ answer }: IAnswers) => {
 
 
 const MoreChange = ({ _id }: any) => {
-    const axios = Axios.create({
-        baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-        },
-    });
+    
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -360,7 +344,7 @@ const MoreChange = ({ _id }: any) => {
     };
 
     const handleDelete = async () => {
-        let response = await axios.delete(`https://serene-glacier-19642.herokuapp.com/delete-answer/${_id}`);
+        let response = await axios.delete(`/delete-answer/${_id}`);
         console.log(response);
 
     }

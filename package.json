@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd frontend && npm run build",
+    "build": "cd frontend && CI='' && npm run build",
     "install-frontend": "cd frontend && npm install",
     "heroku-postbuild": "npm run install-frontend && npm run build",
     "start": "cd server/dist/js && node app.js",
@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/ashish8796/linkedin-learning-clone/issues"
   },
-  "homepage": "https://github.com/ashish8796/linkedin-learning-clone#readme",
+  "homepage": ".",
   "dependencies": {
     "concurrently": "^6.2.0"
   }

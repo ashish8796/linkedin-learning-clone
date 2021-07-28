@@ -1,4 +1,4 @@
-import React, { useRef, useState, CSSProperties, useEffect } from "react";
+import React, { useState, CSSProperties } from "react";
 import styled from "styled-components";
 import RegisterFormLeftSection from "./RegisterFormLeftSection";
 import CreateInput from "./../Common/CreateInput/CrateInput";

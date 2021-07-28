@@ -3,8 +3,8 @@ import { PostTeacher } from "./apiTypes";
 import { IRegister } from "../Components/Register/Register";
 import { ILogin } from "../Components/SignIn/SignIn";
 
-const axios = Axios.create({
-  baseURL: "https://serene-glacier-19642.herokuapp.com/",
+export const axios = Axios.create({
+  baseURL: "http://localhost:5000/",
 
   headers: {
     "Content-Type": "application/json",

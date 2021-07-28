@@ -12,7 +12,7 @@ import { CoursesList } from './CoursesList'
 import { Footer } from './Footer';
 import { State } from '../../store/tsTypes';
 import { AfterLoginImageSlider } from './AfterLoginImageSlider';
-import ProgressPoint from '../ProgressHomePage/ProgressPoint';
+import { axios } from '../../api/api';
 
 const Container = styled.div`
     position: relative;
@@ -27,18 +27,9 @@ export default function Home() {
 
    const isAuth = useSelector((state: State) => state.user.isAuth);
 
-   const axios = Axios.create({
-      baseURL: "https://serene-glacier-19642.herokuapp.com/",
-
-      headers: {
-         "Content-Type": "application/json",
-         "Access-Control-Allow-Origin": "*",
-         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-      },
-   });
    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
    React.useEffect(() => {
-      axios.get('https://serene-glacier-19642.herokuapp.com/courses').then(({ data }) => { console.log(data.courses); setNewData(data.courses) })
+      axios.get('/courses').then(({ data }) => { setNewData(data.courses) })
    }, [])
 
    return (
